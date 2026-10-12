@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titulek %}Přihlášení{% endblock %}
+{% block obsah %}
+<h1>Přihlášení</h1>
+<form class="formular" method="post">
+    <label>E-mail
+        <input type="email" name="email" value="{{ request.form.email }}" required autofocus>
+    </label>
+    <label>Heslo
+        <input type="password" name="heslo" required>
+    </label>
+    <button type="submit">Přihlásit</button>
+</form>
+<p>Nemáš účet? <a href="{{ url_for('registrace') }}">Zaregistruj se.</a></p>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block titulek %}Profil{% endblock %}
+{% block obsah %}
+<h1>Profil hráče {{ session.jmeno }}</h1>
+
+<h2>Moje partie</h2>
+<table>
+    <thead>
+        <tr><th>Odehráno</th><th>Obtížnost</th><th class="cislo">Skóre</th><th class="cislo">Délka</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for p in partie %}
+        <tr>
+            <td>{{ p.odehrano }}</td>
+            <td>{{ p.obtiznost }}</td>
+            <td class="cislo">{{ p.skore }}</td>
+            <td class="cislo">{{ p.trvani_s }} s</td>
+            <td>
+                {# Mazání mění data, proto jde přes formulář metodou POST, ne přes obyčejný odkaz. #}
+                <form method="post" action="{{ url_for('smazani_partie', partie_id=p.id) }}">
+                    <button class="maly nebezpecne" type="submit">Smazat</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">Zatím jsi nic neodehrál. Spusť hru: <code>python main.py</code></td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Co jsem nasbíral</h2>
+<table>
+    <thead>
+        <tr><th>Houba</th><th>Druh</th><th class="cislo">Kusů celkem</th></tr>
+    </thead>
+    <tbody>
+        {% for h in houby %}
+        <tr>
+            <td>{{ h.nazev }}</td>
+            <td>{{ "jedlá" if h.jedla else "jedovatá" }}</td>
+            <td class="cislo">{{ h.celkem }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3">Košík je zatím prázdný.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Změna hesla</h2>
+<form class="formular" method="post" action="{{ url_for('zmena_hesla') }}">
+    <label>Původní heslo
+        <input type="password" name="stare" required>
+    </label>
+    <label>Nové heslo (alespoň 6 znaků)
+        <input type="password" name="nove" minlength="6" required>
+    </label>
+    <button type="submit">Změnit heslo</button>
+</form>
+
+<h2>Smazání účtu</h2>
+<p>Smaže se účet i všechny tvoje partie. Nejde to vrátit.</p>
+<form method="post" action="{{ url_for('smazani_uctu') }}">
+    <button class="nebezpecne" type="submit">Smazat účet</button>
+</form>
+{% endblock %}

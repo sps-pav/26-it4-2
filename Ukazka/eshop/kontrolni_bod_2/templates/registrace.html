@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block titulek %}Registrace{% endblock %}
+{% block obsah %}
+<h1>Registrace</h1>
+<form class="formular" method="post">
+    <label>E-mail
+        <input type="email" name="email" value="{{ request.form.email }}" required autofocus>
+    </label>
+    <label>Jméno a příjmení
+        <input type="text" name="jmeno" value="{{ request.form.jmeno }}" minlength="2" required>
+    </label>
+    <label>Heslo (alespoň 6 znaků)
+        <input type="password" name="heslo" minlength="6" required>
+    </label>
+    <label>Heslo znovu
+        <input type="password" name="heslo_znovu" minlength="6" required>
+    </label>
+    <button type="submit">Vytvořit účet</button>
+</form>
+<p>Už účet máš? <a href="{{ url_for('prihlaseni') }}">Přihlas se.</a></p>
+{% endblock %}

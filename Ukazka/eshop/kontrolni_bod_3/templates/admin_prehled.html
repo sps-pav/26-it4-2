@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulek %}Administrace{% endblock %}
+{% block obsah %}
+<h1>Administrace</h1>
+{% include "admin_menu.html" %}
+
+<section class="karty">
+    <article class="karta dlazdice"><strong>{{ souhrn.novych }}</strong> nových objednávek</article>
+    <article class="karta dlazdice"><strong>{{ souhrn.trzby_kc | kc }}</strong> tržby celkem</article>
+    <article class="karta dlazdice"><strong>{{ souhrn.dochazi }}</strong> produktů dochází (méně než 5 ks)</article>
+    <article class="karta dlazdice"><strong>{{ souhrn.zakazniku }}</strong> zákazníků</article>
+</section>
+
+<h2>Tržby podle kategorie</h2>
+<table>
+    <thead><tr><th>Kategorie</th><th class="cislo">Prodáno kusů</th><th class="cislo">Tržba</th></tr></thead>
+    <tbody>
+        {% for t in trzby %}
+        <tr><td>{{ t.nazev }}</td><td class="cislo">{{ t.kusu }}</td><td class="cislo">{{ t.trzba_kc | kc }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p class="poznamka">Produkt ve více kategoriích se počítá do každé z nich. Zrušené objednávky se nepočítají.</p>
+
+<h2>Nejprodávanější produkty</h2>
+<table>
+    <thead><tr><th>Produkt</th><th class="cislo">Prodáno kusů</th><th class="cislo">Tržba</th></tr></thead>
+    <tbody>
+        {% for n in nejprodavanejsi %}
+        <tr><td>{{ n.nazev }}</td><td class="cislo">{{ n.kusu }}</td><td class="cislo">{{ n.trzba_kc | kc }}</td></tr>
+        {% else %}
+        <tr><td colspan="3">Zatím se nic neprodalo.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

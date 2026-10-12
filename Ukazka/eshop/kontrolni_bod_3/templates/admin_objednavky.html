@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block titulek %}Objednávky (administrace){% endblock %}
+{% block obsah %}
+<h1>Objednávky</h1>
+{% include "admin_menu.html" %}
+
+<form class="filtr" method="get">
+    <label>Stav
+        <select name="stav">
+            <option value="">všechny</option>
+            {% for s in stavy %}
+            <option value="{{ s.id }}" {{ "selected" if s.id == stav_id }}>{{ s.nazev }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit">Zobrazit</button>
+</form>
+
+<table>
+    <thead>
+        <tr><th>Číslo</th><th>Vytvořeno</th><th>Zákazník</th><th class="cislo">Celkem</th><th>Stav</th><th>Změnit stav</th></tr>
+    </thead>
+    <tbody>
+        {% for o in objednavky %}
+        <tr>
+            <td><a href="{{ url_for('detail_objednavky', objednavka_id=o.id) }}">č. {{ o.id }}</a></td>
+            <td>{{ o.vytvoreno }}</td>
+            <td>{{ o.zakaznik }}</td>
+            <td class="cislo">{{ o.celkem_kc | kc }}</td>
+            <td><span class="stitek stav-{{ o.stav_id }}">{{ o.stav }}</span></td>
+            <td>
+                {% if o.stav == "zrušená" %}
+                    už nejde měnit
+                {% else %}
+                <form class="radek" method="post" action="{{ url_for('admin_zmena_stavu', objednavka_id=o.id) }}">
+                    <select name="stav">
+                        {% for s in stavy %}
+                        <option value="{{ s.id }}" {{ "selected" if s.id == o.stav_id }}>{{ s.nazev }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="maly" type="submit">Uložit</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">Žádné objednávky.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

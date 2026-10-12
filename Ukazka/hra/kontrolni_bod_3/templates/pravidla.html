@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulek %}Pravidla{% endblock %}
+{% block obsah %}
+<h1>Pravidla</h1>
+<ul>
+    <li>Košík ovládáš šipkami <kbd>←</kbd> <kbd>→</kbd> nebo klávesami <kbd>A</kbd> <kbd>D</kbd>.</li>
+    <li>Partie trvá 60 sekund, nebo dokud ti nedojdou životy.</li>
+    <li>Jedlá houba v košíku = body. Jedovatá houba v košíku = mínus jeden život.</li>
+    <li>Houba, která spadne do trávy, se nepočítá.</li>
+    <li>Klávesou <kbd>P</kbd> hru pozastavíš, klávesou <kbd>Esc</kbd> partii ukončíš.</li>
+    <li>Každých 10 sekund houby padají o něco rychleji.</li>
+    <li>Na těžší obtížnost máš méně životů, ale body se násobí.</li>
+</ul>
+
+<h2>Houby</h2>
+<table>
+    <thead>
+        <tr><th>Houba</th><th>Druh</th><th class="cislo">Body</th></tr>
+    </thead>
+    <tbody>
+        {% for druh in druhy %}
+        <tr>
+            <td><span class="tecka" style="background: {{ druh.barva }}"></span> {{ druh.nazev }}</td>
+            <td>{{ "jedlá" if druh.jedla else "jedovatá, bere život" }}</td>
+            <td class="cislo">{{ druh.body if druh.jedla else "0" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

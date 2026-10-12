@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block titulek %}O projektu{% endblock %}
+{% block obsah %}
+<h1>O projektu</h1>
+
+<h2>Autor</h2>
+<p><strong>Pepa Ukázka</strong>, třída IT4, SPŠ a VOŠ Kladno, školní rok 2026/27.<br>
+   Maturitní projekt z programování, varianta A (hra + web + databáze).</p>
+
+<h2>Technologie</h2>
+<table>
+    <tbody>
+        <tr><th>Hra</th><td>Python 3 + Pygame</td></tr>
+        <tr><th>Web</th><td>HTML 5, CSS 3, Flask (šablony Jinja)</td></tr>
+        <tr><th>Databáze</th><td>SQLite, dotazy psané ručně v SQL</td></tr>
+        <tr><th>Testy</th><td>unittest</td></tr>
+    </tbody>
+</table>
+
+<h2>Jak spolu části komunikují</h2>
+{# Vývojový diagram jen pomocí HTML a CSS (třídy .diagram, .krok, .rozhodnuti), bez obrázků a knihoven. #}
+<div class="diagram vodorovny">
+    <div class="krok">Hra<br><small>Pygame</small></div>
+    <div class="sipka">⇄</div>
+    <div class="krok">Databáze<br><small>SQLite · db.py</small></div>
+    <div class="sipka">⇄</div>
+    <div class="krok">Web<br><small>Flask</small></div>
+</div>
+<p>Hra i web používají stejný soubor <code>db.py</code>. Účet vytvořený na webu funguje ve hře
+   a výsledek uložený hrou se objeví v žebříčku.</p>
+
+<h2>Vývojové diagramy</h2>
+<div class="diagramy">
+    <div class="diagram">
+        <h3>1. Herní smyčka</h3>
+        <div class="krok">Start partie</div><div class="sipka">↓</div>
+        <div class="krok">Přečti události (klávesy)</div><div class="sipka">↓</div>
+        <div class="krok">Posuň košík a houby</div><div class="sipka">↓</div>
+        <div class="krok">Vyhodnoť kolize</div><div class="sipka">↓</div>
+        <div class="rozhodnuti">Došly životy nebo čas?</div>
+        <div class="sipka">ne ↺ zpět na události · ano ↓</div>
+        <div class="krok">Ulož partii do DB</div>
+    </div>
+    <div class="diagram">
+        <h3>2. Chycení houby</h3>
+        <div class="krok">Houba se dotkla košíku</div><div class="sipka">↓</div>
+        <div class="krok">Zapiš druh do „sebráno“</div><div class="sipka">↓</div>
+        <div class="rozhodnuti">Je jedlá?</div>
+        <div class="sipka">ano ↓ · ne →  život −1</div>
+        <div class="krok">skóre += body × násobič</div>
+    </div>
+    <div class="diagram">
+        <h3>3. Přihlášení</h3>
+        <div class="krok">Zadej jméno a heslo</div><div class="sipka">↓</div>
+        <div class="krok">Najdi hráče v DB</div><div class="sipka">↓</div>
+        <div class="rozhodnuti">Existuje a sedí otisk hesla?</div>
+        <div class="sipka">ano ↓ · ne → chybová hláška</div>
+        <div class="krok">Zapamatuj si hráče</div>
+    </div>
+</div>
+
+<h2>ER diagram</h2>
+<div class="diagram vodorovny">
+    <div class="krok">hrac</div>
+    <div class="sipka">1 : N</div>
+    <div class="krok">partie</div>
+    <div class="sipka">N : 1</div>
+    <div class="krok">obtiznost</div>
+</div>
+<div class="diagram vodorovny">
+    <div class="krok">partie</div>
+    <div class="sipka">1 : N</div>
+    <div class="krok">partie_houba<br><small>vazební tabulka (M:N)</small></div>
+    <div class="sipka">N : 1</div>
+    <div class="krok">druh_houby</div>
+</div>
+<p>Podrobný ER diagram se sloupci je v souboru <code>databaze/er_diagram.md</code>.</p>
+{% endblock %}

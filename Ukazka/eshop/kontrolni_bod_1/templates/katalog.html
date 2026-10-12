@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulek %}Katalog{% endblock %}
+{% block obsah %}
+<h1>Katalog</h1>
+
+<section class="karty">
+    {% for p in produkty %}
+    <article class="karta produkt">
+        <div class="obrazek">🪴</div>
+        <h2>{{ p.nazev }}</h2>
+        <p>{{ p.popis }}</p>
+        <p class="cena">{{ p.cena_kc | kc }}</p>
+        {% if p.sklad > 0 %}
+            <p class="skladem">skladem {{ p.sklad }} ks</p>
+        {% else %}
+            <p class="vyprodano">vyprodáno</p>
+        {% endif %}
+    </article>
+    {% else %}
+    <p>Tomuhle výběru neodpovídá žádný produkt.</p>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titulek %}Úvod{% endblock %}
+{% block obsah %}
+<h1>Zelený kout</h1>
+<p class="perex">Pokojové rostliny, sukulenty a všechno, co k nim patří. Vyber si v katalogu,
+vlož do košíku a objednej.</p>
+<p><a class="tlacitko" href="{{ url_for('stranka_katalog') }}">Prohlédnout katalog</a></p>
+
+<section class="karty">
+    <article class="karta"><h2>Nenáročné</h2><p>Rostliny, které odpustí zapomenutou zálivku.</p></article>
+    <article class="karta"><h2>Kvetoucí</h2><p>Rostliny pěstované hlavně pro květy.</p></article>
+    <article class="karta"><h2>Sukulenty a kaktusy</h2><p>Potřebují hodně světla a málo vody.</p></article>
+</section>
+<p class="poznamka">Kategorie jsou zatím napsané ručně. Ve 2. kontrolním bodě se načtou z databáze.</p>
+{% endblock %}

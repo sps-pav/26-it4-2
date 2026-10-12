@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulek %}O projektu{% endblock %}
+{% block obsah %}
+<h1>O projektu</h1>
+
+<h2>Autor</h2>
+<p><strong>Pepa Ukázka</strong>, třída IT4, SPŠ a VOŠ Kladno, školní rok 2026/27.<br>
+   Maturitní projekt z programování, varianta B (e-shop + databáze).</p>
+
+<h2>Technologie</h2>
+<table>
+    <tbody>
+        <tr><th>Server</th><td>Python 3 + Flask</td></tr>
+        <tr><th>Web</th><td>HTML 5, CSS 3 (šablony Jinja, vlastní styl bez frameworku)</td></tr>
+        <tr><th>Databáze</th><td>SQLite, dotazy psané ručně v SQL</td></tr>
+        <tr><th>Testy</th><td>unittest</td></tr>
+    </tbody>
+</table>
+
+<h2>Jak to funguje</h2>
+{# Diagram jen pomocí HTML a CSS (třídy .diagram, .krok), bez obrázků a knihoven. #}
+<div class="diagram vodorovny">
+    <div class="krok">Prohlížeč<br><small>zákazník / admin</small></div>
+    <div class="sipka">⇄</div>
+    <div class="krok">app.py<br><small>Flask</small></div>
+    <div class="sipka">⇄</div>
+    <div class="krok">katalog · košík<br>objednávky · účty</div>
+    <div class="sipka">⇄</div>
+    <div class="krok">Databáze<br><small>SQLite</small></div>
+</div>
+
+<h2>Stav projektu</h2>
+<ul>
+    <li>✔ téma, kostra webu s navigací, návrh databáze (8 tabulek) a ER diagram</li>
+    <li>☐ katalog z databáze, registrace a přihlášení, košík, objednávka</li>
+    <li>☐ historie objednávek, administrace, testy, dokumentace</li>
+</ul>
+{% endblock %}

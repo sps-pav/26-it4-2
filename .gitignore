@@ -1,0 +1,64 @@
+# =============================================================
+#  .gitignore – Maturitní projekty IT4
+#  Platí pro celé repo (všechny složky studentů).
+#  Do gitu patří všechno, co je potřeba ke spuštění projektu:
+#  zdrojový kód, SQL skripty, nastavení připojení k DB, assety
+#  hry, dokumentace, ER diagram. Nepatří jen to, co jde
+#  vygenerovat nebo nainstalovat, a tvoje lokální nastavení editoru.
+# =============================================================
+
+# --- Databázové soubory ----------------------------------------
+# SQL skripty (databaze/*.sql) se commitují, z nich se DB vytvoří.
+# Soubor s daty z tvého PC do repa nepatří (a dělá konflikty).
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+instance/
+
+# --- Python ----------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+*.spec
+
+# --- JS (knihovny se instalují, necommitují) -------------------
+node_modules/
+
+# --- Godot 4 (.import soubory se commitují!) -------------------
+.godot/
+export_presets.cfg
+*.translation
+
+# --- Spustitelné soubory a archivy -----------------------------
+# Odevzdává se zdroják, ne .exe ani zazipovaný projekt.
+*.exe
+*.zip
+*.rar
+*.7z
+
+# --- Logy a dočasné soubory ------------------------------------
+*.log
+logs/
+*.tmp
+*.bak
+~$*
+
+# --- Editory ---------------------------------------------------
+.idea/
+*.iml
+.vscode/
+
+# --- Systémové soubory -----------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

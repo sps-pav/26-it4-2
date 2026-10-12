@@ -1,0 +1,2 @@
+# Knihovny projektu. Instalace:  pip install -r requirements.txt
+flask

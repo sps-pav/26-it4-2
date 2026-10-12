@@ -1,0 +1,1 @@
+-- DML: INSERT, min. 3 vzorové záznamy do každé tabulky

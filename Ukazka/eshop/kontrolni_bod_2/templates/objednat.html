@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block titulek %}Objednávka{% endblock %}
+{% block obsah %}
+<h1>Dokončení objednávky</h1>
+
+<h2>Shrnutí</h2>
+<table>
+    <thead><tr><th>Produkt</th><th class="cislo">Množství</th><th class="cislo">Mezisoučet</th></tr></thead>
+    <tbody>
+        {% for polozka in polozky %}
+        <tr>
+            <td>{{ polozka.produkt.nazev }}</td>
+            <td class="cislo">{{ polozka.mnozstvi }} ks</td>
+            <td class="cislo">{{ polozka.mezisoucet | kc }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot><tr><th colspan="2">Celkem</th><th class="cislo">{{ celkem | kc }}</th></tr></tfoot>
+</table>
+
+<h2>Doručení a platba</h2>
+<form class="formular" method="post">
+    <label>Doručovací adresa (jméno, ulice, PSČ, město)
+        <textarea name="adresa" rows="3" minlength="10" required>{{ request.form.adresa }}</textarea>
+    </label>
+    <fieldset>
+        <legend>Způsob platby</legend>
+        {% for kod, nazev in zpusoby_platby.items() %}
+        <label class="volba"><input type="radio" name="zpusob_platby" value="{{ kod }}" required> {{ nazev }}</label>
+        {% endfor %}
+    </fieldset>
+    <button type="submit">Závazně objednat</button>
+</form>
+{% endblock %}

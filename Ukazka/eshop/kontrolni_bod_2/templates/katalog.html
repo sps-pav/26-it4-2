@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titulek %}Katalog{% endblock %}
+{% block obsah %}
+<h1>Katalog</h1>
+
+{# Filtr se posílá metodou GET, takže hodnoty jsou vidět v adrese a výsledek jde uložit do záložek. #}
+<form class="filtr" method="get">
+    <label>Kategorie
+        <select name="kategorie">
+            <option value="">všechny</option>
+            {% for k in kategorie %}
+            <option value="{{ k.id }}" {{ "selected" if k.id == kategorie_id }}>{{ k.nazev }} ({{ k.pocet_produktu }})</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Hledat
+        <input type="search" name="hledat" value="{{ hledat }}" placeholder="název nebo popis">
+    </label>
+    <label>Řadit
+        <select name="razeni">
+            <option value="nazev" {{ "selected" if razeni == "nazev" }}>podle názvu</option>
+            <option value="cena" {{ "selected" if razeni == "cena" }}>od nejlevnějšího</option>
+            <option value="cena_desc" {{ "selected" if razeni == "cena_desc" }}>od nejdražšího</option>
+        </select>
+    </label>
+    <button type="submit">Zobrazit</button>
+</form>
+
+<section class="karty">
+    {% for p in produkty %}
+    <article class="karta produkt">
+        <div class="obrazek">🪴</div>
+        <h2><a href="{{ url_for('detail_produktu', produkt_id=p.id) }}">{{ p.nazev }}</a></h2>
+        <p>{{ p.popis }}</p>
+        <p class="cena">{{ p.cena_kc | kc }}</p>
+        {% if p.sklad > 0 %}
+            <p class="skladem">skladem {{ p.sklad }} ks</p>
+            <form method="post" action="{{ url_for('pridat_do_kosiku') }}">
+                <input type="hidden" name="produkt_id" value="{{ p.id }}">
+                <button type="submit">Do košíku</button>
+            </form>
+        {% else %}
+            <p class="vyprodano">vyprodáno</p>
+        {% endif %}
+    </article>
+    {% else %}
+    <p>Tomuhle výběru neodpovídá žádný produkt.</p>
+    {% endfor %}
+</section>
+{% endblock %}

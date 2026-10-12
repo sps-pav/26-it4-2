@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulek %}Houbař{% endblock %} | Houbař</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {# Společná hlavička a navigace. Ostatní šablony z ní dědí a vyplňují jen blok "obsah". #}
+    <header>
+        <a class="logo" href="{{ url_for('index') }}">🍄 Houbař</a>
+        <nav>
+            <a href="{{ url_for('index') }}">Úvod</a>
+            <a href="{{ url_for('pravidla') }}">Pravidla</a>
+            <a href="{{ url_for('zebricek') }}">Žebříček</a>
+            <a href="{{ url_for('o_projektu') }}">O projektu</a>
+        </nav>
+        <nav class="ucet">
+            {% if session.jmeno %}
+                <span>{{ session.jmeno }}</span>
+                <a href="{{ url_for('odhlaseni') }}">Odhlásit</a>
+            {% else %}
+                <a href="{{ url_for('prihlaseni') }}">Přihlášení</a>
+                <a href="{{ url_for('registrace') }}">Registrace</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {# Jednorázové zprávy z flash(), např. "Účet je vytvořený". #}
+        {% for kategorie, zprava in get_flashed_messages(with_categories=true) %}
+            <p class="zprava {{ kategorie }}">{{ zprava }}</p>
+        {% endfor %}
+        {% block obsah %}{% endblock %}
+    </main>
+
+    <footer>Maturitní projekt IT4 · Pepa Ukázka · 2026/27</footer>
+</body>
+</html>

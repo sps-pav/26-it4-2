@@ -1,0 +1,19 @@
+# Jednotné konce řádků (školní PC = Windows, doma cokoliv)
+* text=auto
+*.bat text eol=crlf
+*.sh  text eol=lf
+
+# Binární soubory – git je nemá diffovat ani upravovat
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.mp3  binary
+*.wav  binary
+*.ogg  binary
+*.ttf  binary
+*.otf  binary
+*.pdf  binary
+*.docx binary
+*.pptx binary

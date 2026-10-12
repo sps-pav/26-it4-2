@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulek %}Žebříček{% endblock %}
+{% block obsah %}
+<h1>Žebříček</h1>
+
+<table>
+    <thead>
+        <tr><th>#</th><th>Hráč</th><th class="cislo">Skóre</th><th>Obtížnost</th><th class="cislo">Délka</th><th>Odehráno</th></tr>
+    </thead>
+    <tbody>
+        {% for v in vysledky %}
+        <tr>
+            <td>{{ loop.index }}.</td>
+            <td>{{ v.jmeno }}</td>
+            <td class="cislo">{{ v.skore }}</td>
+            <td>{{ v.obtiznost }}</td>
+            <td class="cislo">{{ v.trvani_s }} s</td>
+            <td>{{ v.odehrano }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">Zatím tu nic není.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulek %}Produkty (administrace){% endblock %}
+{% block obsah %}
+<h1>Produkty</h1>
+{% include "admin_menu.html" %}
+<p><a class="tlacitko" href="{{ url_for('admin_produkt') }}">+ Nový produkt</a></p>
+
+<table>
+    <thead>
+        <tr><th>Název</th><th>Dodavatel</th><th class="cislo">Cena</th><th class="cislo">Sklad</th><th>V nabídce</th><th>Akce</th></tr>
+    </thead>
+    <tbody>
+        {% for p in produkty %}
+        <tr class="{{ '' if p.aktivni else 'skryty' }}">
+            <td><a href="{{ url_for('admin_produkt', produkt_id=p.id) }}">{{ p.nazev }}</a></td>
+            <td>{{ p.dodavatel }}</td>
+            <td class="cislo">{{ p.cena_kc | kc }}</td>
+            <td class="cislo">{{ p.sklad }}</td>
+            <td>{{ "ano" if p.aktivni else "skrytý" }}</td>
+            <td>
+                <div class="radek">
+                    {# Akce, které mění data, jdou přes formulář metodou POST, ne přes obyčejný odkaz. #}
+                    <form method="post" action="{{ url_for('admin_produkt_aktivni', produkt_id=p.id) }}">
+                        <input type="hidden" name="aktivni" value="{{ 0 if p.aktivni else 1 }}">
+                        <button class="maly" type="submit">{{ "Skrýt" if p.aktivni else "Zobrazit" }}</button>
+                    </form>
+                    <form method="post" action="{{ url_for('admin_produkt_smazat', produkt_id=p.id) }}">
+                        <button class="maly nebezpecne" type="submit">Smazat</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

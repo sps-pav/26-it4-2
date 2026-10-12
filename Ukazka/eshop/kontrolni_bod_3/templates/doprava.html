@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulek %}Doprava a platba{% endblock %}
+{% block obsah %}
+<h1>Doprava a platba</h1>
+<p class="zprava">Zelený kout je školní projekt. Objednávky se ukládají do databáze,
+ale nic se doopravdy neplatí ani neposílá.</p>
+
+<h2>Platba</h2>
+<table>
+    <thead><tr><th>Způsob</th><th>Jak probíhá</th></tr></thead>
+    <tbody>
+        <tr><td>Dobírka</td><td>Zaplatíš při převzetí balíčku.</td></tr>
+        <tr><td>Bankovní převod</td><td>Po objednání čekáme na platbu, pak objednávku označíme jako zaplacenou.</td></tr>
+    </tbody>
+</table>
+
+<h2>Stavy objednávky</h2>
+<div class="diagram vodorovny">
+    <div class="krok">nová</div><div class="sipka">→</div>
+    <div class="krok">zaplacená</div><div class="sipka">→</div>
+    <div class="krok">odeslaná</div>
+</div>
+<p>Objednávku jde také <strong>zrušit</strong>, zboží se pak vrátí na sklad.</p>
+{% endblock %}

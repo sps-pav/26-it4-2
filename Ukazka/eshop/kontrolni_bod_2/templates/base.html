@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulek %}Obchod{% endblock %} | Zelený kout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {# Společná hlavička a navigace. Ostatní šablony z ní dědí a vyplňují jen blok "obsah". #}
+    <header>
+        <a class="logo" href="{{ url_for('index') }}">🌿 Zelený kout</a>
+        <nav>
+            <a href="{{ url_for('index') }}">Úvod</a>
+            <a href="{{ url_for('stranka_katalog') }}">Katalog</a>
+            <a href="{{ url_for('doprava') }}">Doprava a platba</a>
+            <a href="{{ url_for('o_projektu') }}">O projektu</a>
+        </nav>
+        <nav class="ucet">
+            <a href="{{ url_for('zobraz_kosik') }}">Košík ({{ kusu_v_kosiku }})</a>
+            {% if session.jmeno %}
+                <span>{{ session.jmeno }}</span>
+                <a href="{{ url_for('odhlaseni') }}">Odhlásit</a>
+            {% else %}
+                <a href="{{ url_for('prihlaseni') }}">Přihlášení</a>
+                <a href="{{ url_for('registrace') }}">Registrace</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {# Jednorázové zprávy z flash(), např. "Produkt je v košíku". #}
+        {% for kategorie_zpravy, zprava in get_flashed_messages(with_categories=true) %}
+            <p class="zprava {{ kategorie_zpravy }}">{{ zprava }}</p>
+        {% endfor %}
+        {% block obsah %}{% endblock %}
+    </main>
+
+    <footer>Maturitní projekt IT4 · Pepa Ukázka · 2026/27 · školní ukázka, nic se doopravdy neprodává</footer>
+</body>
+</html>

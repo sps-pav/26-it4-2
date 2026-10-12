@@ -1,0 +1,6 @@
+{# Podnabídka administrace, vkládá se do admin stránek přes {% include %}. #}
+<nav class="podmenu">
+    <a href="{{ url_for('admin_prehled') }}">Přehled</a>
+    <a href="{{ url_for('admin_produkty') }}">Produkty</a>
+    <a href="{{ url_for('admin_objednavky') }}">Objednávky</a>
+</nav>

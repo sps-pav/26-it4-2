@@ -1,0 +1,5 @@
+# Chyby nalezené při peer review
+# Formát: číslo. popis chyby – příčina (příjmení toho, kdo chybu našel)
+# Příklad: 1. Hra padá po 30 sekundách – nekontrolovaná výjimka v herní smyčce (Koudelka)
+# Commit: git commit -m "Issue: hra padá po 30 sekundách"
+

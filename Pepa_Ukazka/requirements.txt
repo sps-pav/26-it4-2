@@ -1,0 +1,4 @@
+# Python knihovny projektu, jedna na řádek, instalace: pip install -r requirements.txt
+# pygame
+# mysql-connector-python
+# pytest

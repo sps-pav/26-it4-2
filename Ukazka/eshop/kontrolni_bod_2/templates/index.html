@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulek %}Úvod{% endblock %}
+{% block obsah %}
+<h1>Zelený kout</h1>
+<p class="perex">Pokojové rostliny, sukulenty a všechno, co k nim patří. Vyber si v katalogu,
+vlož do košíku a objednej.</p>
+<p><a class="tlacitko" href="{{ url_for('stranka_katalog') }}">Prohlédnout katalog</a></p>
+
+<h2>Kategorie</h2>
+<section class="karty">
+    {% for k in kategorie %}
+    <article class="karta">
+        <h3><a href="{{ url_for('stranka_katalog', kategorie=k.id) }}">{{ k.nazev }}</a></h3>
+        <p>{{ k.popis }}</p>
+        <p class="poznamka">{{ k.pocet_produktu }} produktů</p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

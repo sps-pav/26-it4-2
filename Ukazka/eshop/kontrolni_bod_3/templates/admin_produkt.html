@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulek %}{{ "Úprava produktu" if produkt_id else "Nový produkt" }}{% endblock %}
+{% block obsah %}
+<h1>{{ "Úprava produktu" if produkt_id else "Nový produkt" }}</h1>
+{% include "admin_menu.html" %}
+
+{# Jeden formulář pro vložení i úpravu: při úpravě jsou pole předvyplněná hodnotami z databáze. #}
+<form class="formular siroky" method="post">
+    <label>Název
+        <input type="text" name="nazev" value="{{ produkt.nazev if produkt }}" minlength="3" required>
+    </label>
+    <label>Popis
+        <textarea name="popis" rows="3">{{ produkt.popis if produkt }}</textarea>
+    </label>
+    <label>Cena (Kč)
+        <input type="number" name="cena_kc" value="{{ produkt.cena_kc if produkt }}" min="0" required>
+    </label>
+    <label>Kusů skladem
+        <input type="number" name="sklad" value="{{ produkt.sklad if produkt else 0 }}" min="0" required>
+    </label>
+    <label>Dodavatel
+        <select name="dodavatel_id" required>
+            {% for d in dodavatele %}
+            <option value="{{ d.id }}" {{ "selected" if produkt and d.id == produkt.dodavatel_id | int }}>{{ d.nazev }} ({{ d.mesto }})</option>
+            {% endfor %}
+        </select>
+    </label>
+    <fieldset>
+        <legend>Kategorie</legend>
+        {% for k in kategorie %}
+        <label class="volba">
+            <input type="checkbox" name="kategorie" value="{{ k.id }}" {{ "checked" if k.id in vybrane }}> {{ k.nazev }}
+        </label>
+        {% endfor %}
+    </fieldset>
+    <button type="submit">Uložit</button>
+</form>
+<p><a href="{{ url_for('admin_produkty') }}">← zpět na produkty</a></p>
+{% endblock %}

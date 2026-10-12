@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titulek %}{{ produkt.nazev }}{% endblock %}
+{% block obsah %}
+<p><a href="{{ url_for('stranka_katalog') }}">← zpět do katalogu</a></p>
+<div class="detail">
+    <div class="obrazek velky">🪴</div>
+    <div>
+        <h1>{{ produkt.nazev }}</h1>
+        <p>{{ produkt.popis }}</p>
+        <p class="cena">{{ produkt.cena_kc | kc }}</p>
+        <p>Dodavatel: {{ produkt.dodavatel }}, {{ produkt.dodavatel_mesto }}</p>
+        <p>Kategorie:
+            {% for k in kategorie %}
+                <a class="stitek" href="{{ url_for('stranka_katalog', kategorie=k.id) }}">{{ k.nazev }}</a>
+            {% endfor %}
+        </p>
+
+        {% if produkt.sklad > 0 %}
+        <p class="skladem">skladem {{ produkt.sklad }} ks</p>
+        <form class="radek" method="post" action="{{ url_for('pridat_do_kosiku') }}">
+            <input type="hidden" name="produkt_id" value="{{ produkt.id }}">
+            <label>Množství
+                <input type="number" name="mnozstvi" value="1" min="1" max="{{ produkt.sklad }}" required>
+            </label>
+            <button type="submit">Do košíku</button>
+        </form>
+        {% else %}
+        <p class="vyprodano">vyprodáno</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

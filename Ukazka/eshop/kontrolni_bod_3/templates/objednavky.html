@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulek %}Moje objednávky{% endblock %}
+{% block obsah %}
+<h1>Moje objednávky</h1>
+<table>
+    <thead>
+        <tr><th>Číslo</th><th>Vytvořeno</th><th>Stav</th><th class="cislo">Kusů</th><th class="cislo">Celkem</th></tr>
+    </thead>
+    <tbody>
+        {% for o in objednavky %}
+        <tr>
+            <td><a href="{{ url_for('detail_objednavky', objednavka_id=o.id) }}">č. {{ o.id }}</a></td>
+            <td>{{ o.vytvoreno }}</td>
+            <td><span class="stitek stav-{{ o.stav_id }}">{{ o.stav }}</span></td>
+            <td class="cislo">{{ o.pocet_kusu }}</td>
+            <td class="cislo">{{ o.celkem_kc | kc }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">Zatím jsi nic neobjednal.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

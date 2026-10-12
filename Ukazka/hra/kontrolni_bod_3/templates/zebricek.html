@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block titulek %}Žebříček{% endblock %}
+{% block obsah %}
+<h1>Žebříček</h1>
+
+{# Formulář posílá filtr metodou GET, takže hodnoty jsou vidět v adrese a stránka jde uložit do záložek. #}
+<form class="filtr" method="get">
+    <label>Obtížnost
+        <select name="obtiznost">
+            <option value="">všechny</option>
+            {% for o in obtiznosti %}
+            <option value="{{ o.id }}" {{ "selected" if o.id == obtiznost_id }}>{{ o.nazev }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>Hráč
+        <input type="search" name="hledat" value="{{ hledat }}" placeholder="část jména">
+    </label>
+    <button type="submit">Filtrovat</button>
+</form>
+
+<table>
+    <thead>
+        <tr><th>#</th><th>Hráč</th><th class="cislo">Skóre</th><th>Obtížnost</th><th class="cislo">Délka</th><th>Odehráno</th></tr>
+    </thead>
+    <tbody>
+        {% for v in vysledky %}
+        <tr>
+            <td>{{ loop.index }}.</td>
+            <td>{{ v.jmeno }}</td>
+            <td class="cislo">{{ v.skore }}</td>
+            <td>{{ v.obtiznost }}</td>
+            <td class="cislo">{{ v.trvani_s }} s</td>
+            <td>{{ v.odehrano }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">Zatím tu nic není.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Hráči souhrnně</h2>
+<table>
+    <thead>
+        <tr><th>Hráč</th><th class="cislo">Partií</th><th class="cislo">Nejlepší skóre</th><th class="cislo">Průměr</th></tr>
+    </thead>
+    <tbody>
+        {% for s in souhrn %}
+        <tr>
+            <td>{{ s.jmeno }}</td>
+            <td class="cislo">{{ s.pocet_partii }}</td>
+            <td class="cislo">{{ s.nejlepsi_skore }}</td>
+            <td class="cislo">{{ s.prumerne_skore | int }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

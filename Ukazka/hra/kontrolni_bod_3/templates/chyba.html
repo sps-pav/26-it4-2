@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block titulek %}Chyba{% endblock %}
+{% block obsah %}
+<h1>Něco se nepovedlo</h1>
+<p class="zprava chyba">{{ zprava }}</p>
+<p><a href="{{ url_for('index') }}">Zpět na úvod</a></p>
+{% endblock %}

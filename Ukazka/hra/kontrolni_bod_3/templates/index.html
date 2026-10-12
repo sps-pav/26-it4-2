@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulek %}Úvod{% endblock %}
+{% block obsah %}
+<h1>Houbař</h1>
+<p class="perex">Postřehová hra, ve které chytáš do košíku padající houby. Jedlé ti přidají body,
+muchomůrky tě připraví o život.</p>
+
+<img class="screenshot" src="{{ url_for('static', filename='img/hra.png') }}" alt="Snímek ze hry Houbař">
+
+<section class="karty">
+    <article class="karta">
+        <h2>Jak začít</h2>
+        <ol>
+            <li><a href="{{ url_for('registrace') }}">Zaregistruj se</a> tady na webu.</li>
+            <li>Spusť hru příkazem <code>python main.py</code>.</li>
+            <li>Přihlas se stejným jménem a heslem a hraj.</li>
+        </ol>
+    </article>
+    <article class="karta">
+        <h2>Co tu najdeš</h2>
+        <ul>
+            <li><a href="{{ url_for('pravidla') }}">Pravidla</a> a přehled hub</li>
+            <li><a href="{{ url_for('zebricek') }}">Žebříček</a> nejlepších hráčů</li>
+            <li><a href="{{ url_for('o_projektu') }}">O projektu</a> (autor a technologie)</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}
