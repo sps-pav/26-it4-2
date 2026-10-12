@@ -1,1 +1,0 @@
-Hra - Penalty Simulator
