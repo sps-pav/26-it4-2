@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Virtuální zoo</title>
+
+  <style>
+    /* Základní vzhled stránky */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #e8f5e9;
+      color: #222;
+    }
+
+    /* Horní lišta s počtem mincí */
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .mince {
+      background: #ffd54f;
+      color: #222;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    /* Karty se zvířátky vedle sebe */
+    .seznam {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .karta {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .karta .ikona {
+      font-size: 60px;
+    }
+    .cena {
+      font-weight: bold;
+      color: #b8860b;
+    }
+
+    /* Tlačítka */
+    button {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover {
+      background: #1b5e20;
+    }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+    .vedlejsi {
+      background: #ef6c00;
+    }
+
+    /* Prázdná sbírka */
+    .prazdno {
+      color: #666;
+    }
+
+    footer {
+      background: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🦁 Virtuální zoo</h1>
+    <div class="mince">🪙 Mince: <span id="pocetMinci">0</span></div>
+  </header>
+
+  <main>
+
+    <p>
+      Vydělej mince kliknutím na tlačítko a kup si za ně zvířátka.
+      Všechna zvířátka zůstanou ve tvé sbírce.
+    </p>
+    <button class="vedlejsi" onclick="ziskatMince()">Získat 10 mincí</button>
+
+    <!-- Obchod -->
+    <h2>Obchod</h2>
+    <div class="seznam" id="obchod"></div>
+
+    <!-- Moje sbírka -->
+    <h2>Moje sbírka</h2>
+    <div class="seznam" id="sbirka"></div>
+
+    <br>
+    <button onclick="zacitZnovu()">Začít znovu</button>
+
+  </main>
+
+  <footer>
+    © 2026 Virtuální zoo – ukázkový projekt
+  </footer>
+
+  <script>
+    // Seznam zvířátek, která se dají koupit
+    const zvirata = [
+      { id: 1, jmeno: "Kočička",  ikona: "🐱", cena: 30 },
+      { id: 2, jmeno: "Pejsek",   ikona: "🐶", cena: 30 },
+      { id: 3, jmeno: "Králík",   ikona: "🐰", cena: 40 },
+      { id: 4, jmeno: "Papoušek", ikona: "🦜", cena: 60 },
+      { id: 5, jmeno: "Panda",    ikona: "🐼", cena: 100 },
+      { id: 6, jmeno: "Lev",      ikona: "🦁", cena: 150 },
+      { id: 7, jmeno: "Slon",     ikona: "🐘", cena: 200 },
+      { id: 8, jmeno: "Drak",     ikona: "🐉", cena: 500 }
+    ];
+
+    // Stav hry: kolik mám mincí a která zvířátka už vlastním
+    let mince = 100;
+    let vlastnim = [];
+
+    // Načtení uloženého stavu z prohlížeče
+    function nacist() {
+      const ulozeno = localStorage.getItem("zoo");
+      if (ulozeno) {
+        const data = JSON.parse(ulozeno);
+        mince = data.mince;
+        vlastnim = data.vlastnim;
+      }
+    }
+
+    // Uložení stavu do prohlížeče
+    function ulozit() {
+      localStorage.setItem("zoo", JSON.stringify({ mince: mince, vlastnim: vlastnim }));
+    }
+
+    // Koupě zvířátka
+    function koupit(id) {
+      const zvire = zvirata.find(z => z.id === id);
+      if (vlastnim.includes(id)) return;          // už ho mám
+      if (mince < zvire.cena) {                   // nemám dost mincí
+        alert("Nemáš dost mincí. Klikni na Získat 10 mincí.");
+        return;
+      }
+      mince = mince - zvire.cena;
+      vlastnim.push(id);
+      ulozit();
+      vykreslit();
+    }
+
+    // Získání mincí
+    function ziskatMince() {
+      mince = mince + 10;
+      ulozit();
+      vykreslit();
+    }
+
+    // Smazání všeho a nový začátek
+    function zacitZnovu() {
+      if (confirm("Opravdu chceš smazat sbírku a začít znovu?")) {
+        mince = 100;
+        vlastnim = [];
+        ulozit();
+        vykreslit();
+      }
+    }
+
+    // Překreslení celé stránky podle aktuálního stavu
+    function vykreslit() {
+      document.getElementById("pocetMinci").textContent = mince;
+
+      // Obchod
+      let htmlObchod = "";
+      zvirata.forEach(z => {
+        const mam = vlastnim.includes(z.id);
+        htmlObchod += `
+          <div class="karta">
+            <div class="ikona">${z.ikona}</div>
+            <h3>${z.jmeno}</h3>
+            <p class="cena">🪙 ${z.cena}</p>
+            <button onclick="koupit(${z.id})" ${mam ? "disabled" : ""}>
+              ${mam ? "Koupeno" : "Koupit"}
+            </button>
+          </div>`;
+      });
+      document.getElementById("obchod").innerHTML = htmlObchod;
+
+      // Sbírka
+      let htmlSbirka = "";
+      zvirata.forEach(z => {
+        if (vlastnim.includes(z.id)) {
+          htmlSbirka += `
+            <div class="karta">
+              <div class="ikona">${z.ikona}</div>
+              <h3>${z.jmeno}</h3>
+            </div>`;
+        }
+      });
+      if (htmlSbirka === "") {
+        htmlSbirka = '<p class="prazdno">Zatím nemáš žádné zvířátko.</p>';
+      }
+      document.getElementById("sbirka").innerHTML = htmlSbirka;
+    }
+
+    // Spuštění po načtení stránky
+    nacist();
+    vykreslit();
+  </script>
+
+</body>
+</html>
