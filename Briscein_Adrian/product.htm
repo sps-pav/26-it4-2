@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesta k hvězdám – EbookStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER (stejný jako na indexu) -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>EbookStore</span>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html">Domů</a>
+                <a href="index.html#produkty">Knihy</a>
+                <a href="about.html">O nás</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Hledat knihu...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- DETAIL PRODUKTU -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-grid">
+
+                <!-- Obrázek -->
+                <div class="product-detail-image">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&h=750&fit=crop" alt="Cesta k hvězdám">
+                </div>
+
+                <!-- Info -->
+                <div class="product-detail-info">
+                    <span class="category">Sci-fi</span>
+                    <h1>Cesta k hvězdám</h1>
+                    <p class="author">Autor: <strong>Jan Novák</strong></p>
+
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5 (128 hodnocení)</span>
+                    </div>
+
+                    <div class="price-block">
+                        <span class="price">249 Kč</span>
+                    </div>
+
+                    <p class="description">
+                        Vzdálená budoucnost. Lidstvo se vydává na svou největší cestu – kolonizaci jiných planet. 
+                        Hlavní hrdina musí čelit nejen nebezpečím vesmíru, ale i temným tajemstvím, která se skrývají 
+                        v samotném srdci mise. Napínavý sci-fi román plný akce, filozofie a neočekávaných zvratů.
+                    </p>
+
+                    <ul class="product-meta">
+                        <li><i class="fas fa-file-alt"></i> Formát: PDF, EPUB, MOBI</li>
+                        <li><i class="fas fa-book"></i> Počet stran: 342</li>
+                        <li><i class="fas fa-calendar"></i> Rok vydání: 2024</li>
+                        <li><i class="fas fa-language"></i> Jazyk: Čeština</li>
+                    </ul>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-large">
+                            <i class="fas fa-cart-plus"></i> Přidat do košíku
+                        </button>
+                        <button class="btn btn-outline">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>EbookStore</span>
+                    </a>
+                    <p>Digitální knihkupectví s láskou k dobrým příběhům.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Obchod</h4>
+                    <a href="index.html#produkty">Všechny knihy</a>
+                    <a href="#">Novinky</a>
+                    <a href="#">Bestsellery</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informace</h4>
+                    <a href="about.html">O nás</a>
+                    <a href="#">Obchodní podmínky</a>
+                    <a href="#">Kontakt</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Sleduj nás</h4>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EbookStore. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

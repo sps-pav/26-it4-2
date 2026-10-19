@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EbookStore – Digitální knihy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>EbookStore</span>
+            </a>
+    
+            <nav class="nav">
+                <a href="index.html">Domů</a>
+                <a href="index.html#produkty">Knihy</a>
+                <a href="about.html">O nás</a>
+            </nav>
+    
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Hledat knihu...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+    
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Objev nové světy<br>v digitálních knihách</h1>
+                <p>Tisíce e-booků od nejlepších autorů. Okamžité stažení po nákupu.</p>
+                <a href="#produkty" class="btn btn-primary">Prohlédnout knihy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUKTY -->
+    <section class="products" id="produkty">
+        <div class="container">
+            <div class="section-header">
+                <h2>Doporučené e-booky</h2>
+                <div class="filters">
+                    <button class="filter-btn active">Vše</button>
+                    <button class="filter-btn">Sci-fi</button>
+                    <button class="filter-btn">Romány</button>
+                    <button class="filter-btn">Business</button>
+                    <button class="filter-btn">Self-help</button>
+                </div>
+            </div>
+
+            <div class="products-grid">
+
+                <!-- Produkt 1 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop" alt="Obálka knihy">
+                        <span class="badge">Bestseller</span>
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Sci-fi</span>
+                        <h3>Cesta k hvězdám</h3>
+                        <p class="author">Jan Novák</p>
+                        <div class="product-bottom">
+                            <span class="price">249 Kč</span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Produkt 2 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop" alt="Obálka knihy">
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Román</span>
+                        <h3>Tiché město</h3>
+                        <p class="author">Marie Svobodová</p>
+                        <div class="product-bottom">
+                            <span class="price">199 Kč</span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Produkt 3 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=600&fit=crop" alt="Obálka knihy">
+                        <span class="badge sale">-20 %</span>
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Business</span>
+                        <h3>Startup od nuly</h3>
+                        <p class="author">Petr Dvořák</p>
+                        <div class="product-bottom">
+                            <span class="price">
+                                <span class="old-price">349 Kč</span>
+                                279 Kč
+                            </span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Produkt 4 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop" alt="Obálka knihy">
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Self-help</span>
+                        <h3>Mysl v klidu</h3>
+                        <p class="author">Eva Horáková</p>
+                        <div class="product-bottom">
+                            <span class="price">229 Kč</span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Produkt 5 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop" alt="Obálka knihy">
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Sci-fi</span>
+                        <h3>Poslední kolonie</h3>
+                        <p class="author">Tomáš Černý</p>
+                        <div class="product-bottom">
+                            <span class="price">269 Kč</span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Produkt 6 -->
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&h=600&fit=crop" alt="Obálka knihy">
+                        <span class="badge">Novinka</span>
+                    </div>
+                    <div class="product-info">
+                        <span class="category">Román</span>
+                        <h3>Rok bez tebe</h3>
+                        <p class="author">Klára Malá</p>
+                        <div class="product-bottom">
+                            <span class="price">189 Kč</span>
+                            <button class="btn-add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- VÝHODY -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Okamžité stažení</h3>
+                    <p>Knihu stáhneš hned po zaplacení</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Čti kdekoliv</h3>
+                    <p>PDF, EPUB, MOBI – všechny formáty</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lock"></i>
+                    <h3>Bezpečné platby</h3>
+                    <p>Platby kartou i přes GoPay</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <h3>14 dní na vrácení</h3>
+                    <p>Není kniha pro tebe? Vrátíme peníze</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>EbookStore</span>
+                    </a>
+                    <p>Digitální knihkupectví s láskou k dobrým příběhům.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Obchod</h4>
+                    <a href="#">Všechny knihy</a>
+                    <a href="#">Novinky</a>
+                    <a href="#">Bestsellery</a>
+                    <a href="#">Slevy</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informace</h4>
+                    <a href="#">O nás</a>
+                    <a href="#">Obchodní podmínky</a>
+                    <a href="#">Ochrana osobních údajů</a>
+                    <a href="#">Kontakt</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Sleduj nás</h4>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EbookStore. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

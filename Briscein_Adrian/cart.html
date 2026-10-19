@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Košík – EbookStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>EbookStore</span>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html">Domů</a>
+                <a href="index.html#produkty">Knihy</a>
+                <a href="about.html">O nás</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Hledat knihu...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">2</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- KOŠÍK -->
+    <section class="cart-section">
+        <div class="container">
+            <h1 class="page-title">Váš košík</h1>
+
+            <div class="cart-layout">
+
+                <!-- Seznam položek -->
+                <div class="cart-items">
+
+                    <!-- Položka 1 -->
+                    <div class="cart-item">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=120&h=180&fit=crop" alt="Cesta k hvězdám">
+                        <div class="cart-item-info">
+                            <h3>Cesta k hvězdám</h3>
+                            <p class="author">Jan Novák</p>
+                            <span class="price">249 Kč</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="quantity">
+                                <button class="qty-btn">−</button>
+                                <span>1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Položka 2 -->
+                    <div class="cart-item">
+                        <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=120&h=180&fit=crop" alt="Poslední kolonie">
+                        <div class="cart-item-info">
+                            <h3>Poslední kolonie</h3>
+                            <p class="author">Tomáš Černý</p>
+                            <span class="price">269 Kč</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="quantity">
+                                <button class="qty-btn">−</button>
+                                <span>1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Shrnutí -->
+                <div class="cart-summary">
+                    <h3>Shrnutí objednávky</h3>
+                    <div class="summary-row">
+                        <span>Mezisoučet</span>
+                        <span>518 Kč</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Doprava</span>
+                        <span>Zdarma</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Celkem</span>
+                        <span>518 Kč</span>
+                    </div>
+                    <button class="btn btn-primary btn-full">
+                        Přejít k pokladně
+                    </button>
+                    <a href="index.html" class="continue-shopping">← Pokračovat v nákupu</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>EbookStore</span>
+                    </a>
+                    <p>Digitální knihkupectví s láskou k dobrým příběhům.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Obchod</h4>
+                    <a href="index.html#produkty">Všechny knihy</a>
+                    <a href="#">Novinky</a>
+                    <a href="#">Bestsellery</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informace</h4>
+                    <a href="about.html">O nás</a>
+                    <a href="#">Obchodní podmínky</a>
+                    <a href="#">Kontakt</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Sleduj nás</h4>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EbookStore. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
