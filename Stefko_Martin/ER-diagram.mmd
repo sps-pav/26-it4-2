@@ -1,0 +1,75 @@
+erDiagram
+    ZAKAZNIK ||--o{ ADRESA : eviduje
+    ZAKAZNIK ||--o{ OBJEDNAVKA : vytvari
+    ADRESA ||--o{ OBJEDNAVKA : dorucuje
+    OBJEDNAVKA ||--|{ POLOZKA_OBJEDNAVKY : obsahuje
+    HRA ||--o{ POLOZKA_OBJEDNAVKY : objednana
+    VYDAVATEL ||--o{ HRA : vydava
+    HRA ||--o{ HRA_KATEGORIE : zarazena
+    KATEGORIE ||--o{ HRA_KATEGORIE : obsahuje
+
+    ZAKAZNIK {
+        int id_zakaznika PK
+        string jmeno
+        string prijmeni
+        string email UK
+        string hash_hesla
+        string telefon
+    }
+
+    ADRESA {
+        int id_adresy PK
+        int id_zakaznika FK
+        string ulice
+        string mesto
+        string PSC
+        string stat
+    }
+
+    OBJEDNAVKA {
+        int id_objednavky PK
+        int id_zakaznika FK
+        int id_dorucovaci_adresy FK
+        datetime vytvoreno
+        string stav
+        string zpusob_platby
+        string stav_platby
+        string zpusob_dopravy
+    }
+
+    POLOZKA_OBJEDNAVKY {
+        int id_objednavky PK, FK
+        int id_hry PK, FK
+        int mnozstvi
+        decimal cena_za_kus
+    }
+
+    HRA {
+        int id_hry PK
+        int id_vydavatele FK
+        string nazev
+        string popis
+        int minimum_hracu
+        int maximum_hracu
+        int delka_hry_minuty
+        int doporuceny_vek
+        decimal cena
+        int skladove_mnozstvi
+        string SKU UK
+    }
+
+    VYDAVATEL {
+        int id_vydavatele PK
+        string nazev
+        string web
+    }
+
+    KATEGORIE {
+        int id_kategorie PK
+        string nazev UK
+    }
+
+    HRA_KATEGORIE {
+        int id_hry PK, FK
+        int id_kategorie PK, FK
+    }

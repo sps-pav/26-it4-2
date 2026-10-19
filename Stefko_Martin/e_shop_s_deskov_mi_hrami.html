@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kostka & Deska - E-shop s deskovými hrami</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fbf7ed',
+                            100: '#f4ebd3',
+                            200: '#e8d4a6',
+                            300: '#dab874',
+                            400: '#cd9b47',
+                            500: '#bc802f',
+                            600: '#9f6424',
+                            700: '#7f4b20',
+                            800: '#683d20',
+                            900: '#56331e',
+                        },
+                        amber_bg: '#181310'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2a221b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #56331e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cd9b47;
+        }
+    </style>
+</head>
+<body class="bg-stone-900 text-stone-100 min-h-full flex flex-col font-sans selection:bg-amber-500 selection:text-stone-900">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 text-stone-900 font-semibold text-xs py-1.5 px-4 text-center">
+        🎲 Poštovné zdarma při nákupu nad 1 500 Kč! Všechna data věrně simulují databázovou strukturu ERD.
+    </div>
+
+    <!-- MAIN HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-stone-900/90 backdrop-blur-md border-b border-stone-800 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRAND LOGO -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('catalog')">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-700 rounded-xl shadow-lg flex items-center justify-center transform hover:rotate-6 transition-all">
+                        <i class="fa-solid font-black fa-dice-d20 text-2xl text-stone-950"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black font-heading tracking-tight text-amber-400 block leading-none">KOSTKA & DESKA</span>
+                        <span class="text-xs text-stone-400 tracking-wider font-medium">DESKOVÉ HRY PRO KAŽDÉHO</span>
+                    </div>
+                </div>
+
+                <!-- NAV BUTTONS -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <button onclick="navigateTo('catalog')" id="nav-catalog" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-amber-400 bg-stone-800/80">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Katalog her</span>
+                    </button>
+                    <button onclick="navigateTo('orders')" id="nav-orders" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800">
+                        <i class="fa-solid fa-receipt"></i>
+                        <span>Moje Objednávky</span>
+                        <span id="order-count-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button onclick="navigateTo('erd')" id="nav-erd" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800">
+                        <i class="fa-solid fa-sitemap"></i>
+                        <span>ERD & Databáze</span>
+                    </button>
+                </nav>
+
+                <!-- CART & USER ACTIONS -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('cart')" class="relative p-3 bg-stone-800 hover:bg-amber-600/20 text-amber-400 rounded-xl border border-stone-700 hover:border-amber-500/50 transition-all group">
+                        <i class="fa-solid fa-cart-shopping text-lg group-hover:scale-110 transition-transform"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-amber-500 text-stone-950 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                    </button>
+
+                    <!-- User Selector Simulation -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 bg-stone-800 border border-stone-700 rounded-xl p-2 text-xs text-stone-300 hover:border-amber-500/50">
+                            <i class="fa-solid fa-user-circle text-amber-400 text-base"></i>
+                            <span id="current-user-name" class="hidden sm:inline font-semibold">Jan Novák</span>
+                            <i class="fa-solid fa-chevron-down text-stone-500 text-[10px]"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-56 bg-stone-800 border border-stone-700 rounded-xl shadow-2xl p-2 hidden group-hover:block z-50">
+                            <div class="text-[11px] text-stone-400 px-3 py-1 uppercase tracking-wider font-bold border-b border-stone-700 mb-1">Aktivní zákazník (ERD)</div>
+                            <div id="user-selector-list" class="space-y-1">
+                                <!-- Generated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Row -->
+        <div class="md:hidden flex border-t border-stone-800 bg-stone-950/50 text-xs font-medium">
+            <button onclick="navigateTo('catalog')" class="flex-1 py-2.5 text-center text-amber-400 border-b-2 border-amber-500">
+                <i class="fa-solid fa-gamepad mr-1"></i> Katalog
+            </button>
+            <button onclick="navigateTo('orders')" class="flex-1 py-2.5 text-center text-stone-400 border-b-2 border-transparent">
+                <i class="fa-solid fa-receipt mr-1"></i> Objednávky
+            </button>
+            <button onclick="navigateTo('erd')" class="flex-1 py-2.5 text-center text-stone-400 border-b-2 border-transparent">
+                <i class="fa-solid fa-sitemap mr-1"></i> ERD
+            </button>
+        </div>
+    </header>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-amber-500 text-stone-950 px-5 py-3 rounded-xl shadow-2xl font-bold flex items-center space-x-3 border border-amber-300">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span id="toast-message">Zpráva...</span>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- ================= CATALOG VIEW ================= -->
+        <section id="view-catalog" class="space-y-8">
+            
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-stone-900 via-amber-950/40 to-stone-900 border border-stone-800 p-8 md:p-12 shadow-2xl">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold uppercase tracking-wider mb-4 inline-block">Nová sezóna deskových her</span>
+                    <h1 class="text-3xl sm:text-5xl font-black font-heading text-stone-100 tracking-tight leading-tight">Prozkoumejte nejlepší deskové hry světa</h1>
+                    <p class="mt-4 text-stone-300 text-sm sm:text-base">Strategie, rodinné večery, rychlé karbanické bitvy i náročné kampaňovky. Najděte si svou novou oblíbenou hru podle kategorií nebo počtu hráčů.</p>
+                </div>
+                <div class="absolute right-[-20px] bottom-[-20px] opacity-10 md:opacity-20 pointer-events-none">
+                    <i class="fa-solid fa-chess-knight text-[240px] text-amber-400"></i>
+                </div>
+            </div>
+
+            <!-- Filters & Controls Bar -->
+            <div class="bg-stone-800/60 backdrop-blur border border-stone-800 p-4 sm:p-6 rounded-2xl shadow-lg space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    
+                    <!-- Search Input -->
+                    <div class="lg:col-span-2 relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-stone-400 text-sm"></i>
+                        <input type="text" id="filter-search" oninput="renderCatalog()" placeholder="Hledat název hry nebo SKU..." class="w-full bg-stone-900 border border-stone-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div>
+                        <select id="filter-category" onchange="renderCatalog()" class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2.5 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                            <option value="">Všechny kategorie</option>
+                            <!-- Generated by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Players Filter -->
+                    <div>
+                        <select id="filter-players" onchange="renderCatalog()" class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2.5 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                            <option value="">Počet hráčů (vše)</option>
+                            <option value="1">Sólo hra (1 hráč)</option>
+                            <option value="2">Pro 2 hráče</option>
+                            <option value="4">4 a více hráčů</option>
+                            <option value="6">6 a více hráčů</option>
+                        </select>
+                    </div>
+
+                    <!-- Publisher Filter -->
+                    <div>
+                        <select id="filter-publisher" onchange="renderCatalog()" class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2.5 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                            <option value="">Všichni vydavatelé</option>
+                            <!-- Generated by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Secondary Filter / Sorting Row -->
+                <div class="flex flex-wrap items-center justify-between border-t border-stone-700/50 pt-4 gap-4 text-xs text-stone-400">
+                    <div class="flex items-center space-x-2">
+                        <span>Nalezeno her:</span>
+                        <span id="catalog-count" class="font-bold text-amber-400 bg-stone-900 px-2 py-0.5 rounded-md border border-stone-700">0</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <label for="sort-by" class="font-medium">Řadit podle:</label>
+                        <select id="sort-by" onchange="renderCatalog()" class="bg-stone-900 border border-stone-700 rounded-lg px-3 py-1.5 text-xs text-stone-100 focus:outline-none focus:border-amber-500">
+                            <option value="default">Výchozí (ID)</option>
+                            <option value="price-asc">Ceny: Od nejlevnější</option>
+                            <option value="price-desc">Ceny: Od nejdraží</option>
+                            <option value="name-asc">Názvu: A-Z</option>
+                            <option value="time-asc">Délky hry: Nejkratší</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div id="games-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Game Cards Generated via JS -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="catalog-empty" class="hidden text-center py-16 bg-stone-800/30 border border-dashed border-stone-700 rounded-3xl">
+                <i class="fa-solid fa-dice-d6 text-5xl text-stone-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-stone-300">Žádné hry neodpovídají filtrům</h3>
+                <p class="text-sm text-stone-500 mt-1">Zkuste změnit kritéria vyhledávání nebo resetovat filtry.</p>
+                <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-amber-500 text-stone-950 text-xs font-bold rounded-xl hover:bg-amber-400 transition-colors">
+                    Resetovat filtry
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= GAME DETAIL VIEW ================= -->
+        <section id="view-detail" class="hidden space-y-6">
+            <button onclick="navigateTo('catalog')" class="inline-flex items-center space-x-2 text-stone-400 hover:text-amber-400 text-sm font-medium transition-colors">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Zpět do katalogu</span>
+            </button>
+
+            <div id="game-detail-content" class="bg-stone-800/80 border border-stone-800 rounded-3xl p-6 md:p-10 shadow-2xl">
+                <!-- Generated by JS -->
+            </div>
+        </section>
+
+        <!-- ================= CART & CHECKOUT VIEW ================= -->
+        <section id="view-cart" class="hidden space-y-8">
+            <h2 class="text-2xl sm:text-3xl font-black font-heading text-stone-100 flex items-center space-x-3">
+                <i class="fa-solid fa-basket-shopping text-amber-500"></i>
+                <span>Nákupní košík a Objednávka</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Left Column: Cart Items & Form -->
+                <div class="lg:col-span-7 space-y-8">
+                    
+                    <!-- Cart Items Box -->
+                    <div class="bg-stone-800/60 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
+                        <h3 class="text-lg font-bold text-stone-200 border-b border-stone-700 pb-3 flex justify-between items-center">
+                            <span>1. Položky v košíku</span>
+                            <span id="cart-item-count-text" class="text-xs text-amber-400 font-normal">0 položek</span>
+                        </h3>
+
+                        <div id="cart-items-list" class="divide-y divide-stone-700/60">
+                            <!-- JS Items -->
+                        </div>
+
+                        <div id="cart-empty-msg" class="text-center py-8 text-stone-500 space-y-3">
+                            <i class="fa-solid fa-cart-flatbed text-4xl"></i>
+                            <p>Váš košík je zatím prázdný.</p>
+                            <button onclick="navigateTo('catalog')" class="px-4 py-2 bg-stone-700 hover:bg-stone-600 text-xs font-bold text-stone-200 rounded-xl transition-colors">
+                                Procházet hry
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Form (Customer & Address & Options) -->
+                    <form id="checkout-form" onsubmit="handleCheckout(event)" class="space-y-8">
+                        
+                        <!-- Customer Entity Fields -->
+                        <div class="bg-stone-800/60 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
+                            <div class="flex items-center justify-between border-b border-stone-700 pb-3">
+                                <h3 class="text-lg font-bold text-stone-200 flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-xs flex items-center justify-center font-black">2</span>
+                                    <span>Údaje Zákazníka (ZAKAZNIK)</span>
+                                </h3>
+                                <span class="text-[11px] text-stone-500 font-mono">Entity: ZAKAZNIK</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Jméno *</label>
+                                    <input type="text" id="cust-jmeno" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Příjmení *</label>
+                                    <input type="text" id="cust-prijmeni" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">E-mail (UK) *</label>
+                                    <input type="email" id="cust-email" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Telefon *</label>
+                                    <input type="tel" id="cust-telefon" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Entity Fields -->
+                        <div class="bg-stone-800/60 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
+                            <div class="flex items-center justify-between border-b border-stone-700 pb-3">
+                                <h3 class="text-lg font-bold text-stone-200 flex items-center space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-xs flex items-center justify-center font-black">3</span>
+                                    <span>Doručovací Adresa (ADRESA)</span>
+                                </h3>
+                                <span class="text-[11px] text-stone-500 font-mono">Entity: ADRESA</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Ulice a číslo popisné *</label>
+                                    <input type="text" id="addr-ulice" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Město *</label>
+                                    <input type="text" id="addr-mesto" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">PSČ *</label>
+                                    <input type="text" id="addr-psc" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-medium text-stone-400 mb-1">Stát *</label>
+                                    <input type="text" id="addr-stat" value="Česká republika" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 text-sm text-stone-100 focus:outline-none focus:border-amber-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shipping & Payment Options -->
+                        <div class="bg-stone-800/60 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-6">
+                            <h3 class="text-lg font-bold text-stone-200 border-b border-stone-700 pb-3 flex items-center space-x-2">
+                                <span class="w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-xs flex items-center justify-center font-black">4</span>
+                                <span>Doprava a Platba</span>
+                            </h3>
+
+                            <!-- Shipping -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold text-stone-400 uppercase tracking-wider">Způsob Dopravy (zpusob_dopravy)</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="shipping" value="Zásilkovna / Packeta" checked class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">Zásilkovna</div>
+                                        <div class="text-xs text-amber-400 font-semibold mt-2">79 Kč</div>
+                                    </label>
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="shipping" value="PPL Kurýr" class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">PPL Kurýr</div>
+                                        <div class="text-xs text-amber-400 font-semibold mt-2">109 Kč</div>
+                                    </label>
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="shipping" value="Česká pošta - Balík Do ruky" class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">Česká pošta</div>
+                                        <div class="text-xs text-amber-400 font-semibold mt-2">99 Kč</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Payment -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold text-stone-400 uppercase tracking-wider">Způsob Platby (zpusob_platby)</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="payment" value="Karta online" checked class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">Platební karta</div>
+                                        <div class="text-[11px] text-stone-400 mt-1">Okamžitá platba</div>
+                                    </label>
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="payment" value="Bankovní převod" class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">Bankovní převod</div>
+                                        <div class="text-[11px] text-stone-400 mt-1">Předem na účet</div>
+                                    </label>
+                                    <label class="relative border border-stone-700 rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10">
+                                        <input type="radio" name="payment" value="Dobírka" class="sr-only">
+                                        <div class="font-bold text-sm text-stone-200">Dobírka</div>
+                                        <div class="text-[11px] text-stone-400 mt-1">+39 Kč při převzetí</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button Mobile / Hidden submit handler trigger -->
+                        <button type="submit" id="checkout-submit-btn" class="hidden">Submit</button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Summary Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-stone-800/80 border border-stone-800 rounded-2xl p-6 shadow-2xl sticky top-28 space-y-6">
+                        <h3 class="text-xl font-bold font-heading text-stone-100 border-b border-stone-700 pb-3">Souhrn Objednávky</h3>
+
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between text-stone-400">
+                                <span>Mezisoučet za hry:</span>
+                                <span id="summary-subtotal" class="font-semibold text-stone-200">0 Kč</span>
+                            </div>
+                            <div class="flex justify-between text-stone-400">
+                                <span>Odhadovaná doprava:</span>
+                                <span id="summary-shipping" class="font-semibold text-stone-200">79 Kč</span>
+                            </div>
+                            <div class="border-t border-stone-700 pt-3 flex justify-between text-lg font-bold text-stone-100">
+                                <span>Celkem k úhradě:</span>
+                                <span id="summary-total" class="text-amber-400 font-extrabold text-2xl">0 Kč</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-xs text-amber-300 space-y-1">
+                            <p class="font-bold flex items-center space-x-1">
+                                <i class="fa-solid fa-database"></i>
+                                <span>Databázový přenos</span>
+                            </p>
+                            <p class="text-stone-400">Odesláním dojde k uložení řádku v tabulce <code class="text-amber-400">OBJEDNAVKA</code> a svázání položek v <code class="text-amber-400">POLOZKA_OBJEDNAVKY</code>.</p>
+                        </div>
+
+                        <button onclick="triggerCheckout()" id="btn-complete-order" class="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-base rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-check-circle text-lg"></i>
+                            <span>DOKONČIT OBJEDNÁVKU</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= ORDERS HISTORY VIEW ================= -->
+        <section id="view-orders" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-800 pb-5">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-stone-100 flex items-center space-x-3">
+                        <i class="fa-solid fa-receipt text-amber-500"></i>
+                        <span>Správa a Historie Objednávek</span>
+                    </h2>
+                    <p class="text-stone-400 text-xs mt-1">Přehled uložených záznamů z databázové tabulky <code class="text-amber-400">OBJEDNAVKA</code> a vnořených <code class="text-amber-400">POLOZKA_OBJEDNAVKY</code>.</p>
+                </div>
+
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="text-stone-400">Filtrovat stav:</span>
+                    <select id="order-status-filter" onchange="renderOrders()" class="bg-stone-800 border border-stone-700 rounded-lg px-3 py-1.5 text-stone-200">
+                        <option value="">Všechny stavy</option>
+                        <option value="Nová">Nová</option>
+                        <option value="Zpracovává se">Zpracovává se</option>
+                        <option value="Odesláno">Odesláno</option>
+                        <option value="Doručeno">Doručeno</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="orders-container" class="space-y-6">
+                <!-- Generated by JS -->
+            </div>
+
+            <div id="orders-empty" class="hidden text-center py-16 bg-stone-800/30 border border-dashed border-stone-700 rounded-3xl">
+                <i class="fa-solid fa-box-open text-5xl text-stone-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-stone-300">Zatím nebyly vytvořeny žádné objednávky</h3>
+                <p class="text-sm text-stone-500 mt-1">Vytvořte objednávku v košíku nebo si zkontrolujte filtr stavu.</p>
+            </div>
+        </section>
+
+        <!-- ================= ERD DIAGRAM & DATA EXPLORER VIEW ================= -->
+        <section id="view-erd" class="hidden space-y-8">
+            <div class="border-b border-stone-800 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-black font-heading text-stone-100 flex items-center space-x-3">
+                    <i class="fa-solid fa-sitemap text-amber-500"></i>
+                    <span>ER Diagram a Prohlížeč Databáze</span>
+                </h2>
+                <p class="text-stone-400 text-sm mt-1">Detailní pohled na relace mezi entitami a přímé nahlížení na data uložená v paměti e-shopu.</p>
+            </div>
+
+            <!-- ERD Diagram Text Visualizer -->
+            <div class="bg-stone-800/80 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-lg font-bold text-amber-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <span>Struktura Relací (Entity Relationship Diagram)</span>
+                </h3>
+                <div class="bg-stone-950 p-4 rounded-xl border border-stone-800 font-mono text-xs overflow-x-auto text-stone-300 leading-relaxed">
+<pre class="text-amber-300/90">
+  +------------------+         1:N         +--------------------+
+  |     ZAKAZNIK     |-------------------->|       ADRESA       |
+  +------------------+                     +--------------------+
+           |                                         |
+           | 1:N                                     | 1:N
+           v                                         v
+  +------------------+                     +--------------------+
+  |    OBJEDNAVKA    |<--------------------| dorucovaci_adresa  |
+  +------------------+                     +--------------------+
+           |
+           | 1:N
+           v
+  +------------------+         N:1         +--------------------+
+  |POLOZKA_OBJEDNAVKY|-------------------->|        HRA         |
+  +------------------+                     +--------------------+
+                                                     |
+                                                     +----------+ 1:N (vydava)
+                                                     |          |
+                                                     v          v
+                                              +------------+ +----------------+
+                                              | VYDAVATEL  | | HRA_KATEGORIE  |
+                                              +------------+ +----------------+
+                                                                     | N:1
+                                                                     v
+                                                              +----------------+
+                                                              |   KATEGORIE    |
+                                                              +----------------+
+</pre>
+                </div>
+            </div>
+
+            <!-- DB Table Explorer Tabs -->
+            <div class="space-y-4">
+                <div class="flex flex-wrap gap-2 border-b border-stone-800 pb-3" id="db-tabs">
+                    <!-- Dynamic tabs generated by JS -->
+                </div>
+
+                <div id="db-table-content" class="bg-stone-800/60 border border-stone-800 rounded-2xl p-4 shadow-xl overflow-x-auto">
+                    <!-- Generated Table -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-950 border-t border-stone-800 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-stone-500 space-y-2">
+            <p class="font-semibold text-stone-400">KOSTKA & DESKA — E-shop deskových her podle ER diagramu</p>
+            <p>Všechna data jsou ukládána do paměti a plně věrná ERD entitám: ZAKAZNIK, ADRESA, OBJEDNAVKA, POLOZKA_OBJEDNAVKY, HRA, VYDAVATEL, KATEGORIE, HRA_KATEGORIE.</p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // ==========================================
+        // MOCK DATABASE BASED EXACTLY ON ER DIAGRAM
+        // ==========================================
+
+        const db = {
+            VYDAVATEL: [
+                { id_vydavatele: 1, nazev: "MindOK", web: "https://www.mindok.cz" },
+                { id_vydavatele: 2, nazev: "Albi", web: "https://www.albi.cz" },
+                { id_vydavatele: 3, nazev: "Dino Toys", web: "https://www.dinotoys.cz" },
+                { id_vydavatele: 4, nazev: "Hasbro Gaming", web: "https://hasbrogaming.hasbro.com" },
+                { id_vydavatele: 5, nazev: "Bonaparte", web: "https://www.bonaparte.cz" },
+                { id_vydavatele: 6, nazev: "ADC Blackfire", web: "https://www.blackfire.cz" },
+                { id_vydavatele: 7, nazev: "TLAMA games", web: "https://www.tlamagames.com" }
+            ],
+
+            KATEGORIE: [
+                { id_kategorie: 1, nazev: "Klasické hry" },
+                { id_kategorie: 2, nazev: "Rodinné hry" },
+                { id_kategorie: 3, nazev: "Strategické hry" },
+                { id_kategorie: 4, nazev: "Párty hry" },
+                { id_kategorie: 5, nazev: "Dětské hry" },
+                { id_kategorie: 6, nazev: "Kooperativní" },
+                { id_kategorie: 7, nazev: "Karetní" }
+            ],
+
+            HRA: [
+                {
+                    id_hry: 1,
+                    id_vydavatele: 3,
+                    nazev: "Člověče, nezlob se!",
+                    popis: "Tradiční a nesmrtelná společenská hra pro celou rodinu. Cílem je dovést všechny své figurky do domečku dříve než soupeři. Pozor na vyhození!",
+                    minimum_hracu: 2,
+                    maximum_hracu: 6,
+                    delka_hry_minuty: 30,
+                    doporuceny_vek: 5,
+                    cena: 249.00,
+                    skladove_mnozstvi: 45,
+                    SKU: "DIN-CLN-001",
+                    image: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 2,
+                    id_vydavatele: 4,
+                    nazev: "Monopoly Classic",
+                    popis: "Nejoblíbenější obchodní hra na světě. Nakupujte nemovitosti, stavějte domy i hotely, vybírejte nájemné a přiveďte své protihráče k bankrotu.",
+                    minimum_hracu: 2,
+                    maximum_hracu: 6,
+                    delka_hry_minuty: 90,
+                    doporuceny_vek: 8,
+                    cena: 899.00,
+                    skladove_mnozstvi: 20,
+                    SKU: "HAS-MON-002",
+                    image: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 3,
+                    id_vydavatele: 3,
+                    nazev: "Dostihy a sázky",
+                    popis: "Kultovní česká finanční hra. Nakupujte stájové koně, investujte do dostihů, sázejte na vítěze a získejte kompletní trenérské stáje.",
+                    minimum_hracu: 2,
+                    maximum_hracu: 6,
+                    delka_hry_minuty: 120,
+                    doporuceny_vek: 10,
+                    cena: 649.00,
+                    skladove_mnozstvi: 18,
+                    SKU: "DIN-DAS-003",
+                    image: "https://images.unsplash.com/photo-1563941433-b6a0946f70ed?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 4,
+                    id_vydavatele: 5,
+                    nazev: "Šachy (Dřevěné klasické)",
+                    popis: "Královská hra králů a strategie s tisíciletou historií. Krásná dřevěná souprava s vypalovanou šachovnicí a filcem podloženými figurkami.",
+                    minimum_hracu: 2,
+                    maximum_hracu: 2,
+                    delka_hry_minuty: 45,
+                    doporuceny_vek: 6,
+                    cena: 599.00,
+                    skladove_mnozstvi: 30,
+                    SKU: "BON-SAC-004",
+                    image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 5,
+                    id_vydavatele: 4,
+                    nazev: "Scrabble Original",
+                    popis: "Klasická slovní hra, která prověří vaši slovní zásobu a kombinatorické schopnosti. Skládejte slova na herním plánu a sbírejte body.",
+                    minimum_hracu: 2,
+                    maximum_hracu: 4,
+                    delka_hry_minuty: 60,
+                    doporuceny_vek: 10,
+                    cena: 799.00,
+                    skladove_mnozstvi: 15,
+                    SKU: "HAS-SCR-005",
+                    image: "https://images.unsplash.com/photo-1591635566278-10dca0ca76ee?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 6,
+                    id_vydavatele: 2,
+                    nazev: "Catan – Osadníci z Katanu",
+                    popis: "Legendární budovatelská strategie. Osidlujte ostrov Katan, obchodujte se surovinami, stavějte cesty, vesnice i města a braňte se před zlodějem.",
+                    minimum_hracu: 3,
+                    maximum_hracu: 4,
+                    delka_hry_minuty: 75,
+                    doporuceny_vek: 10,
+                    cena: 1099.00,
+                    skladove_mnozstvi: 22,
+                    SKU: "ALB-CAT-006",
+                    image: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 7,
+                    id_vydavatele: 1,
+                    nazev: "Carcassonne",
+                    popis: "Světoznámá společenská hra. Hráči postupně přikládají kartičky s krajinou, staví jihofrancouzské cesty, města, kláštery a louky a vysílají svoje družiníky.",
+                    minimum_hracu: 2,
+                    maximum_hracu: 5,
+                    delka_hry_minuty: 35,
+                    doporuceny_vek: 7,
+                    cena: 699.00,
+                    skladove_mnozstvi: 28,
+                    SKU: "MND-CAR-007",
+                    image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 8,
+                    id_vydavatele: 2,
+                    nazev: "Krycí jména",
+                    popis: "Fenomenální česká párty hra. Dva soupeřící hlavní špióni znají tajné identity svých agentů a posílají nápovědy svému týmu. Pozor na nájemného vraha!",
+                    minimum_hracu: 2,
+                    maximum_hracu: 8,
+                    delka_hry_minuty: 15,
+                    doporuceny_vek: 10,
+                    cena: 499.00,
+                    skladove_mnozstvi: 40,
+                    SKU: "ALB-KRC-008",
+                    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 9,
+                    id_vydavatele: 5,
+                    nazev: "Kloboučku hop!",
+                    popis: "Zábavná a postřehová dětská klasika. Pomocí odpalovací odrazové rampičky trefujte barevné kloboučky do bodovaných otvorů v terči.",
+                    minimum_hracu: 1,
+                    maximum_hracu: 4,
+                    delka_hry_minuty: 20,
+                    doporuceny_vek: 4,
+                    cena: 199.00,
+                    skladove_mnozstvi: 35,
+                    SKU: "BON-KLB-009",
+                    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id_hry: 10,
+                    id_vydavatele: 1,
+                    nazev: "Na křídlech (Wingspan)",
+                    popis: "Nádherná a oceňovaná rodinně-strategická hra o ptačích rezervacích. Přilákejte vzácné druhy ptáků, pokládejte vejce a kombinujte schopnosti karet.",
+                    minimum_hracu: 1,
+                    maximum_hracu: 5,
+                    delka_hry_minuty: 70,
+                    doporuceny_vek: 10,
+                    cena: 1290.00,
+                    skladove_mnozstvi: 12,
+                    SKU: "MND-WNG-010",
+                    image: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+
+            HRA_KATEGORIE: [
+                { id_hry: 1, id_kategorie: 1 }, // Člověče, nezlob se! - Klasické
+                { id_hry: 1, id_kategorie: 2 }, // Člověče, nezlob se! - Rodinné
+                { id_hry: 1, id_kategorie: 5 }, // Člověče, nezlob se! - Dětské
+                { id_hry: 2, id_kategorie: 1 }, // Monopoly - Klasické
+                { id_hry: 2, id_kategorie: 2 }, // Monopoly - Rodinné
+                { id_hry: 3, id_kategorie: 1 }, // Dostihy a sázky - Klasické
+                { id_hry: 3, id_kategorie: 2 }, // Dostihy a sázky - Rodinné
+                { id_hry: 4, id_kategorie: 1 }, // Šachy - Klasické
+                { id_hry: 4, id_kategorie: 3 }, // Šachy - Strategické
+                { id_hry: 5, id_kategorie: 1 }, // Scrabble - Klasické
+                { id_hry: 5, id_kategorie: 2 }, // Scrabble - Rodinné
+                { id_hry: 6, id_kategorie: 2 }, // Catan - Rodinné
+                { id_hry: 6, id_kategorie: 3 }, // Catan - Strategické
+                { id_hry: 7, id_kategorie: 2 }, // Carcassonne - Rodinné
+                { id_hry: 7, id_kategorie: 3 }, // Carcassonne - Strategické
+                { id_hry: 8, id_kategorie: 4 }, // Krycí jména - Párty
+                { id_hry: 8, id_kategorie: 7 }, // Krycí jména - Karetní
+                { id_hry: 9, id_kategorie: 1 }, // Kloboučku hop! - Klasické
+                { id_hry: 9, id_kategorie: 5 }, // Kloboučku hop! - Dětské
+                { id_hry: 10, id_kategorie: 2 }, // Na křídlech - Rodinné
+                { id_hry: 10, id_kategorie: 3 }  // Na křídlech - Strategické
+            ],
+
+            ZAKAZNIK: [
+                { id_zakaznika: 1, jmeno: "Jan", prijmeni: "Novák", email: "jan.novak@email.cz", hash_hesla: "$2a$12$e8f...hash1", telefon: "+420 777 123 456" },
+                { id_zakaznika: 2, jmeno: "Eva", prijmeni: "Svobodová", email: "eva.svobodova@post.cz", hash_hesla: "$2a$12$x9a...hash2", telefon: "+420 608 987 654" },
+                { id_zakaznika: 3, jmeno: "Petr", prijmeni: "Dvořák", email: "petr.dvorak@centrum.cz", hash_hesla: "$2a$12$z3c...hash3", telefon: "+420 731 555 888" }
+            ],
+
+            ADRESA: [
+                { id_adresy: 1, id_zakaznika: 1, ulice: "Hlavní 142/12", mesto: "Praha 4", PSC: "140 00", stat: "Česká republika" },
+                { id_adresy: 2, id_zakaznika: 2, ulice: "Nádražní 58", mesto: "Brno", PSC: "602 00", stat: "Česká republika" },
+                { id_adresy: 3, id_zakaznika: 3, ulice: "Masarykova 15", mesto: "Plzeň", PSC: "301 00", stat: "Česká republika" }
+            ],
+
+            OBJEDNAVKA: [
+                {
+                    id_objednavky: 1001,
+                    id_zakaznika: 1,
+                    id_dorucovaci_adresy: 1,
+                    vytvoreno: "2026-10-15 14:22:00",
+                    stav: "Doručeno",
+                    zpusob_platby: "Karta online",
+                    stav_platby: "Zaplaceno",
+                    zpusob_dopravy: "Zásilkovna / Packeta"
+                },
+                {
+                    id_objednavky: 1002,
+                    id_zakaznika: 2,
+                    id_dorucovaci_adresy: 2,
+                    vytvoreno: "2026-10-18 09:45:00",
+                    stav: "Zpracovává se",
+                    zpusob_platby: "Bankovní převod",
+                    stav_platby: "Zaplaceno",
+                    zpusob_dopravy: "PPL Kurýr"
+                }
+            ],
+
+            POLOZKA_OBJEDNAVKY: [
+                { id_objednavky: 1001, id_hry: 1, mnozstvi: 1, cena_za_kus: 249.00 },
+                { id_objednavky: 1001, id_hry: 8, mnozstvi: 2, cena_za_kus: 499.00 },
+                { id_objednavky: 1002, id_hry: 3, mnozstvi: 1, cena_za_kus: 649.00 },
+                { id_objednavky: 1002, id_hry: 4, mnozstvi: 1, cena_za_kus: 599.00 }
+            ]
+        };
+
+        // Current Active User
+        let currentUserId = 1;
+
+        // Shopping Cart State: array of { id_hry, mnozstvi }
+        let cart = [
+            { id_hry: 2, mnozstvi: 1 }
+        ];
+
+        // Active DB Explorer Tab
+        let activeDbTab = "HRA";
+
+        // ==========================================
+        // INITIALIZATION & ROUTING
+        // ==========================================
+
+        window.onload = function() {
+            populateUserSelector();
+            populateFilterDropdowns();
+            renderCatalog();
+            updateCartBadge();
+            renderCart();
+            renderOrders();
+            renderErdExplorer();
+        };
+
+        function navigateTo(viewName) {
+            const views = ['catalog', 'detail', 'cart', 'orders', 'erd'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if(el) el.classList.add('hidden');
+            });
+
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+
+            // Highlight menu items
+            ['catalog', 'orders', 'erd'].forEach(nav => {
+                const navBtn = document.getElementById(`nav-${nav}`);
+                if(navBtn) {
+                    if(nav === viewName) {
+                        navBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-amber-400 bg-stone-800/80";
+                    } else {
+                        navBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800";
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // USER SELECTOR SIMULATION
+        // ==========================================
+
+        function populateUserSelector() {
+            const container = document.getElementById('user-selector-list');
+            container.innerHTML = db.ZAKAZNIK.map(u => `
+                <button onclick="selectUser(${u.id_zakaznika})" class="w-full text-left px-3 py-1.5 rounded-lg text-xs flex justify-between items-center transition-colors ${u.id_zakaznika === currentUserId ? 'bg-amber-500/20 text-amber-400 font-bold' : 'text-stone-300 hover:bg-stone-700'}">
+                    <span>${u.jmeno} ${u.prijmeni}</span>
+                    <span class="text-[10px] text-stone-500">ID: ${u.id_zakaznika}</span>
+                </button>
+            `).join('');
+
+            const activeUser = db.ZAKAZNIK.find(u => u.id_zakaznika === currentUserId);
+            if(activeUser) {
+                document.getElementById('current-user-name').innerText = `${activeUser.jmeno} ${activeUser.prijmeni}`;
+                fillCheckoutUserForm(activeUser);
+            }
+        }
+
+        function selectUser(userId) {
+            currentUserId = userId;
+            populateUserSelector();
+            showToast(`Přepnuto na uživatele ID: ${userId}`);
+            renderOrders();
+        }
+
+        function fillCheckoutUserForm(user) {
+            document.getElementById('cust-jmeno').value = user.jmeno;
+            document.getElementById('cust-prijmeni').value = user.prijmeni;
+            document.getElementById('cust-email').value = user.email;
+            document.getElementById('cust-telefon').value = user.telefon;
+
+            const addr = db.ADRESA.find(a => a.id_zakaznika === user.id_zakaznika);
+            if(addr) {
+                document.getElementById('addr-ulice').value = addr.ulice;
+                document.getElementById('addr-mesto').value = addr.mesto;
+                document.getElementById('addr-psc').value = addr.PSC;
+                document.getElementById('addr-stat').value = addr.stat;
+            }
+        }
+
+        // ==========================================
+        // CATALOG & FILTERS
+        // ==========================================
+
+        function populateFilterDropdowns() {
+            const catSelect = document.getElementById('filter-category');
+            catSelect.innerHTML = '<option value="">Všechny kategorie</option>' + 
+                db.KATEGORIE.map(k => `<option value="${k.id_kategorie}">${k.nazev}</option>`).join('');
+
+            const pubSelect = document.getElementById('filter-publisher');
+            pubSelect.innerHTML = '<option value="">Všichni vydavatelé</option>' + 
+                db.VYDAVATEL.map(v => `<option value="${v.id_vydavatele}">${v.nazev}</option>`).join('');
+        }
+
+        function renderCatalog() {
+            const searchVal = document.getElementById('filter-search').value.toLowerCase().trim();
+            const categoryVal = document.getElementById('filter-category').value;
+            const playersVal = document.getElementById('filter-players').value;
+            const publisherVal = document.getElementById('filter-publisher').value;
+            const sortVal = document.getElementById('sort-by').value;
+
+            let filtered = db.HRA.filter(hra => {
+                // Search match
+                if(searchVal && !hra.nazev.toLowerCase().includes(searchVal) && !hra.SKU.toLowerCase().includes(searchVal)) {
+                    return false;
+                }
+
+                // Category match
+                if(categoryVal) {
+                    const categories = db.HRA_KATEGORIE
+                        .filter(hk => hk.id_hry === hra.id_hry)
+                        .map(hk => hk.id_kategorie);
+                    if(!categories.includes(parseInt(categoryVal))) return false;
+                }
+
+                // Publisher match
+                if(publisherVal && hra.id_vydavatele !== parseInt(publisherVal)) {
+                    return false;
+                }
+
+                // Players match
+                if(playersVal) {
+                    const p = parseInt(playersVal);
+                    if(p === 1 && (hra.minimum_hracu > 1)) return false;
+                    if(p === 2 && (hra.minimum_hracu > 2 || hra.maximum_hracu < 2)) return false;
+                    if(p === 4 && (hra.maximum_hracu < 4)) return false;
+                    if(p === 6 && (hra.maximum_hracu < 6)) return false;
+                }
+
+                return true;
+            });
+
+            // Sorting
+            if(sortVal === 'price-asc') filtered.sort((a,b) => a.cena - b.cena);
+            if(sortVal === 'price-desc') filtered.sort((a,b) => b.cena - a.cena);
+            if(sortVal === 'name-asc') filtered.sort((a,b) => a.nazev.localeCompare(b.nazev));
+            if(sortVal === 'time-asc') filtered.sort((a,b) => a.delka_hry_minuty - b.delka_hry_minuty);
+
+            document.getElementById('catalog-count').innerText = filtered.length;
+
+            const grid = document.getElementById('games-grid');
+            const emptyState = document.getElementById('catalog-empty');
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(hra => {
+                const vydavatel = db.VYDAVATEL.find(v => v.id_vydavatele === hra.id_vydavatele);
+                const categories = db.HRA_KATEGORIE
+                    .filter(hk => hk.id_hry === hra.id_hry)
+                    .map(hk => db.KATEGORIE.find(k => k.id_kategorie === hk.id_kategorie)?.nazev)
+                    .filter(Boolean);
+
+                return `
+                    <div class="bg-stone-800/80 border border-stone-800 rounded-2xl overflow-hidden hover:border-amber-500/40 transition-all duration-300 hover:shadow-xl flex flex-col group">
+                        <div class="relative h-48 overflow-hidden bg-stone-900 cursor-pointer" onclick="showDetail(${hra.id_hry})">
+                            <img src="${hra.image}" alt="${hra.nazev}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/2a221b/cd9b47?text=Desková+Hra'">
+                            <div class="absolute top-3 right-3 bg-stone-950/80 backdrop-blur text-amber-400 font-extrabold text-sm px-3 py-1 rounded-full border border-stone-700">
+                                ${hra.cena.toLocaleString('cs-CZ')} Kč
+                            </div>
+                            <div class="absolute bottom-2 left-2 flex flex-wrap gap-1">
+                                ${categories.map(c => `<span class="bg-stone-900/90 text-stone-300 text-[10px] px-2 py-0.5 rounded-md border border-stone-700">${c}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <span class="text-[11px] font-semibold text-amber-500/80 uppercase tracking-wider">${vydavatel ? vydavatel.nazev : ''}</span>
+                                    <span class="text-[10px] font-mono text-stone-500">SKU: ${hra.SKU}</span>
+                                </div>
+                                <h3 onclick="showDetail(${hra.id_hry})" class="text-lg font-bold font-heading text-stone-100 hover:text-amber-400 cursor-pointer transition-colors mt-1 line-clamp-1">
+                                    ${hra.nazev}
+                                </h3>
+                                <p class="text-xs text-stone-400 mt-2 line-clamp-2">${hra.popis}</p>
+                            </div>
+
+                            <div class="space-y-3 pt-2 border-t border-stone-700/50">
+                                <div class="grid grid-cols-3 gap-1 text-[11px] text-stone-400 text-center">
+                                    <div class="bg-stone-900/60 p-1.5 rounded-lg border border-stone-800">
+                                        <i class="fa-solid fa-users text-amber-500 mb-0.5 block"></i>
+                                        <span>${hra.minimum_hracu}-${hra.maximum_hracu} hr.</span>
+                                    </div>
+                                    <div class="bg-stone-900/60 p-1.5 rounded-lg border border-stone-800">
+                                        <i class="fa-solid fa-clock text-amber-500 mb-0.5 block"></i>
+                                        <span>${hra.delka_hry_minuty} m</span>
+                                    </div>
+                                    <div class="bg-stone-900/60 p-1.5 rounded-lg border border-stone-800">
+                                        <i class="fa-solid fa-child text-amber-500 mb-0.5 block"></i>
+                                        <span>${hra.doporuceny_vek}+ let</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex space-x-2 pt-1">
+                                    <button onclick="showDetail(${hra.id_hry})" class="flex-1 py-2 bg-stone-700 hover:bg-stone-600 text-stone-200 text-xs font-bold rounded-xl transition-colors">
+                                        Detail
+                                    </button>
+                                    <button onclick="addToCart(${hra.id_hry})" class="flex-1 py-2 bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold rounded-xl transition-colors flex items-center justify-center space-x-1 shadow-md">
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                        <span>Do košíku</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-search').value = '';
+            document.getElementById('filter-category').value = '';
+            document.getElementById('filter-players').value = '';
+            document.getElementById('filter-publisher').value = '';
+            document.getElementById('sort-by').value = 'default';
+            renderCatalog();
+        }
+
+        // ==========================================
+        // GAME DETAIL VIEW
+        // ==========================================
+
+        function showDetail(hraId) {
+            const hra = db.HRA.find(h => h.id_hry === hraId);
+            if(!hra) return;
+
+            const vydavatel = db.VYDAVATEL.find(v => v.id_vydavatele === hra.id_vydavatele);
+            const categories = db.HRA_KATEGORIE
+                .filter(hk => hk.id_hry === hra.id_hry)
+                .map(hk => db.KATEGORIE.find(k => k.id_kategorie === hk.id_kategorie)?.nazev)
+                .filter(Boolean);
+
+            const container = document.getElementById('game-detail-content');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="space-y-4">
+                        <div class="rounded-2xl overflow-hidden bg-stone-900 border border-stone-700 h-80 sm:h-96">
+                            <img src="${hra.image}" alt="${hra.nazev}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/2a221b/cd9b47?text=Desková+Hra'">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-stone-900/60 rounded-xl border border-stone-800 text-xs">
+                            <span class="text-stone-400">Unikátní kód SKU: <strong class="text-stone-200">${hra.SKU}</strong></span>
+                            <span class="text-stone-400">ID Hry: <strong class="text-stone-200">${hra.id_hry}</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                ${categories.map(c => `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold">${c}</span>`).join('')}
+                            </div>
+                            <h1 class="text-3xl font-black font-heading text-stone-100">${hra.nazev}</h1>
+                            <p class="text-stone-400 text-sm mt-3 leading-relaxed">${hra.popis}</p>
+                        </div>
+
+                        <!-- Parametry hry -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-y border-stone-700">
+                            <div class="bg-stone-900/80 p-3 rounded-xl border border-stone-800 text-center">
+                                <span class="text-[10px] uppercase text-stone-500 font-bold block">Počet hráčů</span>
+                                <span class="text-sm font-bold text-amber-400 mt-1 block">${hra.minimum_hracu} až ${hra.maximum_hracu}</span>
+                            </div>
+                            <div class="bg-stone-900/80 p-3 rounded-xl border border-stone-800 text-center">
+                                <span class="text-[10px] uppercase text-stone-500 font-bold block">Doba hraní</span>
+                                <span class="text-sm font-bold text-amber-400 mt-1 block">${hra.delka_hry_minuty} min.</span>
+                            </div>
+                            <div class="bg-stone-900/80 p-3 rounded-xl border border-stone-800 text-center">
+                                <span class="text-[10px] uppercase text-stone-500 font-bold block">Doporučený věk</span>
+                                <span class="text-sm font-bold text-amber-400 mt-1 block">${hra.doporuceny_vek}+ let</span>
+                            </div>
+                            <div class="bg-stone-900/80 p-3 rounded-xl border border-stone-800 text-center">
+                                <span class="text-[10px] uppercase text-stone-500 font-bold block">Skladem</span>
+                                <span class="text-sm font-bold text-emerald-400 mt-1 block">${hra.skladove_mnozstvi} ks</span>
+                            </div>
+                        </div>
+
+                        <!-- Vydavatel info -->
+                        ${vydavatel ? `
+                        <div class="flex items-center justify-between p-4 bg-stone-900/40 rounded-xl border border-stone-800 text-xs">
+                            <div>
+                                <span class="text-stone-500 block text-[10px] uppercase font-bold">Vydavatel hry</span>
+                                <span class="font-bold text-stone-200 text-sm">${vydavatel.nazev}</span>
+                            </div>
+                            <a href="${vydavatel.web}" target="_blank" rel="noopener" class="text-amber-400 hover:underline flex items-center space-x-1 font-medium">
+                                <span>Navštívit web</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                        ` : ''}
+
+                        <!-- Cena & Akce -->
+                        <div class="p-6 bg-stone-900 rounded-2xl border border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <span class="text-xs text-stone-400 block">Cena s DPH</span>
+                                <span class="text-3xl font-black text-amber-400 font-heading">${hra.cena.toLocaleString('cs-CZ')} Kč</span>
+                            </div>
+                            <button onclick="addToCart(${hra.id_hry})" class="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm rounded-xl shadow-lg transition-transform transform active:scale-95 flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-cart-plus text-base"></i>
+                                <span>PŘIDAT DO KOŠÍKU</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            navigateTo('detail');
+        }
+
+        // ==========================================
+        // SHOPPING CART LOGIC
+        // ==========================================
+
+        function addToCart(hraId) {
+            const existing = cart.find(i => i.id_hry === hraId);
+            if(existing) {
+                existing.mnozstvi += 1;
+            } else {
+                cart.push({ id_hry: hraId, mnozstvi: 1 });
+            }
+
+            updateCartBadge();
+            renderCart();
+            showToast("Hra byla přidána do košíku");
+        }
+
+        function updateQuantity(hraId, delta) {
+            const item = cart.find(i => i.id_hry === hraId);
+            if(!item) return;
+
+            item.mnozstvi += delta;
+            if(item.mnozstvi <= 0) {
+                cart = cart.filter(i => i.id_hry !== hraId);
+            }
+
+            updateCartBadge();
+            renderCart();
+        }
+
+        function removeFromCart(hraId) {
+            cart = cart.filter(i => i.id_hry !== hraId);
+            updateCartBadge();
+            renderCart();
+            showToast("Položka byla odebrána");
+        }
+
+        function updateCartBadge() {
+            const totalCount = cart.reduce((sum, i) => sum + i.mnozstvi, 0);
+            document.getElementById('cart-badge').innerText = totalCount;
+            document.getElementById('cart-item-count-text').innerText = `${totalCount} položek`;
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cart-items-list');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+
+            if(cart.length === 0) {
+                list.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                updateSummary(0);
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+
+            let subtotal = 0;
+
+            list.innerHTML = cart.map(item => {
+                const hra = db.HRA.find(h => h.id_hry === item.id_hry);
+                if(!hra) return '';
+
+                const itemTotal = hra.cena * item.mnozstvi;
+                subtotal += itemTotal;
+
+                return `
+                    <div class="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <img src="${hra.image}" alt="${hra.nazev}" class="w-16 h-16 object-cover rounded-xl bg-stone-900 border border-stone-700" onerror="this.src='https://placehold.co/100?text=Hra'">
+                            <div>
+                                <h4 class="font-bold text-stone-200 text-sm hover:text-amber-400 cursor-pointer" onclick="showDetail(${hra.id_hry})">${hra.nazev}</h4>
+                                <span class="text-xs text-stone-500 font-mono">SKU: ${hra.SKU} | ${hra.cena.toLocaleString('cs-CZ')} Kč / ks</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between w-full sm:w-auto space-x-6">
+                            <div class="flex items-center border border-stone-700 rounded-lg bg-stone-900">
+                                <button onclick="updateQuantity(${hra.id_hry}, -1)" class="px-2.5 py-1 text-stone-400 hover:text-amber-400 font-bold">-</button>
+                                <span class="px-3 text-xs font-bold text-stone-200">${item.mnozstvi}</span>
+                                <button onclick="updateQuantity(${hra.id_hry}, 1)" class="px-2.5 py-1 text-stone-400 hover:text-amber-400 font-bold">+</button>
+                            </div>
+
+                            <div class="text-right">
+                                <span class="font-bold text-amber-400 text-sm block">${itemTotal.toLocaleString('cs-CZ')} Kč</span>
+                                <button onclick="removeFromCart(${hra.id_hry})" class="text-[11px] text-red-400 hover:underline">Odebrat</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateSummary(subtotal);
+        }
+
+        function updateSummary(subtotal) {
+            const shippingCost = subtotal > 1500 || subtotal === 0 ? 0 : 79;
+            const grandTotal = subtotal + shippingCost;
+
+            document.getElementById('summary-subtotal').innerText = `${subtotal.toLocaleString('cs-CZ')} Kč`;
+            document.getElementById('summary-shipping').innerText = shippingCost === 0 ? 'ZDARMA' : `${shippingCost} Kč`;
+            document.getElementById('summary-total').innerText = `${grandTotal.toLocaleString('cs-CZ')} Kč`;
+        }
+
+        // Trigger HTML form submit
+        function triggerCheckout() {
+            if(cart.length === 0) {
+                showToast("Košík je prázdný!");
+                return;
+            }
+            document.getElementById('checkout-submit-btn').click();
+        }
+
+        function handleCheckout(e) {
+            e.preventDefault();
+
+            if(cart.length === 0) {
+                showToast("Nelze dokončit prázdnou objednávku!");
+                return;
+            }
+
+            // Extract form data according to ERD
+            const jmeno = document.getElementById('cust-jmeno').value;
+            const prijmeni = document.getElementById('cust-prijmeni').value;
+            const email = document.getElementById('cust-email').value;
+            const telefon = document.getElementById('cust-telefon').value;
+
+            const ulice = document.getElementById('addr-ulice').value;
+            const mesto = document.getElementById('addr-mesto').value;
+            const psc = document.getElementById('addr-psc').value;
+            const stat = document.getElementById('addr-stat').value;
+
+            const shipping = document.querySelector('input[name="shipping"]:checked').value;
+            const payment = document.querySelector('input[name="payment"]:checked').value;
+
+            // 1. Create or Find ZAKAZNIK
+            let zakaznik = db.ZAKAZNIK.find(z => z.email === email);
+            if(!zakaznik) {
+                const newZakaznikId = db.ZAKAZNIK.length + 1;
+                zakaznik = {
+                    id_zakaznika: newZakaznikId,
+                    jmeno,
+                    prijmeni,
+                    email,
+                    hash_hesla: "$2a$12$newGeneratedHashRandom123",
+                    telefon
+                };
+                db.ZAKAZNIK.push(zakaznik);
+            }
+
+            // 2. Create ADRESA
+            const newAdresaId = db.ADRESA.length + 1;
+            const adresa = {
+                id_adresy: newAdresaId,
+                id_zakaznika: zakaznik.id_zakaznika,
+                ulice,
+                mesto,
+                PSC: psc,
+                stat
+            };
+            db.ADRESA.push(adresa);
+
+            // 3. Create OBJEDNAVKA
+            const newObjednavkaId = 1000 + db.OBJEDNAVKA.length + 1;
+            const now = new Date();
+            const createdFormatted = now.toISOString().replace('T', ' ').substring(0, 19);
+
+            const objednavka = {
+                id_objednavky: newObjednavkaId,
+                id_zakaznika: zakaznik.id_zakaznika,
+                id_dorucovaci_adresy: adresa.id_adresy,
+                vytvoreno: createdFormatted,
+                stav: "Nová",
+                zpusob_platby: payment,
+                stav_platby: payment === "Karta online" ? "Zaplaceno" : "Čeká na platbu",
+                zpusob_dopravy: shipping
+            };
+            db.OBJEDNAVKA.push(objednavka);
+
+            // 4. Create POLOZKA_OBJEDNAVKY for each cart item
+            cart.forEach(item => {
+                const hra = db.HRA.find(h => h.id_hry === item.id_hry);
+                if(hra) {
+                    db.POLOZKA_OBJEDNAVKY.push({
+                        id_objednavky: newObjednavkaId,
+                        id_hry: item.id_hry,
+                        mnozstvi: item.mnozstvi,
+                        cena_za_kus: hra.cena
+                    });
+
+                    // Update stock quantity
+                    hra.skladove_mnozstvi = Math.max(0, hra.skladove_mnozstvi - item.mnozstvi);
+                }
+            });
+
+            // Reset Cart & UI State
+            cart = [];
+            updateCartBadge();
+            renderCart();
+            renderOrders();
+            renderErdExplorer();
+            populateUserSelector();
+
+            showToast(`Objednávka #${newObjednavkaId} byla úspěšně vytvořena!`);
+            navigateTo('orders');
+        }
+
+        // ==========================================
+        // ORDERS MANAGEMENT VIEW
+        // ==========================================
+
+        function renderOrders() {
+            const container = document.getElementById('orders-container');
+            const emptyState = document.getElementById('orders-empty');
+            const statusFilter = document.getElementById('order-status-filter').value;
+
+            // Sort newest first
+            let orders = [...db.OBJEDNAVKA].reverse();
+
+            if(statusFilter) {
+                orders = orders.filter(o => o.stav === statusFilter);
+            }
+
+            // Update navbar badge count
+            document.getElementById('order-count-badge').innerText = db.OBJEDNAVKA.length;
+            document.getElementById('order-count-badge').classList.remove('hidden');
+
+            if(orders.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = orders.map(ord => {
+                const zakaznik = db.ZAKAZNIK.find(z => z.id_zakaznika === ord.id_zakaznika);
+                const adresa = db.ADRESA.find(a => a.id_adresy === ord.id_dorucovaci_adresy);
+                const polozky = db.POLOZKA_OBJEDNAVKY.filter(p => p.id_objednavky === ord.id_objednavky);
+
+                let celkovaCena = 0;
+
+                const polozkyHtml = polozky.map(p => {
+                    const hra = db.HRA.find(h => h.id_hry === p.id_hry);
+                    const subtotal = p.mnozstvi * p.cena_za_kus;
+                    celkovaCena += subtotal;
+
+                    return `
+                        <div class="flex items-center justify-between text-xs py-2 border-b border-stone-800 last:border-0">
+                            <div class="flex items-center space-x-3">
+                                <span class="font-bold text-amber-400">${p.mnozstvi}x</span>
+                                <span class="text-stone-200 font-medium">${hra ? hra.nazev : 'Hra ID: ' + p.id_hry}</span>
+                                <span class="text-[10px] text-stone-500 font-mono">(${hra ? hra.SKU : ''})</span>
+                            </div>
+                            <div class="font-semibold text-stone-300">
+                                ${subtotal.toLocaleString('cs-CZ')} Kč
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Status styling
+                let statusBadge = 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+                if(ord.stav === 'Doručeno') statusBadge = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+                if(ord.stav === 'Nová') statusBadge = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+
+                return `
+                    <div class="bg-stone-800/60 border border-stone-800 rounded-2xl overflow-hidden shadow-xl space-y-4 p-6">
+                        <!-- Top Header -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-700/60 pb-4">
+                            <div>
+                                <div class="flex items-center space-x-3">
+                                    <h3 class="text-lg font-bold font-heading text-stone-100">Objednávka #${ord.id_objednavky}</h3>
+                                    <span class="px-3 py-0.5 text-xs font-bold rounded-full border ${statusBadge}">${ord.stav}</span>
+                                </div>
+                                <span class="text-xs text-stone-500 font-mono mt-0.5 block">Vytvořeno: ${ord.vytvoreno}</span>
+                            </div>
+
+                            <div class="text-right">
+                                <span class="text-xs text-stone-400 block">Celková částka</span>
+                                <span class="text-xl font-black text-amber-400 font-heading">${celkovaCena.toLocaleString('cs-CZ')} Kč</span>
+                            </div>
+                        </div>
+
+                        <!-- Customer & Address Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-stone-300 bg-stone-900/60 p-4 rounded-xl border border-stone-800">
+                            <div>
+                                <span class="text-[10px] text-stone-500 font-bold uppercase tracking-wider block mb-1">Zákazník (ZAKAZNIK)</span>
+                                <p class="font-bold text-stone-200">${zakaznik ? `${zakaznik.jmeno} ${zakaznik.prijmeni}` : 'Neznámý'}</p>
+                                <p class="text-stone-400">${zakaznik ? zakaznik.email : ''} | ${zakaznik ? zakaznik.telefon : ''}</p>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-stone-500 font-bold uppercase tracking-wider block mb-1">Doručovací Adresa (ADRESA)</span>
+                                <p class="font-bold text-stone-200">${adresa ? adresa.ulice : ''}</p>
+                                <p class="text-stone-400">${adresa ? `${adresa.mesto}, ${adresa.PSC}, ${adresa.stat}` : ''}</p>
+                            </div>
+                        </div>
+
+                        <!-- Payment & Shipping Details -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-400 pt-1">
+                            <div class="flex items-center space-x-4">
+                                <span>Doprava: <strong class="text-stone-200">${ord.zpusob_dopravy}</strong></span>
+                                <span>Platba: <strong class="text-stone-200">${ord.zpusob_platby}</strong> (${ord.stav_platby})</span>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex items-center space-x-2">
+                                <select onchange="updateOrderStatus(${ord.id_objednavky}, this.value)" class="bg-stone-900 border border-stone-700 text-stone-200 text-xs rounded-lg px-2 py-1 focus:outline-none">
+                                    <option value="Nová" ${ord.stav === 'Nová' ? 'selected' : ''}>Stav: Nová</option>
+                                    <option value="Zpracovává se" ${ord.stav === 'Zpracovává se' ? 'selected' : ''}>Stav: Zpracovává se</option>
+                                    <option value="Odesláno" ${ord.stav === 'Odesláno' ? 'selected' : ''}>Stav: Odesláno</option>
+                                    <option value="Doručeno" ${ord.stav === 'Doručeno' ? 'selected' : ''}>Stav: Doručeno</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Items List -->
+                        <div class="bg-stone-900/40 p-4 rounded-xl border border-stone-800 space-y-1">
+                            <span class="text-[10px] text-stone-500 font-bold uppercase tracking-wider block mb-2">Zakoupené Položky (POLOZKA_OBJEDNAVKY)</span>
+                            ${polozkyHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const ord = db.OBJEDNAVKA.find(o => o.id_objednavky === orderId);
+            if(ord) {
+                ord.stav = newStatus;
+                renderOrders();
+                renderErdExplorer();
+                showToast(`Stav objednávky #${orderId} změněn na: ${newStatus}`);
+            }
+        }
+
+        // ==========================================
+        // ERD & DATABASE EXPLORER
+        // ==========================================
+
+        function renderErdExplorer() {
+            const tabsContainer = document.getElementById('db-tabs');
+            const tables = Object.keys(db);
+
+            tabsContainer.innerHTML = tables.map(tableName => `
+                <button onclick="switchDbTab('${tableName}')" class="px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${tableName === activeDbTab ? 'bg-amber-500 text-stone-950 shadow-md' : 'bg-stone-800 text-stone-400 hover:bg-stone-700'}">
+                    ${tableName} (${db[tableName].length})
+                </button>
+            `).join('');
+
+            renderDbTable(activeDbTab);
+        }
+
+        function switchDbTab(tableName) {
+            activeDbTab = tableName;
+            renderErdExplorer();
+        }
+
+        function renderDbTable(tableName) {
+            const container = document.getElementById('db-table-content');
+            const rows = db[tableName];
+
+            if(!rows || rows.length === 0) {
+                container.innerHTML = `<p class="text-stone-500 text-xs py-4 text-center">Tabulka ${tableName} je prázdná.</p>`;
+                return;
+            }
+
+            const columns = Object.keys(rows[0]);
+
+            container.innerHTML = `
+                <table class="w-full text-left font-mono text-xs text-stone-300">
+                    <thead>
+                        <tr class="border-b border-stone-700 text-amber-400 bg-stone-900/80">
+                            ${columns.map(c => `<th class="p-3 uppercase tracking-wider font-bold">${c}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-800">
+                        ${rows.map(row => `
+                            <tr class="hover:bg-stone-800/40 transition-colors">
+                                ${columns.map(c => `<td class="p-3 text-ellipsis overflow-hidden max-w-xs">${row[c] !== null ? row[c] : 'NULL'}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // ==========================================
+        // UTILS
+        // ==========================================
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
