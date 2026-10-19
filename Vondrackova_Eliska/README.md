@@ -6,7 +6,6 @@ Kostra webu s navigací
 - Detail produktu – podrobné informace o konkrétní květině, její ceně a požadavcích na péči.
 - Košík – přehled vybraných produktů a celkové ceny objednávky.
 - O nás – informace o e-shopu a jeho zaměření.
-- Péče o květiny – rady a tipy pro správné pěstování pokojových rostlin.
 - Kontakt – kontaktní údaje a formulář pro zákazníky.
 Navigace webu
 Hlavní navigace bude umístěna v horní části stránky a umožní snadný přechod mezi jednotlivými sekcemi. Bude obsahovat logo e-shopu, odkazy na hlavní stránky a ikonu nákupního košíku.
