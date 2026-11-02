@@ -1,1 +1,13 @@
-Hra - Penalty Simulator
+Penalty Simulator
+
+#Téma
+Hra o penaltovém rozstřelu. Hráč si vybere svůj tým a soupeře, za kterého hraje počítač.
+Při střelbě kliká do brány, kam míří, při chytání kliká, kam skočí brankář.
+Každý tým má 5 penalt, při remíze rozhoduje náhlá smrt.
+Výsledky se ukládají do databáze a web zobrazuje výsledky a žebříček hráčů.
+
+#Složky
+- Hra – hra v Pythonu (pygame)
+- Databaze – SQL skript (schema.sql) a ER diagram
+- web – webové stránky
+- Docs – diagram datových toků a dokumentace
