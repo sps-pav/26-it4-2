@@ -1,0 +1,70 @@
+// Hardwario – ER diagram (paste into dbdiagram.io and export as PNG)
+
+Table users {
+  id integer [pk, increment]
+  first_name varchar(50) [not null]
+  last_name varchar(50) [not null]
+  email varchar(120) [unique, not null]
+  password_hash varchar(255) [not null]
+  role varchar(20) [not null, default: 'customer']
+  created_at timestamp
+}
+
+Table addresses {
+  id integer [pk, increment]
+  user_id integer [not null]
+  street varchar(100) [not null]
+  city varchar(60) [not null]
+  zip varchar(10) [not null]
+  country varchar(60) [not null]
+}
+
+Table categories {
+  id integer [pk, increment]
+  title varchar(60) [unique, not null]
+  description text
+}
+
+Table products {
+  id integer [pk, increment]
+  category_id integer [not null]
+  title varchar(150) [not null]
+  manufacturer varchar(60)
+  description text
+  price decimal(10,2) [not null]
+  stock integer [not null, default: 0]
+  specs json [note: 'e.g. {"socket": "AM5", "tdp_w": 105}']
+}
+
+Table orders {
+  id integer [pk, increment]
+  user_id integer [not null]
+  address_id integer [not null]
+  status varchar(20) [not null, default: 'new']
+  total decimal(10,2) [not null]
+  created_at timestamp
+}
+
+Table order_items {
+  id integer [pk, increment]
+  order_id integer [not null]
+  product_id integer [not null]
+  quantity integer [not null]
+  unit_price decimal(10,2) [not null]
+}
+
+Table configurations {
+  id integer [pk, increment]
+  user_id integer [not null]
+  name varchar(80) [not null]
+  parts json [note: 'list of product ids, e.g. [12, 45, 78]']
+  created_at timestamp
+}
+
+Ref: addresses.user_id > users.id
+Ref: products.category_id > categories.id
+Ref: orders.user_id > users.id
+Ref: orders.address_id > addresses.id
+Ref: order_items.order_id > orders.id
+Ref: order_items.product_id > products.id
+Ref: configurations.user_id > users.id
