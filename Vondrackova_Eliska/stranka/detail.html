@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     detail.html - podrobne informace o jedne kvetine
+     Cast projektu: e-shop Listnatec (pokojove kvetiny)
+     Pouzity jsou jen HTML a CSS, zadne frameworky.
+     ============================================================ -->
+<html lang="cs"> <!-- jazyk stranky = cesky -->
+<head>
+    <meta charset="UTF-8"> <!-- aby fungovala ceska diakritika -->
+    <!-- RESPONZIVNI DESIGN: tento radek rika telefonu, ze ma pouzit skutecnou sirku displeje.
+         Bez nej by telefon zobrazil web zmenseny jako na pocitaci a media queries v CSS by nefungovaly. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Detail produktu</title> <!-- text v zalozce prohlizece -->
+    <link rel="stylesheet" href="style.css"> <!-- napojeni spolecneho CSS souboru -->
+</head>
+<body>
+
+    <!-- HLAVNI MENU
+         Je na vsech strankach stejne. Obsahuje logo, odkazy na
+         hlavni stranky a odkaz na kosik (vpravo).
+         Cislo v kosiku je zatim napevno 0, pozdeji se bude brat z PHP / databaze. -->
+    <div class="menu">
+        <a class="logo" href="index.html">Listnatec</a>
+        <a href="index.html">Domů</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a class="kosik" href="kosik.html">Košík (0)</a>
+    </div>
+
+    <!-- OBSAH STRANKY (vycentrovany blok, vzhled v .obsah) -->
+    <div class="obsah">
+        <!-- odkaz zpet, aby se uzivatel nemusel vracet tlacitkem prohlizece
+             (&lt; je znak < v HTML) -->
+        <a href="katalog.html">&lt; Zpět do katalogu</a>
+
+        <!-- Zatim je to detail jen jedne kvetiny (Monstera).
+             Pozdeji se bude stranka otevirat s id produktu v adrese
+             (napr. detail.php?id=1) a data se nactou z databaze. -->
+        <h1>Monstera</h1>
+
+        <!-- fotka rostliny (trida obrazek-detail omezuje sirku, vzhled je v CSS) -->
+        <div class="obrazek obrazek-detail">fotka</div>
+
+        <!-- cena a dostupnost na sklade (zadani chce zobrazit i sklad) -->
+        <p class="cena">Cena: 399 Kč</p>
+        <p>Skladem: ano</p>
+
+        <!-- popis rostliny -->
+        <p>Monstera je oblíbená pokojová rostlina s velkými listy, které mají díry. Hodí se i pro začátečníky.</p>
+
+        <!-- pozadavky na peci (seznam odrazek) -->
+        <h2>Péče o rostlinu</h2>
+        <ul>
+            <li>Světlo: hodně světla, ale ne přímé slunce</li>
+            <li>Zálivka: když je půda nahoře suchá</li>
+            <li>Teplota: 18 až 25 °C</li>
+        </ul>
+
+        <!-- tlacitko zatim jen presmeruje na kosik, nic se opravdu nepridava -->
+        <a class="tlacitko" href="kosik.html">Přidat do košíku</a>
+    </div> <!-- konec .obsah -->
+
+    <!-- PATICKA - je stejna na vsech strankach -->
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     kosik.html - prehled vybranych produktu a celkove ceny
+     Cast projektu: e-shop Listnatec (pokojove kvetiny)
+     Pouzity jsou jen HTML a CSS, zadne frameworky.
+     ============================================================ -->
+<html lang="cs"> <!-- jazyk stranky = cesky -->
+<head>
+    <meta charset="UTF-8"> <!-- aby fungovala ceska diakritika -->
+    <!-- RESPONZIVNI DESIGN: tento radek rika telefonu, ze ma pouzit skutecnou sirku displeje.
+         Bez nej by telefon zobrazil web zmenseny jako na pocitaci a media queries v CSS by nefungovaly. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Košík</title> <!-- text v zalozce prohlizece -->
+    <link rel="stylesheet" href="style.css"> <!-- napojeni spolecneho CSS souboru -->
+</head>
+<body>
+
+    <!-- HLAVNI MENU
+         Je na vsech strankach stejne. Obsahuje logo, odkazy na
+         hlavni stranky a odkaz na kosik (vpravo).
+         Cislo v kosiku je zatim napevno 0, pozdeji se bude brat z PHP / databaze. -->
+    <div class="menu">
+        <a class="logo" href="index.html">Listnatec</a>
+        <a href="index.html">Domů</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a class="kosik" href="kosik.html">Košík (0)</a>
+    </div>
+
+    <!-- OBSAH STRANKY (vycentrovany blok, vzhled v .obsah) -->
+    <div class="obsah">
+        <h1>Košík</h1>
+
+        <!-- TABULKA KOSIKU
+             Radky jsou zatim jen ukazkova data napsana rucne.
+             Pozdeji se budou radky vypisovat z kosiku (session / databaze)
+             a pribudou tlacitka pro zmenu mnozstvi a odebrani produktu.
+             Sloupec "Celkem" = cena za kus * mnozstvi. -->
+        <table>
+            <!-- tr = radek, th = bunka hlavicky -->
+            <tr>
+                <th>Produkt</th>
+                <th>Cena za kus</th>
+                <th>Množství</th>
+                <th>Celkem</th>
+            </tr>
+            <!-- td = obycejna bunka. 399 * 1 = 399 -->
+            <tr>
+                <td>Monstera</td>
+                <td>399 Kč</td>
+                <td>1</td>
+                <td>399 Kč</td>
+            </tr>
+            <!-- 129 * 2 = 258 -->
+            <tr>
+                <td>Kaktus</td>
+                <td>129 Kč</td>
+                <td>2</td>
+                <td>258 Kč</td>
+            </tr>
+            <!-- posledni radek: soucet vsech polozek (399 + 258 = 657)
+                 colspan="3" = prvni bunka je pres tri sloupce -->
+            <tr>
+                <th colspan="3">Celková cena objednávky</th>
+                <th>657 Kč</th>
+            </tr>
+        </table>
+
+        <br>
+        <!-- odkaz "#" = zatim nikam nevede, objednavka se udela v dalsi fazi -->
+        <a class="tlacitko" href="#">Objednat</a>
+    </div> <!-- konec .obsah -->
+
+    <!-- PATICKA - je stejna na vsech strankach -->
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

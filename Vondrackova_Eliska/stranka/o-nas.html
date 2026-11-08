@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     o-nas.html - informace o e-shopu a jeho zamereni
+     Cast projektu: e-shop Listnatec (pokojove kvetiny)
+     Pouzity jsou jen HTML a CSS, zadne frameworky.
+     ============================================================ -->
+<html lang="cs"> <!-- jazyk stranky = cesky -->
+<head>
+    <meta charset="UTF-8"> <!-- aby fungovala ceska diakritika -->
+    <!-- RESPONZIVNI DESIGN: tento radek rika telefonu, ze ma pouzit skutecnou sirku displeje.
+         Bez nej by telefon zobrazil web zmenseny jako na pocitaci a media queries v CSS by nefungovaly. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - O nás</title> <!-- text v zalozce prohlizece -->
+    <link rel="stylesheet" href="style.css"> <!-- napojeni spolecneho CSS souboru -->
+</head>
+<body>
+
+    <!-- HLAVNI MENU
+         Je na vsech strankach stejne. Obsahuje logo, odkazy na
+         hlavni stranky a odkaz na kosik (vpravo).
+         Cislo v kosiku je zatim napevno 0, pozdeji se bude brat z PHP / databaze. -->
+    <div class="menu">
+        <a class="logo" href="index.html">Listnatec</a>
+        <a href="index.html">Domů</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a class="kosik" href="kosik.html">Košík (0)</a>
+    </div>
+
+    <!-- OBSAH STRANKY (vycentrovany blok, vzhled v .obsah) -->
+    <div class="obsah">
+        <h1>O nás</h1>
+
+        <!-- Kratky text o tom, co e-shop dela a proc vznikl.
+             Je to jen staticky text, nic se tu nenacita z databaze. -->
+        <p>Listnatec je e-shop, který prodává pokojové květiny. Chceme, aby si každý našel rostlinu, která se mu bude doma líbit a bude se jí dařit.</p>
+        <p>U každé květiny najdete popis, cenu a informace o péči.</p>
+        <p>Tento web vytvořil jako maturitní projekt žák 4. ročníku.</p>
+    </div> <!-- konec .obsah -->
+
+    <!-- PATICKA - je stejna na vsech strankach -->
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

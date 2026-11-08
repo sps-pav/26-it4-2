@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     kontakt.html - kontaktni udaje a formular pro zakazniky
+     Cast projektu: e-shop Listnatec (pokojove kvetiny)
+     Pouzity jsou jen HTML a CSS, zadne frameworky.
+     ============================================================ -->
+<html lang="cs"> <!-- jazyk stranky = cesky -->
+<head>
+    <meta charset="UTF-8"> <!-- aby fungovala ceska diakritika -->
+    <!-- RESPONZIVNI DESIGN: tento radek rika telefonu, ze ma pouzit skutecnou sirku displeje.
+         Bez nej by telefon zobrazil web zmenseny jako na pocitaci a media queries v CSS by nefungovaly. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Kontakt</title> <!-- text v zalozce prohlizece -->
+    <link rel="stylesheet" href="style.css"> <!-- napojeni spolecneho CSS souboru -->
+</head>
+<body>
+
+    <!-- HLAVNI MENU
+         Je na vsech strankach stejne. Obsahuje logo, odkazy na
+         hlavni stranky a odkaz na kosik (vpravo).
+         Cislo v kosiku je zatim napevno 0, pozdeji se bude brat z PHP / databaze. -->
+    <div class="menu">
+        <a class="logo" href="index.html">Listnatec</a>
+        <a href="index.html">Domů</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a class="kosik" href="kosik.html">Košík (0)</a>
+    </div>
+
+    <!-- OBSAH STRANKY (vycentrovany blok, vzhled v .obsah) -->
+    <div class="obsah">
+        <h1>Kontakt</h1>
+
+        <!-- kontaktni udaje (<br> = novy radek). Jsou vymyslene, shop je skolni projekt. -->
+        <p>E-mail: info@listnatec.cz<br>
+        Telefon: 123 456 789<br>
+        Adresa: Ukázková 1, Ostrava</p>
+
+        <h2>Napište nám</h2>
+
+        <!-- KONTAKTNI FORMULAR
+             action="#" a method="post" = zatim se nic neodesila.
+             Pozdeji se action zmeni na PHP soubor, ktery zpravu zpracuje.
+             Je potreba pridat i kontrolu na serveru (prazdna pole, spatny e-mail).
+             atribut name = podle nej bude PHP vedet, co uzivatel napsal. -->
+        <form action="#" method="post">
+            Jméno:<br>
+            <input type="text" name="jmeno"><br> <!-- jedno radkove pole -->
+            E-mail:<br>
+            <input type="text" name="email"><br>
+            Zpráva:<br>
+            <textarea name="zprava" rows="5"></textarea><br> <!-- vice radkove pole, 5 radku -->
+            <input type="submit" value="Odeslat" class="odeslat"> <!-- odesilaci tlacitko -->
+        </form>
+    </div> <!-- konec .obsah -->
+
+    <!-- PATICKA - je stejna na vsech strankach -->
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     index.html - uvodni stranka (predstaveni e-shopu, doporucene kvetiny, nabidka)
+     Cast projektu: e-shop Listnatec (pokojove kvetiny)
+     Pouzity jsou jen HTML a CSS, zadne frameworky.
+     ============================================================ -->
+<html lang="cs"> <!-- jazyk stranky = cesky -->
+<head>
+    <meta charset="UTF-8"> <!-- aby fungovala ceska diakritika -->
+    <!-- RESPONZIVNI DESIGN: tento radek rika telefonu, ze ma pouzit skutecnou sirku displeje.
+         Bez nej by telefon zobrazil web zmenseny jako na pocitaci a media queries v CSS by nefungovaly. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Domů</title> <!-- text v zalozce prohlizece -->
+    <link rel="stylesheet" href="style.css"> <!-- napojeni spolecneho CSS souboru -->
+</head>
+<body>
+
+    <!-- HLAVNI MENU
+         Je na vsech strankach stejne. Obsahuje logo, odkazy na
+         hlavni stranky a odkaz na kosik (vpravo).
+         Cislo v kosiku je zatim napevno 0, pozdeji se bude brat z PHP / databaze. -->
+    <div class="menu">
+        <a class="logo" href="index.html">Listnatec</a>
+        <a href="index.html">Domů</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a class="kosik" href="kosik.html">Košík (0)</a>
+    </div>
+
+    <!-- OBSAH STRANKY (vycentrovany blok, vzhled v .obsah) -->
+    <div class="obsah">
+        <h1>Vítejte v e-shopu Listnatec</h1>
+        <p>Prodáváme pokojové květiny pro každého. U každé rostliny najdete i rady, jak se o ni starat.</p>
+
+        <!-- DOPORUCENE KVETINY
+             Tri produkty, ktere chceme zobrazit na uvodu.
+             Pozdeji se budou nacitat z databaze (napr. podle sloupce "doporucene"). -->
+        <h2>Doporučené květiny</h2>
+
+        <!-- jedna karta produktu: obrazek, nazev, cena a odkaz na detail -->
+        <div class="produkt">
+            <div class="obrazek">fotka</div> <!-- misto pro fotku, pozdeji <img> -->
+            <h3>Monstera</h3>
+            <p class="cena">399 Kč</p>
+            <a href="detail.html">Zobrazit detail</a>
+        </div>
+
+        <div class="produkt">
+            <div class="obrazek">fotka</div>
+            <h3>Kaktus</h3>
+            <p class="cena">129 Kč</p>
+            <a href="detail.html">Zobrazit detail</a>
+        </div>
+
+        <div class="produkt">
+            <div class="obrazek">fotka</div>
+            <h3>Zamioculcas</h3>
+            <p class="cena">349 Kč</p>
+            <a href="detail.html">Zobrazit detail</a>
+        </div>
+
+        <!-- AKTUALNI NABIDKA - kratka informace o akci -->
+        <h2>Aktuální nabídka</h2>
+        <p>Tento týden jsou všechny kaktusy se slevou 10 %.</p>
+    </div> <!-- konec .obsah -->
+
+    <!-- PATICKA - je stejna na vsech strankach -->
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

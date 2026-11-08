@@ -1,0 +1,221 @@
+/* ==========================================================
+   style.css - vzhled celeho webu (Listnatec)
+   Tento soubor je spolecny pro vsechny stranky, aby mely
+   stejny design. Kazda stranka ho nacita pres <link>.
+   ========================================================== */
+
+/* ---------- zakladni nastaveni cele stranky ---------- */
+body {
+    font-family: Arial, sans-serif;   /* typ pisma */
+    margin: 0;                        /* zrusi vychozi okraj stranky */
+    background-color: #f2f7f0;        /* svetle zelene pozadi */
+    color: #222;                      /* barva textu (skoro cerna) */
+}
+
+/* ---------- horni menu ---------- */
+.menu {
+    background-color: #2e7d32;   /* tmave zelene pozadi listy */
+    padding: 15px;               /* vnitrni odsazeni */
+    overflow: hidden;            /* aby listu nevadil float u kosiku */
+}
+
+/* odkazy v menu */
+.menu a {
+    color: white;
+    text-decoration: none;       /* bez podtrzeni */
+    margin-right: 20px;          /* mezera mezi odkazy */
+    font-size: 18px;
+}
+
+/* po najeti mysi se odkaz podtrhne */
+.menu a:hover {
+    text-decoration: underline;
+}
+
+/* logo je jen odkaz s vetsim a tucnym pismem
+   !important je tam, aby to prebilo .menu a (jinak by zustala 18px) */
+.logo {
+    font-weight: bold;
+    font-size: 24px !important;
+}
+
+/* kosik je v menu uplne vpravo */
+.kosik {
+    float: right;
+    margin-right: 0 !important;  /* vpravo uz zadna mezera neni potreba */
+}
+
+/* ---------- hlavni obsah stranky ---------- */
+.obsah {
+    max-width: 900px;            /* na velkem monitoru max. 900px, na mensim se zmensi */
+    margin: 0 auto;              /* auto zleva i zprava = vycentrovani */
+    padding: 20px;
+}
+
+/* nadpisy */
+h1 {
+    color: #1b5e20;
+}
+
+/* ---------- karty produktu (katalog, uvodni strana) ---------- */
+.produkt {
+    display: inline-block;       /* produkty se radi vedle sebe */
+    width: 250px;
+    background-color: white;
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin: 10px;
+    vertical-align: top;         /* karty se zarovnaji nahoru */
+}
+
+/* misto pro fotku - zatim jen zeleny obdelnik se slovem "fotka" */
+.obrazek {
+    background-color: #c8e6c9;
+    height: 120px;
+    text-align: center;
+    line-height: 120px;          /* stejne jako vyska = text uprostred */
+    font-size: 16px;
+}
+
+/* cena je cervena a tucna, aby byla videt */
+.cena {
+    font-weight: bold;
+    color: #b71c1c;
+}
+
+/* ---------- tlacitko (je to odkaz <a>, ktery vypada jako tlacitko) ---------- */
+.tlacitko {
+    background-color: #2e7d32;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* tmavsi barva po najeti mysi */
+.tlacitko:hover {
+    background-color: #1b5e20;
+}
+
+/* ---------- tabulka v kosiku ---------- */
+table {
+    border-collapse: collapse;   /* spoji ohraniceni bunek do jedne cary */
+    width: 100%;
+    background-color: white;
+}
+
+/* th = hlavicka, td = obycejna bunka */
+th, td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+}
+
+/* hlavicka tabulky ma svetle zelene pozadi */
+th {
+    background-color: #a5d6a7;
+}
+
+/* ---------- formular v kontaktu ---------- */
+input, textarea {
+    width: 300px;
+    max-width: 100%;             /* na uzkem displeji pole nepretece mimo obrazovku */
+    padding: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;      /* padding se pocita do sirky, aby pole nebylo sirsi nez 100 % */
+}
+
+/* tlacitko Odeslat (drive bylo stylovane primo v HTML) */
+input.odeslat {
+    width: 100px;
+}
+
+/* fotka na strance detailu - sirka max 300px, na mobilu se zmensi */
+.obrazek-detail {
+    max-width: 300px;
+}
+
+/* ---------- paticka ---------- */
+.paticka {
+    text-align: center;
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px;
+    margin-top: 30px;            /* mezera mezi obsahem a patickou */
+}
+
+/* ==========================================================
+   RESPONZIVNI DESIGN
+   @media = pravidla, ktera se pouziji jen kdyz je splnena podminka.
+   max-width: 800px znamena "obrazovka je 800px siroka nebo uzsi"
+   (tablet a mobil). Pravidla jsou psana od nejvetsi obrazovky
+   k nejmensi, protoze pozdejsi pravidlo prebije drivejsi.
+   ========================================================== */
+
+/* ---------- TABLET (do 800px) ---------- */
+@media (max-width: 800px) {
+
+    /* menu: odkazy se muzou zalamovat na dalsi radek */
+    .menu a {
+        display: inline-block;   /* aby mela kazda polozka vlastni vysku a mezery */
+        margin-bottom: 8px;
+    }
+
+    /* karty produktu: dve vedle sebe misto tri
+       calc(50% - 20px) = polovina sirky minus okraje (margin 10px z kazde strany) */
+    .produkt {
+        width: calc(50% - 20px);
+        box-sizing: border-box;  /* padding a border se pocitaji do sirky */
+    }
+}
+
+/* ---------- MOBIL (do 500px) ---------- */
+@media (max-width: 500px) {
+
+    /* mensi odsazeni, at zbyde vic mista na obsah */
+    .obsah {
+        padding: 10px;
+    }
+
+    /* logo je na vlastnim radku nad ostatnimi odkazy */
+    .logo {
+        display: block !important;
+        margin-bottom: 10px;
+    }
+
+    /* kosik uz neni vpravo (float), je normalne mezi odkazy */
+    .kosik {
+        float: none;
+        margin-right: 20px !important;
+    }
+
+    /* odkazy v menu trochu mensi, aby se vesly na radek */
+    .menu a {
+        font-size: 16px;
+    }
+
+    /* karty produktu: jedna pod druhou pres celou sirku */
+    .produkt {
+        display: block;          /* uz ne vedle sebe */
+        width: auto;             /* sirka podle obrazovky */
+        margin: 10px 0;
+    }
+
+    /* tabulka kosiku: mensi pismo a mene mista kolem textu */
+    th, td {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    /* nadpisy zmensime, aby se nelamaly po jednom slove */
+    h1 {
+        font-size: 24px;
+    }
+
+    /* tlacitko pres celou sirku, aby se na nej dobre klikalo prstem */
+    .tlacitko {
+        display: block;
+        text-align: center;
+    }
+}
