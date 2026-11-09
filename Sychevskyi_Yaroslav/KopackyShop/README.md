@@ -6,10 +6,10 @@
 
 ## Jak to spustit (Windows)
 1. Otevři příkazový řádek ve složce `KopackyShop`.
-2. `python -m venv .venv`
+2. `py -m venv .venv`
 3. `.venv\Scripts\activate`
-4. `pip install -r requirements.txt`
-5. `python app.py`
+4. `py -m pip install -r requirements.txt`
+5. `py app.py`
 6. V prohlížeči otevři **http://127.0.0.1:5000**.
 
 Na macOS/Linux se prostředí aktivuje pomocí `source .venv/bin/activate`.
@@ -43,3 +43,7 @@ Doplň autora a vlastní texty, přidej vlastní fotografie kopaček s povolení
 
 ## Omezení
 Platba se jen simuluje; neukládají se skutečná platební data. Obrázky jsou zatím jednoduché symboly bot. Pro školní lokální provoz, nikoliv veřejný produkční e-shop.
+
+
+## Fotografie produktů
+Projekt používá vlastní lokální SVG ilustrace v `static/images/`, takže se obrázky zobrazí i bez připojení k externím webům. Další produkt přidáš v `databaze/data.sql` a jeho obrázek vložíš do `static/images/`.

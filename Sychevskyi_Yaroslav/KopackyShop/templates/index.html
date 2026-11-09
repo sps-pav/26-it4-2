@@ -1,11 +1,7 @@
-{% extends 'base.html' %}
-{% block obsah %}
-<!-- Úvodní stránka s krátkým představením obchodu. -->
-<section class="hero"><div><p class="stitek">FOTBAL ZAČÍNÁ TADY</p><h1>Najdi svoje nové kopačky.</h1><p>Nike, Adidas nebo Puma? Vyber si kopačky podle toho, kde hraješ.</p><a class="tlacitko" href="{{ url_for('produkty') }}">Prohlédnout kopačky →</a></div><div class="balon">⚽</div></section>
-<form class="filtry" action="{{ url_for('produkty') }}" method="get">
-  <input type="text" name="hledat" placeholder="Hledej kopačky nebo značku...">
-  <button type="submit">Vyhledat</button>
-</form>
-<h2>Vybrané kopačky</h2>
-<div class="mrizka">{% for p in produkty %}<article class="karta"><div class="ilustrace">👟</div><small>{{ p.znacka }}</small><h3>{{ p.nazev }}</h3><strong>{{ p.cena }} Kč</strong><a class="tlacitko" href="{{ url_for('detail', pid=p.id) }}">Detail produktu</a></article>{% endfor %}</div>
+{% extends 'base.html' %}{% block obsah %}
+<section class="hero"><div class="hero-text"><p class="stitek">VÝBAVA PRO KAŽDÝ ZÁPAS</p><h1>Kopačky, které<br><span>hrají s tebou.</span></h1><p>Objev svůj styl hry. Vyber si z nabídky Nike, Adidas a Puma.</p>
+<form class="hero-search" action="{{ url_for('produkty') }}" method="get"><input name="hledat" placeholder="Hledat značku nebo model…"><button type="submit">Hledat <span>→</span></button></form>
+<a class="text-link" href="{{ url_for('produkty') }}">Prohlédnout celý katalog →</a></div><div class="hero-art"><div class="hero-glow"></div><img src="{{ url_for('static', filename='images/kopacky-1.svg') }}" alt="Fotbalové kopačky"></div></section>
+<div class="section-heading"><div><p class="stitek">VYBRALI JSME PRO TEBE</p><h2>Oblíbené kopačky</h2></div><a class="text-link" href="{{ url_for('produkty') }}">Všechny produkty →</a></div>
+<div class="mrizka">{% for p in produkty %}<article class="karta"><a class="produkt-obrazek" href="{{ url_for('detail', pid=p.id) }}"><img src="{{ url_for('static', filename='images/' + p.obrazek) }}" alt="{{ p.znacka }} {{ p.nazev }}"></a><div class="produkt-info"><small>{{ p.znacka }}</small><h3>{{ p.nazev }}</h3><div class="produkt-dole"><strong>{{ '{:,.0f}'.format(p.cena).replace(',', ' ') }} Kč</strong><a class="sipka" href="{{ url_for('detail', pid=p.id) }}" aria-label="Zobrazit detail">→</a></div></div></article>{% endfor %}</div>
 {% endblock %}

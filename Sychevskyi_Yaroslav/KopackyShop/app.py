@@ -92,60 +92,70 @@ def polozky_kosiku():
 @app.route('/')
 def index():
     with db() as spojeni:
-        produkty = spojeni.execute('SELECT * FROM produkty WHERE aktivni=1 LIMIT 3').fetchall()
+        produkty = spojeni.execute('SELECT * FROM produkty WHERE aktivni=1 ORDER BY id DESC LIMIT 6').fetchall()
     return render_template('index.html', produkty=produkty)
 
 # Katalog má filtr, hledání a řazení; hodnoty jdou do SQL jen pomocí parametrů.
 # Tato stránka zobrazuje všechny kopačky.
 @app.route('/produkty')
 def produkty():
-    # Text z vyhledavaciho pole.
+
+    # Získáme text, který zákazník napsal do hledání.
     hledat = request.args.get('hledat', '').strip()
+
+    # Zjistíme, kterou kategorii zákazník vybral.
     kategorie = cele_cislo(request.args.get('kategorie'))
 
-    # Podle ceho se budou produkty razit.
+    # Zjistíme, jak chce produkty seřadit.
     razeni = request.args.get('razeni', 'nazev')
-    razeni_sql = {
-        'nazev': 'p.nazev',
-        'nejlevnejsi': 'p.cena',
-        'nejdrazsi': 'p.cena DESC'
-    }.get(razeni, 'p.nazev')
 
-    # Zakladni dotaz na aktivni produkty.
-    sql = """
+    # Připravíme možnosti řazení.
+    poradi = {
+        'nazev': 'p.nazev ASC',
+        'nejlevnejsi': 'p.cena ASC',
+        'nejdrazsi': 'p.cena DESC'
+    }
+
+    # Hledáme podle názvu, značky, popisu nebo kategorie.
+    sql = '''
         SELECT p.*, k.nazev AS kategorie
         FROM produkty p
-        JOIN kategorie k ON k.id = p.kategorie_id
+        JOIN kategorie k ON p.kategorie_id = k.id
         WHERE p.aktivni = 1
-    """
-    parametry = []
+        AND (
+            p.nazev LIKE ?
+            OR p.znacka LIKE ?
+            OR p.popis LIKE ?
+            OR k.nazev LIKE ?
+        )
+    '''
 
-    # Hledame podle nazvu, znacky nebo popisu.
-    if hledat:
-        sql += """
-            AND (
-                LOWER(p.nazev) LIKE LOWER(?)
-                OR LOWER(p.znacka) LIKE LOWER(?)
-                OR LOWER(p.popis) LIKE LOWER(?)
-                OR LOWER(k.nazev) LIKE LOWER(?)
-            )
-        """
-        text = f'%{hledat}%'
-        parametry += [text, text, text, text]
+    # Procenta znamenají, že hledaný text může být i část slova.
+    text = '%' + hledat + '%'
 
-    # Volitelny filtr kategorie.
-    if kategorie:
-        sql += ' AND p.kategorie_id = ?'
+    # Stejný text hledáme ve čtyřech sloupcích.
+    parametry = [text, text, text, text]
+
+    # Pokud zákazník vybral kategorii, omezíme výsledky.
+    if kategorie > 0:
+        sql += ' AND k.id = ?'
         parametry.append(kategorie)
 
-    sql += ' ORDER BY ' + razeni_sql
+    # Přidáme bezpečně zvolený způsob řazení.
+    sql += ' ORDER BY ' + poradi.get(razeni, poradi['nazev'])
 
+    # Otevřeme databázi.
     with db() as spojeni:
+
+        # Načteme kopačky, které odpovídají hledání.
         seznam = spojeni.execute(sql, parametry).fetchall()
+
+        # Načteme kategorie do výběrového políčka.
         kategorie_list = spojeni.execute(
-            'SELECT * FROM kategorie ORDER BY nazev'
+            'SELECT * FROM kategorie'
         ).fetchall()
 
+    # Výsledky pošleme do HTML stránky.
     return render_template(
         'produkty.html',
         produkty=seznam,
@@ -154,7 +164,6 @@ def produkty():
         zvolena_kategorie=kategorie,
         razeni=razeni
     )
-
 
 # Detail ukáže popis a dostupné velikosti vybraných kopaček.
 @app.route('/produkt/<int:pid>')

@@ -1,35 +1,4 @@
-{% extends 'base.html' %}
-{% block obsah %}
-<h1>Všechny kopačky</h1>
-
-<form class="filtry" method="get" action="{{ url_for('produkty') }}">
-  <input type="text" name="hledat" placeholder="Hledej název, značku nebo povrch" value="{{ hledat }}">
-  <select name="kategorie">
-    <option value="0">Všechny povrchy</option>
-    {% for k in kategorie_list %}
-      <option value="{{ k.id }}" {% if zvolena_kategorie == k.id %}selected{% endif %}>{{ k.nazev }}</option>
-    {% endfor %}
-  </select>
-  <select name="razeni">
-    <option value="nazev" {% if razeni == 'nazev' %}selected{% endif %}>Podle názvu</option>
-    <option value="nejlevnejsi" {% if razeni == 'nejlevnejsi' %}selected{% endif %}>Nejlevnější</option>
-    <option value="nejdrazsi" {% if razeni == 'nejdrazsi' %}selected{% endif %}>Nejdražší</option>
-  </select>
-  <button type="submit">Hledat</button>
-  <a class="tlacitko" href="{{ url_for('produkty') }}">Zrušit filtr</a>
-</form>
-
-<div class="mrizka">
-  {% for p in produkty %}
-    <article class="karta">
-      <div class="ilustrace">👟</div>
-      <small>{{ p.znacka }} · {{ p.kategorie }}</small>
-      <h3>{{ p.nazev }}</h3>
-      <strong>{{ p.cena }} Kč</strong>
-      <a class="tlacitko" href="{{ url_for('detail', pid=p.id) }}">Zobrazit</a>
-    </article>
-  {% else %}
-    <p>Žádné kopačky jsme nenašli. Zkus jiné slovo.</p>
-  {% endfor %}
-</div>
-{% endblock %}
+{% extends 'base.html' %}{% block obsah %}
+<div class="catalog-head"><p class="stitek">NAJDI SI SVŮJ MODEL</p><h1>Fotbalové kopačky</h1><p>Vyber značku, povrch nebo vyhledej konkrétní model.</p></div>
+<form class="filtry" method="get"><input name="hledat" value="{{ hledat }}" placeholder="Hledat kopačky, značku…"><select name="kategorie"><option value="0">Všechny povrchy</option>{% for k in kategorie_list %}<option value="{{ k.id }}" {% if zvolena_kategorie == k.id %}selected{% endif %}>{{ k.nazev }}</option>{% endfor %}</select><select name="razeni"><option value="nazev" {% if razeni=='nazev' %}selected{% endif %}>Podle názvu</option><option value="nejlevnejsi" {% if razeni=='nejlevnejsi' %}selected{% endif %}>Nejlevnější</option><option value="nejdrazsi" {% if razeni=='nejdrazsi' %}selected{% endif %}>Nejdražší</option></select><button type="submit">Použít filtry</button><a class="reset" href="{{ url_for('produkty') }}">Vymazat</a></form>
+<p class="pocet-produktu">Nalezeno: {{ produkty|length }} produktů</p><div class="mrizka">{% for p in produkty %}<article class="karta"><a class="produkt-obrazek" href="{{ url_for('detail', pid=p.id) }}"><img src="{{ url_for('static', filename='images/' + p.obrazek) }}" alt="{{ p.znacka }} {{ p.nazev }}"></a><div class="produkt-info"><small>{{ p.znacka }} · {{ p.kategorie }}</small><h3>{{ p.nazev }}</h3><div class="produkt-dole"><strong>{{ '{:,.0f}'.format(p.cena).replace(',', ' ') }} Kč</strong><a class="sipka" href="{{ url_for('detail', pid=p.id) }}" aria-label="Zobrazit detail">→</a></div></div></article>{% else %}<div class="empty-state"><span>⌕</span><h2>Nic jsme nenašli</h2><p>Zkus jiný název nebo vymaž filtry.</p><a class="tlacitko" href="{{ url_for('produkty') }}">Zobrazit všechny kopačky</a></div>{% endfor %}</div>{% endblock %}
