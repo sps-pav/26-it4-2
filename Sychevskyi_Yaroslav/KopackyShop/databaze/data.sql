@@ -15,14 +15,5 @@ INSERT OR IGNORE INTO produkty(id,nazev,znacka,popis,cena,kategorie_id,obrazek) 
 (10,'Street Turf','Nike','Turfy s mnoha malymi spunty na umele povrchy.',2190,2,'kopacky-10.svg'),
 (11,'Predator League TF','Adidas','Odolne turfy na umele travniky.',2390,2,'kopacky-11.svg'),
 (12,'Future Play IT','Puma','Salovky na halovy fotbal.',1890,3,'kopacky-12.svg');
-UPDATE produkty SET obrazek='kopacky-1.svg' WHERE id=1;
-UPDATE produkty SET obrazek='kopacky-2.svg' WHERE id=2;
-UPDATE produkty SET obrazek='kopacky-3.svg' WHERE id=3;
-UPDATE produkty SET obrazek='kopacky-4.svg' WHERE id=4;
-UPDATE produkty SET obrazek='kopacky-5.svg' WHERE id=5;
-UPDATE produkty SET obrazek='kopacky-6.svg' WHERE id=6;
-UPDATE produkty SET obrazek='kopacky-7.svg' WHERE id=7;
-UPDATE produkty SET obrazek='kopacky-8.svg' WHERE id=8;
-UPDATE produkty SET obrazek='kopacky-9.svg' WHERE id=9;
 INSERT OR IGNORE INTO produkt_velikost(produkt_id,velikost_id,sklad)
 SELECT p.id,v.id,5 FROM produkty p CROSS JOIN velikosti v WHERE p.id BETWEEN 1 AND 12;

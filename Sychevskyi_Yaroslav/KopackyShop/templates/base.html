@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#09090f"><title>KopačkyShop | Fotbalová výbava</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#07130d"><title>KopačkyShop | Fotbalová výbava</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
 <body>
-<header class="hlavicka"><a class="logo" href="{{ url_for('index') }}"><span class="logo-symbol">✦</span> Kopačky<span>Shop</span></a>
+<header class="hlavicka"><a class="logo" href="{{ url_for('index') }}"><span class="logo-symbol">⚽</span> Kopačky<span>Shop</span></a>
 <nav><a href="{{ url_for('index') }}">Domů</a><a href="{{ url_for('produkty') }}">Katalog</a><a href="{{ url_for('kosik') }}">Košík</a><a href="{{ url_for('o_projektu') }}">O projektu</a>
 {% if prihlaseny %}<a href="{{ url_for('moje_objednavky') }}">Objednávky</a>{% if je_admin %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}<form class="inline" action="{{ url_for('odhlaseni') }}" method="post"><button class="odkaz" type="submit">Odhlásit ({{ prihlaseny }})</button></form>{% else %}<a href="{{ url_for('prihlaseni') }}">Přihlášení</a><a class="nav-cta" href="{{ url_for('registrace') }}">Registrace</a>{% endif %}</nav></header>
 <main class="obsah">{% for zprava in get_flashed_messages() %}<div class="zprava">{{ zprava }}</div>{% endfor %}{% block obsah %}{% endblock %}</main>

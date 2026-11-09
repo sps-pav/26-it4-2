@@ -1,2 +1,0 @@
-# Sem mohou spolužáci při peer review psát chyby.
-# Formát: Datum | Kdo našel | Kde je chyba | Jak ji zopakovat | Stav

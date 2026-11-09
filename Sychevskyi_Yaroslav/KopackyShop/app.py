@@ -9,6 +9,7 @@ from db_config import DB_PATH
 app = Flask(__name__)
 # V reálném provozu nastav vlastní tajný klíč přes proměnnou prostředí.
 import os
+from pathlib import Path
 app.secret_key = os.environ.get('SECRET_KEY', 'skolni-projekt-zmenit-klic')
 
 # Každé spojení zapne cizí klíče a umožní přístup ke sloupcům podle jména.
@@ -36,6 +37,17 @@ def priprav_db():
                 spojeni.execute("INSERT INTO objednavky(uzivatel_id,stav,platba,doprava) VALUES(?,'odeslana','dobirka','kuryr')", (zakaznik_id,))
                 oid = spojeni.execute('SELECT last_insert_rowid()').fetchone()[0]
                 spojeni.execute('INSERT INTO polozky_objednavky(objednavka_id,produkt_id,velikost_id,mnozstvi,cena_za_kus) VALUES(?,?,?,?,?)', (oid,produkt_id,velikost_id,1,cena))
+
+# Obrázek produktu se hledá podle jeho ID: static/images/kopacky-<ID>.jpg (nebo png, webp, svg).
+# Když soubor neexistuje, ukáže se náhradní obrázek placeholder.svg.
+OBRAZKY = Path(__file__).parent / 'static' / 'images'
+def obrazek_produktu(produkt):
+    for pripona in ('jpg', 'jpeg', 'png', 'webp', 'svg'):
+        nazev = f'kopacky-{produkt["id"]}.{pripona}'
+        if (OBRAZKY / nazev).exists():
+            return url_for('static', filename='images/' + nazev)
+    return url_for('static', filename='images/placeholder.svg')
+app.jinja_env.globals['obrazek_produktu'] = obrazek_produktu
 
 # V šablonách bude vždy přístupné jméno a role přihlášeného uživatele.
 @app.context_processor

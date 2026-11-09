@@ -1,5 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420">
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#202033"/><stop offset="1" stop-color="#101018"/></linearGradient><linearGradient id="shoe" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset=".55" stop-color="#cbd5e1"/><stop offset="1" stop-color="#c084fc"/></linearGradient><filter id="shadow"><feGaussianBlur stdDeviation="12"/></filter></defs>
-<rect width="640" height="420" rx="28" fill="url(#bg)"/><circle cx="500" cy="90" r="130" fill="#c084fc" opacity=".12"/><ellipse cx="330" cy="325" rx="220" ry="24" fill="#000" opacity=".55" filter="url(#shadow)"/>
-<g transform="translate(55 35) rotate(-9 280 180)"><path d="M95 238 Q145 219 190 155 L245 93 Q265 75 286 96 L350 158 Q395 192 474 201 Q510 208 525 238 L514 269 Q490 287 433 286 L140 286 Q91 281 78 260Z" fill="url(#shoe)" stroke="#e2e8f0" stroke-width="5"/><path d="M95 240 Q210 256 330 248 Q430 242 520 247 L514 272 Q480 292 430 290 L140 290 Q95 285 78 263Z" fill="#c084fc"/><path d="M244 99 Q279 150 340 175 L392 196" fill="none" stroke="#64748b" stroke-width="8" opacity=".65"/><path d="M220 126 L315 177 M205 145 L302 195 M190 164 L289 211" stroke="#475569" stroke-width="8" stroke-linecap="round"/><path d="M355 191 Q395 202 437 211" stroke="#c084fc" stroke-width="15" stroke-linecap="round"/><path d="M105 275 L120 300 M190 282 L202 308 M290 283 L300 308 M390 282 L400 307 M480 275 L488 297" stroke="#e2e8f0" stroke-width="9" stroke-linecap="round"/><path d="M130 225 Q230 241 345 228" fill="none" stroke="#fff" stroke-width="5" opacity=".55"/></g>
-<text x="30" y="385" fill="#a1a1aa" font-family="Arial,sans-serif" font-size="17" letter-spacing="3">KOPACKYSHOP • MATCH READY</text></svg>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#14402a"/><stop offset="1" stop-color="#07130d"/></linearGradient>
+<linearGradient id="shoe" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f288bc"/><stop offset=".55" stop-color="#ec4899"/><stop offset="1" stop-color="#992e63"/></linearGradient>
+<filter id="shadow"><feGaussianBlur stdDeviation="12"/></filter>
+</defs>
+<rect width="640" height="420" rx="28" fill="url(#bg)"/>
+<g fill="none" stroke="#4ade80" stroke-opacity=".14" stroke-width="3"><circle cx="320" cy="360" r="120"/><path d="M0 360 H640"/><rect x="190" y="372" width="260" height="60"/></g>
+<circle cx="520" cy="80" r="130" fill="#ec4899" opacity=".10"/>
+<ellipse cx="330" cy="330" rx="220" ry="22" fill="#000" opacity=".55" filter="url(#shadow)"/>
+<g transform="translate(55 35) rotate(-9 280 180)">
+
+<path d="M95 238 Q145 219 190 155 L245 93 Q265 75 286 96 L350 158 Q395 192 474 201 Q510 208 525 238 L514 269 Q490 287 433 286 L140 286 Q91 281 78 260Z" fill="url(#shoe)" stroke="#76244c" stroke-width="5"/>
+<path d="M95 240 Q210 256 330 248 Q430 242 520 247 L514 272 Q480 292 430 290 L140 290 Q95 285 78 263Z" fill="#c08a4a"/>
+<path d="M80 270 Q95 296 140 297 L430 297 Q496 297 514 276 L514 268 Q480 288 430 288 L140 288 Q95 284 80 262Z" fill="#c08a4a"/><path d="M130 292 L440 292" stroke="#f3e2c0" stroke-width="3" stroke-dasharray="10 8" opacity=".7"/>
+<path d="M150 252 Q300 262 410 205 Q360 232 300 244 Q220 258 150 252Z" fill="#f8fafc"/><path d="M270 120 Q330 170 392 196" fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+<path d="M244 99 Q279 150 340 175 L392 196" fill="none" stroke="#f8fafc" stroke-width="7" opacity=".55"/>
+<path d="M220 126 L315 177 M205 145 L302 195 M190 164 L289 211" stroke="#f8fafc" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+<path d="M130 225 Q230 241 345 228" fill="none" stroke="#fff" stroke-width="4" opacity=".4"/>
+</g>
+<text x="30" y="385" fill="#9fd8b0" font-family="Arial,sans-serif" font-size="17" letter-spacing="3">PUMA • FUTURE PLAY IT</text>
+</svg>
