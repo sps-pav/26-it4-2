@@ -1,0 +1,11 @@
+# Virtuální prostředí a soukromá databáze se na GitHub neposílají.
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.db
+.idea/
+.vscode/
+*.zip
+*.exe

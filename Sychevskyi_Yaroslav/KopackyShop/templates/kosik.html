@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block obsah %}<h1>Tvůj košík</h1>
+{% for p in polozky %}<div class="radek"><div><strong>{{ p.nazev }}</strong><p>Velikost {{ p.velikost }} · {{ p.cena }} Kč / kus · skladem {{ p.sklad }}</p></div><form method="post" action="{{ url_for('upravit_kosik') }}"><input type="hidden" name="klic" value="{{ p.klic }}"><input class="male" type="number" name="mnozstvi" value="{{ p.mnozstvi }}" min="0"><button>Upravit (0 = odebrat)</button></form><strong>{{ p.soucet }} Kč</strong></div>{% else %}<p>Košík je zatím prázdný.</p>{% endfor %}
+{% if polozky %}<h2>Celkem: {{ celkem }} Kč</h2><a class="tlacitko" href="{{ url_for('objednat') }}">Pokračovat k objednávce →</a>{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <!-- Společné nastavení pro každou stránku. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KopačkyShop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Navigace je společná pro celý obchod. -->
+  <header class="hlavicka"><a class="logo" href="{{ url_for('index') }}">⚽ KopačkyShop</a>
+    <nav><a href="{{ url_for('index') }}">Úvod</a><a href="{{ url_for('produkty') }}">Kopačky</a><a href="{{ url_for('kosik') }}">Košík</a><a href="{{ url_for('o_projektu') }}">O projektu</a>
+    {% if prihlaseny %}<a href="{{ url_for('moje_objednavky') }}">Moje objednávky</a>{% if je_admin %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+    <form class="inline" action="{{ url_for('odhlaseni') }}" method="post"><button class="odkaz" type="submit">Odhlásit ({{ prihlaseny }})</button></form>
+    {% else %}<a href="{{ url_for('prihlaseni') }}">Přihlášení</a><a href="{{ url_for('registrace') }}">Registrace</a>{% endif %}</nav>
+  </header>
+  <main class="obsah">
+    <!-- Zprávy se zobrazují po přidání do košíku nebo při chybě. -->
+    {% for zprava in get_flashed_messages() %}<div class="zprava">{{ zprava }}</div>{% endfor %}
+    {% block obsah %}{% endblock %}
+  </main>
+  <footer>Školní maturitní projekt 2026/27 · Ukázkový obchod, žádné skutečné platby</footer>
+</body>
+</html>

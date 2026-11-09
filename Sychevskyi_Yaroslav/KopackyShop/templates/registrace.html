@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block obsah %}<h1>Registrace</h1><!-- POST údaje zpracuje Python, který heslo zahashuje. --><form class="formular" method="post"><label>Jméno<input name="jmeno" required></label><label>E-mail<input name="email" type="email" required></label><label>Heslo (alespoň 6 znaků)<input name="heslo" type="password" minlength="6" required></label><button>Vytvořit účet</button></form>{% endblock %}

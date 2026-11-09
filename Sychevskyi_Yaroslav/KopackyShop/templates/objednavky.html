@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block obsah %}
+
+<!-- Nadpis stránky. -->
+<h1>Moje objednávky</h1>
+
+<!-- Postupně zobrazíme objednávky zákazníka. -->
+{% for o in objednavky %}
+
+<section class="panel">
+
+    <h3>Objednávka č. {{ o.id }}</h3>
+
+    <p>Datum: {{ o.vytvoreno }}</p>
+    <p>Cena: <strong>{{ o.celkem }} Kč</strong></p>
+    <p>Stav: <strong>{{ o.stav }}</strong></p>
+
+    <!-- Tady vypíšeme kopačky v objednávce. -->
+    <ul>
+        {% for p in polozky %}
+            {% if p.objednavka_id == o.id %}
+                <li>
+                    {{ p.nazev }} – EU {{ p.velikost }}
+                    ({{ p.mnozstvi }} ks)
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <!-- Zrušení nabízíme jen u nových objednávek. -->
+    {% if o.stav == 'nova' %}
+
+    <form method="post"
+          action="{{ url_for('zrusit_objednavku', oid=o.id) }}">
+
+        <button class="zrusit" type="submit">
+            Zrušit objednávku
+        </button>
+
+    </form>
+
+    {% endif %}
+
+</section>
+
+{% else %}
+
+<p>Zatím nemáš žádné objednávky.</p>
+
+{% endfor %}
+
+{% endblock %}

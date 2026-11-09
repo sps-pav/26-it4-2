@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block obsah %}<h1>Dokončení objednávky</h1><p>Celkem: <strong>{{ celkem }} Kč</strong></p><!-- Platba je jen školní simulace. --><form class="formular" method="post"><label>Platba<select name="platba"><option value="dobirka">Dobírka</option><option value="prevod">Převodem (jen simulace)</option></select></label><label>Doprava<select name="doprava"><option value="kuryr">Kurýr</option><option value="vydejni_misto">Výdejní místo</option></select></label><button>Potvrdit objednávku</button></form>{% endblock %}

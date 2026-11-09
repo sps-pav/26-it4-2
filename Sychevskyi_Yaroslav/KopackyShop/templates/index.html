@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block obsah %}
+<!-- Úvodní stránka s krátkým představením obchodu. -->
+<section class="hero"><div><p class="stitek">FOTBAL ZAČÍNÁ TADY</p><h1>Najdi svoje nové kopačky.</h1><p>Nike, Adidas nebo Puma? Vyber si kopačky podle toho, kde hraješ.</p><a class="tlacitko" href="{{ url_for('produkty') }}">Prohlédnout kopačky →</a></div><div class="balon">⚽</div></section>
+<form class="filtry" action="{{ url_for('produkty') }}" method="get">
+  <input type="text" name="hledat" placeholder="Hledej kopačky nebo značku...">
+  <button type="submit">Vyhledat</button>
+</form>
+<h2>Vybrané kopačky</h2>
+<div class="mrizka">{% for p in produkty %}<article class="karta"><div class="ilustrace">👟</div><small>{{ p.znacka }}</small><h3>{{ p.nazev }}</h3><strong>{{ p.cena }} Kč</strong><a class="tlacitko" href="{{ url_for('detail', pid=p.id) }}">Detail produktu</a></article>{% endfor %}</div>
+{% endblock %}

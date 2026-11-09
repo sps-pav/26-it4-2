@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block obsah %}
+<!-- Každá velikost má vlastní sklad v databázi. -->
+<div class="detail"><div class="velka-ilustrace">👟</div><section><p class="stitek">{{ produkt.znacka }}</p><h1>{{ produkt.nazev }}</h1><p>{{ produkt.popis }}</p><h2>{{ produkt.cena }} Kč</h2><form method="post" action="{{ url_for('pridat_kosik', pid=produkt.id) }}"><label>Velikost<select name="velikost" required>{% for v in velikosti %}{% if v.sklad > 0 %}<option value="{{ v.id }}">EU {{ v.cislo }} (skladem {{ v.sklad }} ks)</option>{% endif %}{% endfor %}</select></label><label>Množství<input type="number" name="mnozstvi" value="1" min="1" required></label><button {% if not velikosti|selectattr('sklad','gt',0)|list %}disabled{% endif %}>Přidat do košíku</button></form></section></div>
+{% endblock %}
