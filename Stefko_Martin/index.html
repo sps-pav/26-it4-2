@@ -4,28 +4,85 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DeskoHry – e-shop s deskovými hrami</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>DeskoHry</h1>
-        <nav aria-label="Hlavní navigace">
-            <ul>
-                <li><a href="index.html">Domů</a></li>
-                <li><a href="katalog.html">Katalog her</a></li>
-                <li><a href="kosik.html">Košík</a></li>
-                <li><a href="prihlaseni.html">Přihlášení</a></li>
-                <li><a href="o-projektu.html">O projektu</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">DeskoHry</div>
+            <nav aria-label="Hlavní navigace" class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Domů</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="detail.html">Detail produktu</a></li>
+                    <li><a href="kosik.html">Košík</a></li>
+                    <li><a href="prihlaseni.html">Přihlášení</a></li>
+                    <li><a href="registrace.html">Registrace</a></li>
+                    <li><a href="o-projektu.html">O projektu</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <h2>Vítej v obchodě s deskovými hrami</h2>
-        <p>Sem doplň vlastní představení obchodu.</p>
+    <main class="container page-content">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">Moderní herní obchod</p>
+                <h1>Deskové hry pro celou rodinu</h1>
+                <p>Objevují strategie, společenské hry a výzvy pro všechny věkové kategorie.</p>
+                <div class="hero-actions">
+                    <a href="katalog.html" class="btn btn-primary">Procházet katalog</a>
+                    <a href="registrace.html" class="btn btn-secondary">Vytvořit účet</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured">
+            <h2>Nejprodávanější hry</h2>
+            <div class="card-grid">
+                <article class="product-card">
+                    <div class="image-box">
+                        <img class="product-image" src="assets/hra1.svg" alt="Veřejné impérium - obal hry">
+                    </div>
+                    <h3>Veřejné impérium</h3>
+                    <p>Strategická hra o budování říše a diplomatických sporech.</p>
+                    <div class="price-row">
+                        <span class="price">899 Kč</span>
+                        <a href="detail.html" class="btn btn-small">Detail</a>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="image-box">
+                        <img class="product-image" src="assets/hra2.svg" alt="Rytmus města - obal hry">
+                    </div>
+                    <h3>Rytmus města</h3>
+                    <p>Kooperativní hra s kombinací plánování a rozhodování.</p>
+                    <div class="price-row">
+                        <span class="price">749 Kč</span>
+                        <a href="detail.html" class="btn btn-small">Detail</a>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="image-box">
+                        <img class="product-image" src="assets/hra3.svg" alt="Střety v lese - obal hry">
+                    </div>
+                    <h3>Střety v lese</h3>
+                    <p>Rychlá taktická hra pro 2–4 hráče s náhodnými výzvami.</p>
+                    <div class="price-row">
+                        <span class="price">599 Kč</span>
+                        <a href="detail.html" class="btn btn-small">Detail</a>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>Školní projekt – Martin Štefko</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p></p>
+        </div>
     </footer>
 </body>
 </html>

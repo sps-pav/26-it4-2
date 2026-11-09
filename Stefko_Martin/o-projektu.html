@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>O projektu – DeskoHry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">DeskoHry</div>
+            <nav aria-label="Hlavní navigace" class="main-nav">
+                <ul>
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="detail.html">Detail produktu</a></li>
+                    <li><a href="kosik.html">Košík</a></li>
+                    <li><a href="prihlaseni.html">Přihlášení</a></li>
+                    <li><a href="registrace.html">Registrace</a></li>
+                    <li><a href="o-projektu.html" class="active">O projektu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <h1>O projektu</h1>
+        <div class="panel">
+            <p>Tento projekt je inspirací pro maturitní práci v podobě e-shopu zaměřeného na deskové hry.</p>
+            <p>Webový obchod obsahuje katalog, detail produktu, košík, registraci a přihlášení. V pozdější fázi bude doplněna administrace, databáze a logika objednávek.</p>
+        </div>
+
+        <div class="panel" style="margin-top: 24px;">
+            <h2>ER diagram</h2>
+            <p>V návrhu databáze budou použity tabulky pro zákazníky, adresy, objednávky, položky, hry, kategorie a role.</p>
+            <ul>
+                <li>Uživatel – zákazník / administrátor</li>
+                <li>Hra – základní informace o produktu</li>
+                <li>Objednávka – informace o nákupu</li>
+                <li>Položka objednávky – množství a cena za kus</li>
+                <li>Kategorie – třídění produktů</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>DeskoHry • O projektu</p></div>
+    </footer>
+</body>
+</html>

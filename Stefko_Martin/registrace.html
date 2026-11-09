@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrace – DeskoHry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">DeskoHry</div>
+            <nav aria-label="Hlavní navigace" class="main-nav">
+                <ul>
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="detail.html">Detail produktu</a></li>
+                    <li><a href="kosik.html">Košík</a></li>
+                    <li><a href="prihlaseni.html">Přihlášení</a></li>
+                    <li><a href="registrace.html" class="active">Registrace</a></li>
+                    <li><a href="o-projektu.html">O projektu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <h1>Registrace</h1>
+        <div class="panel" style="max-width: 620px;">
+            <form>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="name">Jméno</label>
+                        <input id="name" type="text" placeholder="Martin">
+                    </div>
+                    <div class="form-field">
+                        <label for="surname">Příjmení</label>
+                        <input id="surname" type="text" placeholder="Novák">
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-email">E-mail</label>
+                    <input id="reg-email" type="email" placeholder="uzivatel@seznam.cz">
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-password">Heslo</label>
+                    <input id="reg-password" type="password" placeholder="Min. 8 znaků">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrovat</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>DeskoHry • Registrace</p></div>
+    </footer>
+</body>
+</html>
