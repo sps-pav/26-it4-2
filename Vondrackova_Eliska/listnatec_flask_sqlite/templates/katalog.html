@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Katalog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="menu">
+        <a class="logo" href="{{ url_for('index') }}">Listnatec</a>
+        <a href="{{ url_for('index') }}">Domů</a>
+        <a href="{{ url_for('katalog') }}">Katalog</a>
+        <a href="{{ url_for('o_nas') }}">O nás</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        <a class="kosik" href="{{ url_for('kosik') }}">Košík</a>
+    </div>
+
+    <div class="obsah">
+        <h1>Katalog květin</h1>
+
+        <form class="filtry" method="get" action="{{ url_for('katalog') }}">
+            <p>
+                Kategorie:
+                <select name="kategorie">
+                    <option value="">Všechny kategorie</option>
+                    {% for kat in kategorie %}
+                        <option value="{{ kat.id_kategorie }}" {% if vybrana_kategorie == kat.id_kategorie|string %}selected{% endif %}>
+                            {{ kat.nazev }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                Max. cena (Kč):
+                <input type="number" name="max_cena" min="0" value="{{ max_cena }}">
+            </p>
+
+            <p>
+                Hledat název:
+                <input type="text" name="hledat" value="{{ hledat }}">
+
+                <label>
+                    <input type="checkbox" name="skladem" value="1" {% if jen_skladem == '1' %}checked{% endif %}>
+                    Jen skladem
+                </label>
+            </p>
+
+            <p>
+                <button type="submit" class="tlacitko">Filtrovat</button>
+                <a href="{{ url_for('katalog') }}">Zrušit filtry</a>
+            </p>
+        </form>
+
+        <hr>
+
+        {% if produkty|length == 0 %}
+            <p>Zadaným filtrům neodpovídají žádné květiny.</p>
+        {% else %}
+            {% for p in produkty %}
+                <div class="produkt">
+                    <div class="obrazek">{{ p.obrazek if p.obrazek else 'fotka' }}</div>
+                    <h3>{{ p.nazev }}</h3>
+                    <p>{{ p.popis }}</p>
+                    <p class="cena">{{ p.cena|int }} Kč</p>
+                    <p>Skladem: {% if p.sklad > 0 %}{{ p.sklad }} ks{% else %}není skladem{% endif %}</p>
+                    <a href="{{ url_for('detail', id_produkt=p.id_produkt) }}">Zobrazit detail</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

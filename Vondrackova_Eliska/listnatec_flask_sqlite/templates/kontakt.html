@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Kontakt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="menu">
+        <a class="logo" href="{{ url_for('index') }}">Listnatec</a>
+        <a href="{{ url_for('index') }}">Domů</a>
+        <a href="{{ url_for('katalog') }}">Katalog</a>
+        <a href="{{ url_for('o_nas') }}">O nás</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        <a class="kosik" href="{{ url_for('kosik') }}">Košík</a>
+    </div>
+
+    <div class="obsah">
+        <h1>Kontakt</h1>
+
+        <p>E-mail: info@listnatec.cz<br>
+        Telefon: 123 456 789<br>
+        Adresa: Ukázková 1, Ostrava</p>
+
+        <h2>Napište nám</h2>
+
+        {% if odeslano %}
+            <p><strong>Zpráva byla uložena do databáze. Děkujeme.</strong></p>
+        {% endif %}
+
+        <form action="{{ url_for('kontakt') }}" method="post">
+            Jméno:<br>
+            <input type="text" name="jmeno" required><br>
+            E-mail:<br>
+            <input type="text" name="email" required><br>
+            Zpráva:<br>
+            <textarea name="zprava" rows="5" required></textarea><br>
+            <input type="submit" value="Odeslat" class="odeslat">
+        </form>
+    </div>
+
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>
