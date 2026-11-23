@@ -2,9 +2,12 @@
 import pygame
 import random
 import menu
+import db
+import time
 
 # Inicializace hry
 pygame.init()
+db.init_db()  # vytvoří databázi a tabulku, pokud ještě neexistují
 
 # Nastavení obrazovky
 WIDTH = 300
@@ -50,6 +53,8 @@ def new_piece():
 piece = new_piece()
 score = 0
 running = True
+game_over = False
+lines_total = 0
 
 # Kontrola kolize
 def collision(piece, dx, dy):
@@ -80,12 +85,13 @@ def place_piece(piece):
 
 # Odstranění plných řádků
 def clear_lines():
-    global grid, score
+    global grid, score, lines_total
 
     new_grid = [row for row in grid if not all(row)]
 
     removed = 20 - len(new_grid)
     score += removed * 100
+    lines_total += removed
 
     for i in range(removed):
         new_grid.insert(0, [0 for x in range(10)])
@@ -99,6 +105,7 @@ if not menu.main_menu(screen):
 
 # Hlavní smyčka hry
 fall_time = 0
+start_time = time.time()
 
 while running:
     screen.fill((20, 20, 20))
@@ -121,11 +128,6 @@ while running:
                 if not collision(piece, 1, 0):
                     piece[2] += 1
 
-            # Rychlejší padání
-            if event.key == pygame.K_DOWN:
-                if not collision(piece, 0, 1):
-                    piece[3] += 1
-
             # Otočení kostky
             if event.key == pygame.K_UP:
                 rotated = piece[0]
@@ -139,8 +141,12 @@ while running:
                 if not menu.pause_menu(screen):
                     running = False
 
+    # Rychlost padání: když držíš šipku dolů, kostka padá rychleji
+    keys = pygame.key.get_pressed()
+    fall_speed = 50 if keys[pygame.K_DOWN] else 500
+
     # Padání kostky
-    if fall_time > 500:
+    if fall_time > fall_speed:
         if not collision(piece, 0, 1):
             piece[3] += 1
         else:
@@ -150,6 +156,7 @@ while running:
 
             # Kontrola konce hry
             if collision(piece, 0, 0):
+                game_over = True
                 running = False
 
         fall_time = 0
@@ -183,7 +190,13 @@ while running:
     pygame.display.update()
     clock.tick(60)
 
-# Uložení nejlepšího skóre
-menu.save_highscore(score)
+# Po konci hry se zeptáme na jméno a uložíme skóre do databáze
+if game_over:
+    name = menu.name_input(screen, score)
+    if name is not None:
+        duration = int(time.time() - start_time)
+        unlocked = db.save_game(name, score, lines_total, duration)
+        if unlocked:
+            menu.show_achievements(screen, unlocked)
 
 pygame.quit()
