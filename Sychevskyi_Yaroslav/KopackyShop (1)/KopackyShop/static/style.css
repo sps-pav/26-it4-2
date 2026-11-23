@@ -1,0 +1,168 @@
+/* Jednoduchý styl - tmavě zelená a bílá */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0b2a14;
+    color: white;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    color: #7CFC00;
+}
+
+/* hlavička */
+.hlavicka {
+    background-color: #06180c;
+    text-align: center;
+    padding: 15px;
+    border-bottom: 3px solid #7CFC00;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.hlavicka nav {
+    margin-top: 10px;
+}
+
+.hlavicka nav a {
+    margin: 0 10px;
+}
+
+.inline {
+    display: inline;
+}
+
+/* hlavní obsah */
+.obsah {
+    width: 900px;
+    max-width: 90%;
+    margin: 20px auto;
+    flex: 1;
+}
+
+.zprava {
+    background-color: #7CFC00;
+    color: black;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* formuláře */
+input, select {
+    padding: 6px;
+    margin: 4px;
+}
+
+button, .tlacitko {
+    background-color: #7CFC00;
+    color: black;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:disabled {
+    background-color: gray;
+}
+
+.odkaz {
+    background: none;
+    color: #7CFC00;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.zrusit {
+    background-color: red;
+    color: white;
+}
+
+.formular label, .filtry label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.formular input, .formular select {
+    display: block;
+}
+
+/* seznam kopaček */
+.mrizka {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.karta {
+    background-color: #123d1e;
+    border: 1px solid #7CFC00;
+    padding: 10px;
+    width: 250px;
+}
+
+.karta img {
+    width: 100%;
+}
+
+.produkt-dole {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* detail */
+.detail {
+    display: flex;
+    gap: 20px;
+}
+
+.detail img {
+    width: 400px;
+    max-width: 100%;
+}
+
+/* košík, admin, objednávky */
+.panel {
+    background-color: #123d1e;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.radek {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #2d5a40;
+    padding: 8px 0;
+}
+
+.statistiky {
+    display: flex;
+    gap: 15px;
+}
+
+.male {
+    font-size: 13px;
+}
+
+/* patička */
+footer {
+    background-color: #06180c;
+    text-align: center;
+    padding: 15px;
+}
+
+/* na mobilu pod sebou */
+@media (max-width: 700px) {
+    .detail, .statistiky {
+        flex-direction: column;
+    }
+}

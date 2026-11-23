@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block obsah %}
+<h1>Fotbalové kopačky</h1>
+<p>Nabídka kopaček Nike, Adidas a Puma.</p>
+
+<form action="{{ url_for('produkty') }}" method="get">
+    <input name="hledat" placeholder="Hledat kopačky">
+    <button type="submit">Hledat</button>
+</form>
+
+<h2>Nejnovější kopačky</h2>
+<div class="mrizka">
+    {% for p in produkty %}
+    <div class="karta">
+        <a href="{{ url_for('detail', pid=p.id) }}"><img src="{{ obrazek_produktu(p) }}" alt="{{ p.znacka }} {{ p.nazev }}"></a>
+        <p>{{ p.znacka }}</p>
+        <h3>{{ p.nazev }}</h3>
+        <div class="produkt-dole">
+            <strong>{{ p.cena }} Kč</strong>
+            <a href="{{ url_for('detail', pid=p.id) }}">Detail</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
