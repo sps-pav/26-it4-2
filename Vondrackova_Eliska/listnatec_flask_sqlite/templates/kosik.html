@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Košík</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="menu">
+        <a class="logo" href="{{ url_for('index') }}">Listnatec</a>
+        <a href="{{ url_for('index') }}">Domů</a>
+        <a href="{{ url_for('katalog') }}">Katalog</a>
+        <a href="{{ url_for('o_nas') }}">O nás</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        <a class="kosik" href="{{ url_for('kosik') }}">Košík</a>
+    </div>
+
+    <div class="obsah">
+        <h1>Košík</h1>
+
+        {% if polozky|length == 0 %}
+            <p>Košík je zatím prázdný.</p>
+        {% else %}
+            <table>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Cena za kus</th>
+                    <th>Množství</th>
+                    <th>Celkem</th>
+                </tr>
+                {% for item in polozky %}
+                    <tr>
+                        <td>{{ item.nazev }}</td>
+                        <td>{{ item.cena|int }} Kč</td>
+                        <td>{{ item.mnozstvi }}</td>
+                        <td>{{ item.celkem|int }} Kč</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th colspan="3">Celková cena objednávky</th>
+                    <th>{{ celkova_cena|int }} Kč</th>
+                </tr>
+            </table>
+
+            <h2>Dokončit objednávku</h2>
+            <form method="post" action="{{ url_for('objednat') }}">
+                Jméno příjemce:<br>
+                <input type="text" name="jmeno_prijemce" required><br>
+                Adresa:<br>
+                <input type="text" name="adresa" required><br>
+                Město:<br>
+                <input type="text" name="mesto" required><br>
+                PSČ:<br>
+                <input type="text" name="psc" maxlength="5" required><br>
+                <button type="submit" class="tlacitko">Objednat</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

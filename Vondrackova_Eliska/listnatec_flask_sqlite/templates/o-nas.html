@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - O nás</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="menu">
+        <a class="logo" href="{{ url_for('index') }}">Listnatec</a>
+        <a href="{{ url_for('index') }}">Domů</a>
+        <a href="{{ url_for('katalog') }}">Katalog</a>
+        <a href="{{ url_for('o_nas') }}">O nás</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        <a class="kosik" href="{{ url_for('kosik') }}">Košík</a>
+    </div>
+
+    <div class="obsah">
+        <h1>O nás</h1>
+        <p>Listnatec je e-shop, který prodává pokojové květiny. Chceme, aby si každý našel rostlinu, která se mu bude doma líbit a bude se jí dařit.</p>
+        <p>U každé květiny najdete popis, cenu a informace o péči.</p>
+        <p>Tento web vytvořil jako maturitní projekt žák 4. ročníku.</p>
+    </div>
+
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

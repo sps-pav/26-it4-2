@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart – Hardwario</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="index.html">Hardwario</a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html#categories">Categories</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="#">Configurator</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="#">Log in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="cart">
+      <h1 class="page-title">Your cart</h1>
+
+      <div class="cart-layout">
+
+        <form class="cart-items" action="#" method="post">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Subtotal</th>
+                  <th scope="col"><span class="visually-hidden">Remove</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="cart-product">
+                      <div class="cart-thumb" aria-hidden="true">CPU</div>
+                      <div>
+                        <a href="product.html">Ryzen 5 7600X</a>
+                        <p class="category">Processors</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>6 490 Kč</td>
+                  <td><input type="number" name="qty_1" min="1" max="10" value="1" aria-label="Quantity of Ryzen 5 7600X"></td>
+                  <td class="subtotal">6 490 Kč</td>
+                  <td><button class="link-button" type="submit" name="remove" value="1">Remove</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cart-product">
+                      <div class="cart-thumb" aria-hidden="true">MB</div>
+                      <div>
+                        <a href="#">B650 Gaming WiFi</a>
+                        <p class="category">Motherboards</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>4 990 Kč</td>
+                  <td><input type="number" name="qty_2" min="1" max="10" value="1" aria-label="Quantity of B650 Gaming WiFi"></td>
+                  <td class="subtotal">4 990 Kč</td>
+                  <td><button class="link-button" type="submit" name="remove" value="2">Remove</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cart-product">
+                      <div class="cart-thumb" aria-hidden="true">SSD</div>
+                      <div>
+                        <a href="#">NVMe SSD 1 TB</a>
+                        <p class="category">Storage</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>1 890 Kč</td>
+                  <td><input type="number" name="qty_3" min="1" max="10" value="2" aria-label="Quantity of NVMe SSD 1 TB"></td>
+                  <td class="subtotal">3 780 Kč</td>
+                  <td><button class="link-button" type="submit" name="remove" value="3">Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="actions">
+            <button class="button secondary" type="submit" name="action" value="update_cart">Update cart</button>
+            <a class="button-link" href="index.html">Continue shopping</a>
+          </div>
+        </form>
+
+        <aside class="summary" aria-label="Order summary">
+          <h2>Summary</h2>
+          <dl>
+            <div><dt>Items</dt><dd>4</dd></div>
+            <div><dt>Subtotal</dt><dd>15 260 Kč</dd></div>
+            <div class="total"><dt>Total (incl. VAT)</dt><dd>15 260 Kč</dd></div>
+          </dl>
+          <a class="button" href="#">Go to checkout</a>
+        </aside>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Hardwario – school project, IT4 2026/27</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ryzen 5 7600X – Hardwario</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="index.html">Hardwario</a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html#categories">Categories</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="#">Configurator</a></li>
+          <li><a href="#">Cart</a></li>
+          <li><a href="#">Log in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> /
+      <a href="#">Processors</a> /
+      <span>Ryzen 5 7600X</span>
+    </nav>
+
+    <section class="product-detail">
+
+      <!-- Image: replace the placeholder with <img src="images/ryzen-5-7600x.jpg" alt="Ryzen 5 7600X"> -->
+      <div class="product-image" role="img" aria-label="Product image placeholder">CPU</div>
+
+      <div class="product-info">
+        <p class="category">Processors</p>
+        <h1>Ryzen 5 7600X</h1>
+        <p class="stock">In stock</p>
+        <p class="price-large">6 490 Kč</p>
+
+        <form class="buy" action="#" method="post">
+          <label for="qty">Quantity</label>
+          <input id="qty" name="qty" type="number" min="1" max="10" value="1">
+
+          <div class="actions">
+            <button class="button" type="submit" name="action" value="add_to_cart">Add to cart</button>
+            <button class="button secondary" type="submit" name="action" value="add_to_configuration">Add to configuration</button>
+          </div>
+        </form>
+
+        <p class="note">Add to configuration puts this part into your PC build, where we check it fits with the other parts.</p>
+      </div>
+    </section>
+
+    <section class="product-description">
+      <h2>Description</h2>
+      <p>
+        A fast six-core processor for gaming and everyday work. It runs at up to
+        5.3 GHz, fits the AM5 socket and uses DDR5 memory. It has basic integrated
+        graphics, so you can start the PC without a graphics card.
+      </p>
+      <p>
+        The processor is sold without a cooler. Pick a cooler that supports
+        the AM5 socket and a 105 W processor.
+      </p>
+    </section>
+
+    <section class="product-specs">
+      <h2>Specifications</h2>
+      <table>
+        <tbody>
+          <tr><th scope="row">Socket</th><td>AM5</td></tr>
+          <tr><th scope="row">Cores / threads</th><td>6 / 12</td></tr>
+          <tr><th scope="row">Base clock</th><td>4.7 GHz</td></tr>
+          <tr><th scope="row">Boost clock</th><td>up to 5.3 GHz</td></tr>
+          <tr><th scope="row">L3 cache</th><td>32 MB</td></tr>
+          <tr><th scope="row">Power consumption (TDP)</th><td>105 W</td></tr>
+          <tr><th scope="row">Memory type</th><td>DDR5</td></tr>
+          <tr><th scope="row">Integrated graphics</th><td>Yes</td></tr>
+          <tr><th scope="row">Cooler included</th><td>No</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Hardwario – school project, IT4 2026/27</p>
+  </footer>
+
+</body>
+</html>

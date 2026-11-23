@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Nova – rezervace</title>
+
+  <style>
+    /* Základní vzhled stránky */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f3f0ea;
+      color: #222;
+    }
+
+    header {
+      background: #1f3b57;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    header h1 {
+      margin: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    /* Karty pokojů vedle sebe */
+    .pokoje {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .pokoj {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .pokoj .ikona {
+      font-size: 50px;
+    }
+    .cena {
+      font-weight: bold;
+      color: #1f3b57;
+    }
+
+    /* Formulář */
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #1f3b57;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #142a3f;
+    }
+    .smazat {
+      background: #c0392b;
+      margin: 0;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    /* Zpráva o výsledku (chyba / úspěch) */
+    #zprava {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .chyba { color: #c0392b; }
+    .ok { color: #2e7d32; }
+
+    /* Tabulka rezervací */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #1f3b57;
+      color: white;
+    }
+
+    footer {
+      background: #1f3b57;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🏨 Hotel Nova</h1>
+    <p>Rezervujte si pokoj online</p>
+  </header>
+
+  <main>
+
+    <!-- Nabídka pokojů -->
+    <h2>Naše pokoje</h2>
+    <div class="pokoje">
+      <div class="pokoj">
+        <div class="ikona">🛏️</div>
+        <h3>Jednolůžkový</h3>
+        <p>1 osoba, snídaně v ceně</p>
+        <p class="cena">900 Kč / noc</p>
+      </div>
+      <div class="pokoj">
+        <div class="ikona">🛌</div>
+        <h3>Dvoulůžkový</h3>
+        <p>2 osoby, koupelna, TV</p>
+        <p class="cena">1 500 Kč / noc</p>
+      </div>
+      <div class="pokoj">
+        <div class="ikona">🌅</div>
+        <h3>Apartmá</h3>
+        <p>4 osoby, balkon, kuchyňka</p>
+        <p class="cena">2 800 Kč / noc</p>
+      </div>
+    </div>
+
+    <!-- Formulář rezervace -->
+    <h2>Nová rezervace</h2>
+    <form id="formular">
+      <label for="jmeno">Jméno a příjmení</label>
+      <input type="text" id="jmeno" required>
+
+      <label for="pokoj">Typ pokoje</label>
+      <select id="pokoj"></select>
+
+      <label for="prijezd">Příjezd</label>
+      <input type="date" id="prijezd" required>
+
+      <label for="odjezd">Odjezd</label>
+      <input type="date" id="odjezd" required>
+
+      <button type="submit">Rezervovat</button>
+      <p id="zprava"></p>
+    </form>
+
+    <!-- Seznam rezervací -->
+    <h2>Rezervace</h2>
+    <div id="seznam"></div>
+
+  </main>
+
+  <footer>
+    © 2026 Hotel Nova – ukázkový projekt
+  </footer>
+
+  <script>
+    // Pokoje v hotelu: každý typ má cenu a počet kusů
+    const pokoje = [
+      { id: 1, nazev: "Jednolůžkový", cena: 900,  pocet: 3 },
+      { id: 2, nazev: "Dvoulůžkový",  cena: 1500, pocet: 4 },
+      { id: 3, nazev: "Apartmá",      cena: 2800, pocet: 1 }
+    ];
+
+    // Seznam všech rezervací
+    let rezervace = [];
+
+    // Načtení uložených rezervací z prohlížeče
+    function nacist() {
+      const ulozeno = localStorage.getItem("rezervace");
+      if (ulozeno) {
+        rezervace = JSON.parse(ulozeno);
+      }
+    }
+
+    // Uložení rezervací do prohlížeče
+    function ulozit() {
+      localStorage.setItem("rezervace", JSON.stringify(rezervace));
+    }
+
+    // Naplnění výběru pokojů ve formuláři
+    function naplnitVyber() {
+      const vyber = document.getElementById("pokoj");
+      pokoje.forEach(p => {
+        vyber.add(new Option(p.nazev + " (" + p.cena + " Kč/noc)", p.id));
+      });
+    }
+
+    // Spočítá počet nocí mezi dvěma daty
+    function pocetNoci(od, do_) {
+      const rozdil = new Date(do_) - new Date(od);
+      return Math.round(rozdil / (1000 * 60 * 60 * 24));
+    }
+
+    // Kolik pokojů daného typu je v termínu už obsazeno
+    function pocetObsazenych(idPokoje, od, do_) {
+      let pocet = 0;
+      rezervace.forEach(r => {
+        // termíny se překrývají, když jeden začíná před koncem druhého
+        if (r.pokoj === idPokoje && r.od < do_ && od < r.do) {
+          pocet++;
+        }
+      });
+      return pocet;
+    }
+
+    // Zobrazení zprávy uživateli
+    function zprava(text, trida) {
+      const el = document.getElementById("zprava");
+      el.textContent = text;
+      el.className = trida;
+    }
+
+    // Odeslání formuláře
+    document.getElementById("formular").addEventListener("submit", function (e) {
+      e.preventDefault();   // stránka se nesmí obnovit
+
+      const jmeno = document.getElementById("jmeno").value.trim();
+      const idPokoje = Number(document.getElementById("pokoj").value);
+      const od = document.getElementById("prijezd").value;
+      const do_ = document.getElementById("odjezd").value;
+      const dnes = new Date().toISOString().slice(0, 10);
+
+      // Kontrola vstupů
+      if (od < dnes) {
+        zprava("Příjezd nesmí být v minulosti.", "chyba");
+        return;
+      }
+      if (do_ <= od) {
+        zprava("Odjezd musí být později než příjezd.", "chyba");
+        return;
+      }
+
+      // Kontrola, jestli je ještě volný pokoj
+      const pokoj = pokoje.find(p => p.id === idPokoje);
+      if (pocetObsazenych(idPokoje, od, do_) >= pokoj.pocet) {
+        zprava("V tomto termínu už nemáme volný pokoj. Zkus jiný termín.", "chyba");
+        return;
+      }
+
+      // Vytvoření rezervace
+      const noci = pocetNoci(od, do_);
+      rezervace.push({
+        id: Date.now(),
+        jmeno: jmeno,
+        pokoj: idPokoje,
+        od: od,
+        do: do_,
+        cena: noci * pokoj.cena
+      });
+      ulozit();
+      vykreslit();
+      zprava("Rezervace je hotová. Cena: " + noci * pokoj.cena + " Kč.", "ok");
+      document.getElementById("formular").reset();
+    });
+
+    // Zrušení rezervace
+    function zrusit(id) {
+      rezervace = rezervace.filter(r => r.id !== id);
+      ulozit();
+      vykreslit();
+    }
+
+    // Vypsání tabulky rezervací
+    function vykreslit() {
+      if (rezervace.length === 0) {
+        document.getElementById("seznam").innerHTML = "<p>Zatím nejsou žádné rezervace.</p>";
+        return;
+      }
+      let html = "<table><tr><th>Jméno</th><th>Pokoj</th><th>Příjezd</th><th>Odjezd</th><th>Cena</th><th></th></tr>";
+      rezervace.forEach(r => {
+        const pokoj = pokoje.find(p => p.id === r.pokoj);
+        html += `<tr>
+          <td>${r.jmeno}</td>
+          <td>${pokoj.nazev}</td>
+          <td>${r.od}</td>
+          <td>${r.do}</td>
+          <td>${r.cena} Kč</td>
+          <td><button class="smazat" onclick="zrusit(${r.id})">Zrušit</button></td>
+        </tr>`;
+      });
+      html += "</table>";
+      document.getElementById("seznam").innerHTML = html;
+    }
+
+    // Spuštění po načtení stránky
+    nacist();
+    naplnitVyber();
+    vykreslit();
+  </script>
+
+</body>
+</html>

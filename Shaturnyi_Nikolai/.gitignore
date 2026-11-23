@@ -1,0 +1,6 @@
+*.db
+venv/ 
+.idea/ 
+.vscode/ 
+.zip
+.exe

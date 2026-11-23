@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listnatec - Domů</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="menu">
+        <a class="logo" href="{{ url_for('index') }}">Listnatec</a>
+        <a href="{{ url_for('index') }}">Domů</a>
+        <a href="{{ url_for('katalog') }}">Katalog</a>
+        <a href="{{ url_for('o_nas') }}">O nás</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        <a class="kosik" href="{{ url_for('kosik') }}">Košík</a>
+    </div>
+
+    <div class="obsah">
+        <h1>Vítejte v e-shopu Listnatec</h1>
+        <p>Prodáváme pokojové květiny pro každého. U každé rostliny najdete i rady, jak se o ni starat.</p>
+
+        <h2>Doporučené květiny</h2>
+
+        {% for p in doporucene %}
+            <div class="produkt">
+                <div class="obrazek">{{ p.obrazek if p.obrazek else 'fotka' }}</div>
+                <h3>{{ p.nazev }}</h3>
+                <p>{{ p.popis }}</p>
+                <p class="cena">{{ p.cena|int }} Kč</p>
+                <a href="{{ url_for('detail', id_produkt=p.id_produkt) }}">Zobrazit detail</a>
+            </div>
+        {% endfor %}
+
+        <h2>Aktuální nabídka</h2>
+        <p>Tento týden jsou všechny kaktusy se slevou 10 %.</p>
+    </div>
+
+    <div class="paticka">
+        &copy; 2026 Listnatec - školní projekt
+    </div>
+
+</body>
+</html>

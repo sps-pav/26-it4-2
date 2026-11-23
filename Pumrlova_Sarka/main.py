@@ -1,4 +1,3 @@
-
 import pygame
 import sys
 
@@ -43,6 +42,9 @@ items = [
 
 inventory = 0
 
+# Měření času
+game_time = 0  # Celkový uplynulý čas v sekundách
+
 # Herní stavy
 MENU = "menu"
 GAME = "game"
@@ -80,8 +82,15 @@ def draw_world():
     # Hráč
     pygame.draw.rect(screen, (80, 100, 220), player)
 
+    # Vykreslení inventáře a času
     draw_text(f"Inventář: {inventory}", 10, 10)
     draw_text("ESC - Pauza", 10, 40, 24)
+    
+    # Formátování času na celé sekundy (případně minut:sekundy)
+    minutes = int(game_time) // 60
+    seconds = int(game_time) % 60
+    time_str = f"Čas: {minutes:02d}:{seconds:02d}"
+    draw_text(time_str, WIDTH - 150, 10)
 
 
 def move_player(dx, dy):
@@ -114,7 +123,7 @@ running = True
 
 while running:
 
-    clock.tick(FPS)
+    dt = clock.tick(FPS) / 1000.0  # Uplynulý čas od posledního snímku v sekundách
 
     for event in pygame.event.get():
 
@@ -126,6 +135,9 @@ while running:
             if state == MENU:
                 if event.key == pygame.K_RETURN:
                     state = GAME
+                    game_time = 0  # Resetování času při startu nové hry
+                    inventory = 0
+                    # Případně bys tu mohl vracet i sebrané předměty zpět
 
             elif state == GAME:
                 if event.key == pygame.K_ESCAPE:
@@ -140,6 +152,9 @@ while running:
     keys = pygame.key.get_pressed()
 
     if state == GAME:
+
+        # Přičítání času pouze když běží hra (ne v pauze ani v menu)
+        game_time += dt
 
         dx = 0
         dy = 0
