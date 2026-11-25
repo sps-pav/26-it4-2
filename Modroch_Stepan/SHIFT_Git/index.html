@@ -1,0 +1,146 @@
+================================================================================
+
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SHIFT — prémiové výfuky</title>
+<!-- Hlavní styl stránky je v externím CSS souboru. -->
+<link href="style.css" rel="stylesheet"/>
+<!-- JavaScript zajišťuje funkční filtry a řazení produktů. -->
+<script defer="" src="script.js"></script>
+</head>
+<body>
+<!-- page je hlavní zaoblený panel podobný tomu ze screenshotu. -->
+<div class="page" id="nahoru">
+<!-- HLAVIČKA: vlevo logo, uprostřed menu, vpravo hledání a košík. -->
+<header class="hlavicka">
+<a aria-label="SHIFT domů" class="logo" href="#nahoru"><span class="lomitka">///</span> SHIFT</a>
+<nav aria-label="Hlavní menu">
+<a class="aktivni" href="#nahoru">Domů</a>
+<a href="#katalog">Výfuky</a>
+<a href="#znacky">Značky</a>
+<a href="#o-projektu">O projektu</a>
+<a href="#auta">Automobily</a>
+<a href="#kontakt">Kontakt</a>
+</nav>
+<div class="hlavicka-vpravo">
+<label class="hledani">
+<span>⌕</span>
+<input aria-label="Hledat výfuk" id="hledat" placeholder="Hledat výfuk..." type="text"/>
+</label>
+<!-- Odkazy na stránky, které později napojíme na Flask. -->
+<div class="uzivatelske-menu">
+<a class="hlavicka-odkaz" href="/prihlaseni">Přihlášení</a>
+<a class="hlavicka-tlacitko" href="/registrace">Registrace</a>
+<a class="hlavicka-odkaz" href="/admin">Admin</a>
+<a class="hlavicka-odkaz kosik-odkaz" href="/kosik">Košík <span class="kosik-pocet">0</span></a>
+</div>
+</div>
+</header>
+<!-- HERO: dvě části vedle sebe. Vlevo text, vpravo fotka auta. -->
+<section class="hero">
+<div class="hero-text">
+<p class="maly-nadpis">VÝFUKOVÉ SYSTÉMY PRO PRÉMIOVÁ AUTA</p>
+<h1>VÝKON. ZVUK. <span>STYL.</span></h1>
+<p>Akrapovič / Novitec / Valvetronic</p>
+<a class="hero-btn" href="#katalog">Zobrazit nabídku →</a>
+</div>
+<div class="hero-foto">
+<img alt="Audi RS5 v tmavé garáži" src="obrazky/hero-audi-rs5.jpg"/>
+</div>
+</section>
+<!-- ZNAČKY: jednoduchý pruh se třemi výrobci. -->
+<section class="znacky" id="znacky">
+<div class="znacka-prvek"><strong>AKRAPOVIČ</strong></div>
+<div class="znacka-prvek"><strong>OVĚŘENÉ MODELY</strong></div>
+<div class="znacka-prvek"><strong>VALVETRONIC</strong></div>
+</section>
+<!-- KATALOG: vlevo filtry, vpravo karty produktů. -->
+<section class="obsah" id="katalog">
+<aside class="sidebar">
+<h2>Filtry</h2>
+<div class="filtr-blok">
+<label for="auto">Automobil</label>
+<select id="auto">
+<option value="">Všechna auta</option>
+<option>Audi</option>
+<option>BMW</option>
+<option>Mercedes</option>
+<option>Porsche</option>
+</select>
+</div>
+<div class="filtr-blok">
+<label for="vyrobce">Značka</label>
+<select id="vyrobce">
+<option value="">Všichni výrobci</option>
+<option>Akrapovič</option>
+
+<option>Valvetronic</option>
+</select>
+</div>
+<div class="filtr-blok">
+<label for="typ">Typ výfuku</label>
+<select id="typ">
+<option value="">Všechny typy</option>
+<option>Slip-On</option>
+<option>Evolution</option>
+<option>Klapkový</option>
+</select>
+</div>
+<div class="filtr-blok">
+<label for="cena">Cena do</label>
+<select id="cena">
+<option value="">Bez omezení</option>
+<option value="90000">90 000 Kč</option>
+<option value="110000">110 000 Kč</option>
+<option value="130000">130 000 Kč</option>
+<option value="150000">150 000 Kč</option>
+<option value="200000">200 000 Kč</option>
+</select>
+</div>
+<button class="reset-btn" id="reset" type="button">Vymazat filtry</button>
+</aside>
+<div class="produkty-cast">
+<div class="produkty-hlavicka">
+<h2>Výfuky (<span id="pocet">7 produktů</span>)</h2>
+<label class="razeni">
+<span>Řadit podle:</span>
+<select id="razeni">
+<option value="vychozi">Nejnovější</option>
+<option value="nejlevnejsi">Od nejlevnějšího</option>
+<option value="nejdrazsi">Od nejdražšího</option>
+</select>
+</label>
+</div>
+<!-- Každá karta produktu má data-* atributy pro filtraci. -->
+<div class="produkty" id="produkty"><article class="produkt" data-auto="Audi" data-cena="89900" data-typ="Klapkový" data-vyrobce="Valvetronic"><div class="badge">Audi · B9</div><img alt="Ilustrační výfuk – Audi RS5 B9 Valved Sport Exhaust" loading="lazy" src="obrazky/vt-rs5.webp"/><h3>Audi RS5 B9 Valved Sport Exhaust</h3><p class="meta">Audi RS5 Coupé / Sportback · 2018–2024</p><strong>89 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Valvetronic</td></tr><tr><th>Automobil</th><td>Audi</td></tr><tr><th>Model</th><td>RS5 Coupé / Sportback</td></tr><tr><th>Generace</th><td>B9</td></tr><tr><th>Ročníky</th><td>2018–2024</td></tr><tr><th>Typ výfuku</th><td>Klapkový</td></tr><tr><th>Materiál</th><td>Nerezová ocel T304</td></tr><tr><th>Motor</th><td>2.9 V6 biturbo</td></tr><tr><th>Označení</th><td>AUD.B9.RS5.VSES.BR</td></tr></table><p class="kompatibilita-poznamka">Kompletní systém s elektronickými klapkami.</p><a class="zdroj-link" href="https://valvetronic.com/products/audi-rs5-b9-valved-exhaust" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="Porsche" data-cena="149900" data-typ="Slip-On" data-vyrobce="Akrapovič"><div class="badge">Porsche · 992</div><img alt="Ilustrační výfuk – Slip-On Race Line (Titanium)" loading="lazy" src="obrazky/ak-992.webp"/><h3>Slip-On Race Line (Titanium)</h3><p class="meta">Porsche 911 GT3 RS / S/T · 2024 (ověřeno)</p><strong>149 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Akrapovič</td></tr><tr><th>Automobil</th><td>Porsche</td></tr><tr><th>Model</th><td>911 GT3 RS / S/T</td></tr><tr><th>Generace</th><td>992</td></tr><tr><th>Ročníky</th><td>2024 (ověřeno)</td></tr><tr><th>Typ výfuku</th><td>Slip-On</td></tr><tr><th>Materiál</th><td>Titan</td></tr><tr><th>Motor</th><td>4.0 boxer (GT3 RS)</td></tr><tr><th>Označení</th><td>S-PO/TI/23</td></tr></table><p class="kompatibilita-poznamka">Pouze pro závodní okruhy; vyžaduje další montážní díly.</p><a class="zdroj-link" href="https://akrapovic.com/en/car/product/22122?brandId=15&amp;modelId=1287&amp;yearId=7531" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="BMW" data-cena="84900" data-typ="Klapkový" data-vyrobce="Valvetronic"><div class="badge">BMW · G80 / G82 / G83</div><img alt="Ilustrační výfuk – BMW M3 / M4 Valved Sport Exhaust" loading="lazy" src="obrazky/vt-m3.webp"/><h3>BMW M3 / M4 Valved Sport Exhaust</h3><p class="meta">BMW M3 / M4 · 2021–2026</p><strong>84 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Valvetronic</td></tr><tr><th>Automobil</th><td>BMW</td></tr><tr><th>Model</th><td>M3 / M4</td></tr><tr><th>Generace</th><td>G80 / G82 / G83</td></tr><tr><th>Ročníky</th><td>2021–2026</td></tr><tr><th>Typ výfuku</th><td>Klapkový</td></tr><tr><th>Materiál</th><td>Nerez T304 / titan dle varianty</td></tr><tr><th>Motor</th><td>S58 3.0 R6</td></tr><tr><th>Označení</th><td>BMW.G8X.M3.VSES</td></tr></table><p class="kompatibilita-poznamka">Modulární soustava s volitelnou klapkovou zadní částí.</p><a class="zdroj-link" href="https://valvetronic.com/products/bmw-g8x-m3-m4-valved-sport-exhaust-system" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="Mercedes" data-cena="189900" data-typ="Evolution" data-vyrobce="Akrapovič"><div class="badge">Mercedes · C190</div><img alt="Ilustrační výfuk – Evolution Line (Titanium)" loading="lazy" src="obrazky/ak-gt.webp"/><h3>Evolution Line (Titanium)</h3><p class="meta">Mercedes AMG GT / GT S / GT C Coupé · 2015 (ověřeno)</p><strong>189 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Akrapovič</td></tr><tr><th>Automobil</th><td>Mercedes</td></tr><tr><th>Model</th><td>AMG GT / GT S / GT C Coupé</td></tr><tr><th>Generace</th><td>C190</td></tr><tr><th>Ročníky</th><td>2015 (ověřeno)</td></tr><tr><th>Typ výfuku</th><td>Evolution</td></tr><tr><th>Materiál</th><td>Titan</td></tr><tr><th>Motor</th><td>4.0 V8 biturbo</td></tr><tr><th>Označení</th><td>S-ME/TI/1H/1</td></tr></table><p class="kompatibilita-poznamka">Vyžaduje tovární výfuk AMG Performance.</p><a class="zdroj-link" href="https://www.akrapovic.com/en/car/product/20133/Mercedes-AMG/Coup%C3%A9-GT-GT-S-GT-C/2015?brandId=25&amp;modelId=854&amp;yearId=4543" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="Porsche" data-cena="118900" data-typ="Slip-On" data-vyrobce="Akrapovič"><div class="badge">Porsche · 991.2</div><img alt="Ilustrační výfuk – Slip-On Line (Titanium)" loading="lazy" src="obrazky/ak-991.webp"/><h3>Slip-On Line (Titanium)</h3><p class="meta">Porsche 911 GT3 RS · 2018–2020</p><strong>118 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Akrapovič</td></tr><tr><th>Automobil</th><td>Porsche</td></tr><tr><th>Model</th><td>911 GT3 RS</td></tr><tr><th>Generace</th><td>991.2</td></tr><tr><th>Ročníky</th><td>2018–2020</td></tr><tr><th>Typ výfuku</th><td>Slip-On</td></tr><tr><th>Materiál</th><td>Titan</td></tr><tr><th>Motor</th><td>4.0 boxer</td></tr><tr><th>Označení</th><td>S-PO/TI/10H</td></tr></table><p class="kompatibilita-poznamka">ECE varianta; sada koncovek se objednává samostatně.</p><a class="zdroj-link" href="https://www.akrapovic.com/de/car/product/20575/Porsche/911-GT3-RS-9912/2018/Slip-On-Line-Titanium?brandId=15&amp;modelId=949&amp;yearId=5105" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="Porsche" data-cena="129900" data-typ="Klapkový" data-vyrobce="Valvetronic"><div class="badge">Porsche · 992</div><img alt="Ilustrační výfuk – Porsche 992 GT3 / RS Valved Exhaust" loading="lazy" src="obrazky/vt-992.webp"/><h3>Porsche 992 GT3 / RS Valved Exhaust</h3><p class="meta">Porsche 911 GT3 / GT3 RS · GT3 2020+ / RS 2022+ (dle výrobce)</p><strong>129 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Valvetronic</td></tr><tr><th>Automobil</th><td>Porsche</td></tr><tr><th>Model</th><td>911 GT3 / GT3 RS</td></tr><tr><th>Generace</th><td>992</td></tr><tr><th>Ročníky</th><td>GT3 2020+ / RS 2022+ (dle výrobce)</td></tr><tr><th>Typ výfuku</th><td>Klapkový</td></tr><tr><th>Materiál</th><td>Nerez T304 / titan dle varianty</td></tr><tr><th>Motor</th><td>4.0 boxer</td></tr><tr><th>Označení</th><td>POR.992.GT3.VSES</td></tr></table><p class="kompatibilita-poznamka">Systém s klapkami napojenými na originální motorky.</p><a class="zdroj-link" href="https://valvetronic.com/products/porsche-992-gt3-valved-sport-exhaust-system" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article><article class="produkt" data-auto="Mercedes" data-cena="119900" data-typ="Klapkový" data-vyrobce="Valvetronic"><div class="badge">Mercedes · W205</div><img alt="Ilustrační výfuk – Mercedes C63 / C63 S Valved Exhaust" loading="lazy" src="obrazky/vt-amg.webp"/><h3>Mercedes C63 / C63 S Valved Exhaust</h3><p class="meta">Mercedes AMG C63 / C63 S · 2015–2023 (dle výrobce)</p><strong>119 900 Kč</strong><details><summary>Parametry a kompatibilita</summary><table class="parametry"><tr><th>Výrobce</th><td>Valvetronic</td></tr><tr><th>Automobil</th><td>Mercedes</td></tr><tr><th>Model</th><td>AMG C63 / C63 S</td></tr><tr><th>Generace</th><td>W205</td></tr><tr><th>Ročníky</th><td>2015–2023 (dle výrobce)</td></tr><tr><th>Typ výfuku</th><td>Klapkový</td></tr><tr><th>Materiál</th><td>Titan Grade 5</td></tr><tr><th>Motor</th><td>4.0 V8 biturbo</td></tr><tr><th>Označení</th><td>MER.W205.C63.VSES.TI</td></tr></table><p class="kompatibilita-poznamka">Pro generaci W205, nutné ověřit specifikaci konkrétního vozu.</p><a class="zdroj-link" href="https://valvetronic.com/en-ca/products/mercedes-c63-c63s-w205-valved-exhaust" rel="noopener noreferrer" target="_blank">Ověřit u výrobce ↗</a></details></article></div>
+<p class="zadne" hidden="" id="zadne">Pro tyto filtry jsme nenašli žádný výfuk. Zkus jiné nastavení.</p>
+</div>
+</section>
+<section class="o-projektu" id="o-projektu">
+  <p class="maly-nadpis">O PROJEKTU</p>
+  <h2>SHIFT — výkon, zvuk a styl.</h2>
+  <p>SHIFT je školní demonstrační katalog prémiových výfukových systémů pro sportovní a výkonné automobily. Projekt slouží k ukázce práce s webovým rozhraním, filtrováním produktů a databází.</p>
+  <p class="o-projektu-upozorneni">Nejde o skutečný internetový obchod. Ceny, fotografie a dostupnost jsou pouze ilustrační.</p>
+</section>
+<!-- Patička je stručná a nenápadná. -->
+<footer class="paticka" id="kontakt">
+<div>
+<a class="logo" href="#nahoru"><span class="lomitka">///</span> SHIFT</a>
+<p>Výkon. Zvuk. Styl.</p>
+</div>
+<div id="auta">
+<strong>Automobily</strong>
+<p>Porsche · Mercedes-AMG · Audi · BMW</p>
+</div>
+<div>
+<strong>Poznámka</strong>
+<p>Ceny jsou orientační a obrázky produktů slouží jako ilustrační vizualizace.</p>
+</div>
+<p class="legal">Kompatibilita je doložena odkazem na výrobce; ceny a fotografie jsou ilustrační. Před nákupem ověřte konkrétní konfiguraci a homologaci.</p></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,380 @@
+================================================================================
+
+/* SHIFT — verze inspirovaná poslaným screenshotem.
+   Kód je záměrně jednodušší, aby šel dobře vysvětlit u prezentace. */
+
+/* ZÁKLADNÍ BARVY */
+:root {
+  --bg: #ececec;
+  --white: #ffffff;
+  --text: #111111;
+  --muted: #717171;
+  --line: #e3e3e3;
+  --hero: #0a0b0d;
+  --red: #d01f24;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; width: 100%; }
+h1,h2,h3,p { margin: 0; }
+
+/* HLAVNÍ PANEL STRÁNKY */
+.page {
+  width: min(1180px, calc(100% - 24px));
+  margin: 14px auto;
+  background: var(--white);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(0,0,0,.08);
+}
+
+/* HLAVIČKA */
+.hlavicka {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+}
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+.lomitka { color: var(--red); }
+nav {
+  display: flex;
+  gap: 28px;
+  font-size: 12px;
+  font-weight: 700;
+}
+nav a {
+  padding-bottom: 10px;
+  border-bottom: 2px solid transparent;
+}
+nav a.aktivni, nav a:hover { border-color: var(--red); }
+.hlavicka-vpravo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hledani {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 6px;
+}
+.hledani input {
+  border: 0;
+  outline: 0;
+  font-size: 12px;
+  width: 150px;
+  background: transparent;
+}
+.kosik {
+  position: relative;
+  font-size: 22px;
+}
+.kosik b {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  display: grid;
+  place-items: center;
+}
+
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  background: var(--hero);
+}
+.hero-text {
+  color: white;
+  padding: 42px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.maly-nadpis {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #b4b4b4;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: clamp(42px, 6vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+}
+.hero h1 span { color: var(--red); }
+.hero-text > p:not(.maly-nadpis) {
+  color: #bdbdbd;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+.hero-btn {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  width: fit-content;
+}
+.hero-foto img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* PRUH SE ZNAČKAMI */
+.znacky {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.znacka-prvek {
+  padding: 18px 10px;
+  border-right: 1px solid var(--line);
+  font-size: 18px;
+  letter-spacing: .5px;
+}
+.znacka-prvek:last-child { border-right: 0; }
+
+/* HLAVNÍ ČÁST: sidebar + produkty */
+.obsah {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  padding: 26px 24px 34px;
+}
+.sidebar h2,
+.produkty-hlavicka h2 {
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+.filtr-blok {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.filtr-blok label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.filtr-blok select,
+.razeni select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+}
+.reset-btn {
+  margin-top: 18px;
+  width: 100%;
+  background: #f3f3f3;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.reset-btn:hover { background: #ececec; }
+
+.produkty-hlavicka {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.produkty-hlavicka h2 span {
+  font-weight: 400;
+}
+.razeni {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.razeni select { width: 170px; }
+
+.produkty {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.produkt {
+  position: relative;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 16px 18px;
+}
+.badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #f1f1f1;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: #666;
+}
+.produkt img {
+  height: 150px;
+  object-fit: contain;
+  margin: 16px 0 14px;
+}
+.produkt h3 {
+  font-size: 16px;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+.meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.produkt strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+summary {
+  list-style: none;
+  cursor: pointer;
+  background: var(--red);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  width: fit-content;
+}
+summary::-webkit-details-marker { display: none; }
+details p {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.55;
+}
+.zadne {
+  background: #f7f7f7;
+  border: 1px dashed #d2d2d2;
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  color: #666;
+}
+
+/* PATIČKA */
+.paticka {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.3fr;
+  gap: 20px;
+  padding: 22px 24px 28px;
+  border-top: 1px solid var(--line);
+  color: #5d5d5d;
+  font-size: 13px;
+}
+.paticka strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.paticka p { line-height: 1.6; }
+
+/* RESPONSIVE CHOVÁNÍ */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .obsah { grid-template-columns: 1fr; }
+  .produkty { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 740px) {
+  .page { width: calc(100% - 12px); border-radius: 18px; }
+  .hlavicka { flex-wrap: wrap; justify-content: center; }
+  nav { flex-wrap: wrap; justify-content: center; }
+  .hlavicka-vpravo { width: 100%; justify-content: center; }
+  .hledani input { width: 110px; }
+  .znacky { grid-template-columns: 1fr; }
+  .znacka-prvek { border-right: 0; border-bottom: 1px solid var(--line); }
+  .znacka-prvek:last-child { border-bottom: 0; }
+  .produkty-hlavicka { flex-direction: column; align-items: start; }
+  .produkty { grid-template-columns: 1fr; }
+  .paticka { grid-template-columns: 1fr; }
+}
+
+/* TABULKA PARAMETRŮ – podobná parametrům na e-shopech. */
+.produkt details {margin-top:14px;}
+.produkt summary {background:#f1f1f1;color:#141414;border:1px solid #ddd;width:100%;text-align:center;}
+.produkt details[open] {grid-column:span 1;}
+.parametry {width:100%;border-collapse:collapse;margin-top:13px;font-size:12px;table-layout:fixed;}
+.parametry th,.parametry td {padding:9px 5px;border-bottom:1px solid #e5e5e5;text-align:left;vertical-align:top;overflow-wrap:anywhere;}
+.parametry th {width:43%;font-weight:600;color:#606060;}
+.parametry td {font-weight:500;}
+.kompatibilita-poznamka {margin:12px 0 8px;color:#555;font-size:12px;line-height:1.5;}
+.zdroj-link {font-size:12px;color:#b71920;text-decoration:underline;font-weight:700;}
+.legal {font-size:11px;color:#777;grid-column:1/-1;}
+.produkt[hidden] {display:none !important;}
+
+/* NOVÉ ODKAZY V HLAVIČCE */
+.uzivatelske-menu { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.hlavicka-odkaz, .hlavicka-tlacitko {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:34px; padding:8px 11px; border-radius:7px;
+  font-size:11px; font-weight:700; white-space:nowrap;
+  transition:background .2s, color .2s, border-color .2s;
+}
+.hlavicka-odkaz { border:1px solid transparent; }
+.hlavicka-odkaz:hover { color:var(--red); background:#f7f7f7; }
+.hlavicka-tlacitko { color:white; background:var(--red); border:1px solid var(--red); }
+.hlavicka-tlacitko:hover { background:#ad171c; border-color:#ad171c; }
+.kosik-pocet {
+  display:inline-grid; place-items:center; min-width:17px; height:17px;
+  margin-left:4px; padding:0 4px; border-radius:50%;
+  color:white; background:var(--red); font-size:10px;
+}
+/* SEKCE O PROJEKTU */
+.o-projektu { padding:38px 28px; border-top:1px solid var(--line); background:#fafafa; }
+.o-projektu .maly-nadpis { margin-bottom:10px; color:var(--red); }
+.o-projektu h2 { margin-bottom:12px; font-size:25px; }
+.o-projektu > p:not(.maly-nadpis) { max-width:760px; color:#555; font-size:14px; line-height:1.7; }
+.o-projektu .o-projektu-upozorneni { margin-top:10px; font-size:12px; color:#777; }
+@media (max-width:1100px) {
+  .hlavicka { flex-wrap:wrap; }
+  .uzivatelske-menu { justify-content:center; }
+}
+@media (max-width:740px) {
+  .uzivatelske-menu { width:100%; justify-content:center; }
+  .hlavicka-odkaz, .hlavicka-tlacitko { font-size:10px; padding:7px 9px; }
+  .o-projektu { padding:28px 20px; }
+}
